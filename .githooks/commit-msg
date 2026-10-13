@@ -1,0 +1,4 @@
+#!/bin/sh
+if grep -qi '^co-authored-by:' "$1"; then echo "Remove Co-authored-by trailer"; exit 1; fi
+n=$(git config user.name); e=$(git config user.email)
+[ "$n" = "Manjunath S" ] && [ "$e" = "manjuss0409@gmail.com" ] || { echo "Set git user to Manjunath S <manjuss0409@gmail.com>"; exit 1; }
