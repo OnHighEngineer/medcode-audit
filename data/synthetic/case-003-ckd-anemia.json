@@ -1,0 +1,10 @@
+{
+  "id": "syn-003",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. 71-year-old with chronic kidney disease stage 3a, eGFR 52. Iron deficiency anemia, started oral iron. Denies atrial fibrillation.",
+  "gold_codes": [
+    {"code": "N18.31", "evidence_quote": "chronic kidney disease stage 3a"},
+    {"code": "D50.9", "evidence_quote": "Iron deficiency anemia"}
+  ],
+  "injected_errors": []
+}
