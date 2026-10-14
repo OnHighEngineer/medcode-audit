@@ -1,0 +1,9 @@
+{
+  "id": "syn-002",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. 9-year-old with mild persistent asthma, uncomplicated, using daily inhaled steroid. No wheeze today. No pneumonia on exam.",
+  "gold_codes": [
+    {"code": "J45.30", "evidence_quote": "mild persistent asthma, uncomplicated"}
+  ],
+  "injected_errors": []
+}
