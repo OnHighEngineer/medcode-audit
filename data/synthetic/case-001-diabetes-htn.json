@@ -1,0 +1,10 @@
+{
+  "id": "syn-001",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. 58-year-old with type 2 diabetes without complications, well controlled on metformin. Essential hypertension, BP 128/80 on lisinopril. No chest pain.",
+  "gold_codes": [
+    {"code": "E11.9", "evidence_quote": "type 2 diabetes without complications"},
+    {"code": "I10", "evidence_quote": "Essential hypertension"}
+  ],
+  "injected_errors": []
+}
