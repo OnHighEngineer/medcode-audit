@@ -63,3 +63,36 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** A written start/end session protocol; every session reads plans, decision-log.md, flow.md first and updates them last.
 - **Why:** Fresh-session-per-feature loses context otherwise; the docs rebuild it.
 - **Rejected:** Relying on chat history or tool memory (not portable, not reviewable); one long shared session (context drift).
+
+
+---
+
+### 2026-10-14: Case schema is plain dataclasses and stdlib validation
+- **Chose:** Frozen dataclasses plus hand-written validation in `schema.py`, raising one `CaseValidationError`.
+- **Why:** No dependency to install, errors name the failing field, and the rules are small enough to read in one screen.
+- **Rejected:** pydantic (extra dependency for 5 fields); JSON Schema files (a second language for rules, weaker error messages).
+
+### 2026-10-14: Validate ICD-10 code shape only, no lookup yet
+- **Chose:** Regex check (letter, two digits, optional dot, 1-4 alphanumerics) on `gold_codes[].code`.
+- **Why:** The license-safe code list is still an open question from the brainstorm, and the code lookup tool is plan item 15.
+- **Rejected:** Bundling a code table now (license risk, scope creep); accepting any string (typos would pass silently into gold labels).
+
+### 2026-10-14: Evidence quote must be a verbatim substring of the note
+- **Chose:** Case-sensitive exact substring check at load time.
+- **Why:** Same rule the evidence verifier will apply to the auditor later, so gold data and auditor output are held to one standard.
+- **Rejected:** Fuzzy or whitespace-normalised matching (hides label errors); skipping the check for gold data (bad labels make scores meaningless).
+
+### 2026-10-14: Strict `synthetic: true`
+- **Chose:** Reject anything other than the boolean `true`, including missing, false, "true" and 1.
+- **Why:** The data policy depends on every fixture being labelled; a loose check would let an unlabelled case in.
+- **Rejected:** Truthy check (accepts "false" as a string).
+
+### 2026-10-14: pytest `pythonpath = ["src"]` in pyproject
+- **Chose:** Set pythonpath in pytest config so tests import `medcode_audit` without installing the package.
+- **Why:** One line, works on any machine, no packaging step needed yet.
+- **Rejected:** `pip install -e .` as a prerequisite (needs a build backend section we do not have yet); sys.path edits inside tests.
+
+### 2026-10-14: Commit cadence
+- **Chose:** 3-4 heavy days (10+ commits) then 1-2 light days (1-2 commits); light-day work is batched into the next heavy day. Bundle related changes into one meaningful commit.
+- **Why:** Matches how Manju wants the history to look and keeps each commit explainable in an interview.
+- **Rejected:** Equal commits every day (forces noise commits); one big commit per week (loses the reasoning trail).
