@@ -14,3 +14,11 @@
 
 ## Workflow per feature (Superpowers style)
 brainstorm (docs/brainstorms/) -> spec (docs/specs/NNN-name.md) -> plan (docs/plans/) -> failing tests -> implement -> verify -> decision-log.md + flow.md -> commit and push.
+
+## GitHub web editor metadata
+Web-UI commits use the signed-in OnHighEngineer account and its selected email
+manjuss0409@gmail.com. GitHub records the account display name (currently manjunath)
+as author and GitHub <noreply@github.com> as the platform committer. That platform
+metadata is an exception to the literal local-git name/committer check above;
+it does not add a second project contributor. Never add co-author trailers.
+Local-git commits still use the exact Manjunath S identity required above.
