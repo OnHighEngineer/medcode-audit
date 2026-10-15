@@ -1,0 +1,12 @@
+{
+  "id": "gen-006",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assessment: mild persistent asthma, uncomplicated. Routine follow-up.",
+  "gold_codes": [
+    {
+      "code": "J45.30",
+      "evidence_quote": "mild persistent asthma, uncomplicated"
+    }
+  ],
+  "injected_errors": []
+}
