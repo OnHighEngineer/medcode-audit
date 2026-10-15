@@ -1,0 +1,12 @@
+{
+  "id": "gen-007",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Active condition: chronic kidney disease stage 3a. Follow-up assessment.",
+  "gold_codes": [
+    {
+      "code": "N18.31",
+      "evidence_quote": "chronic kidney disease stage 3a"
+    }
+  ],
+  "injected_errors": []
+}
