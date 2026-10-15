@@ -121,3 +121,23 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Continue the signed-in OnHighEngineer web editor with manjuss0409@gmail.com; document its account display-name author and GitHub platform committer exception in AGENTS.md.
 - **Why:** Preserves the sole visible project contributor and the established web-editor route. GitHub controls the web commit's platform committer.
 - **Rejected:** Claiming web commits have local-git committer metadata (not true); adding co-author trailers or using a different contributor account (violates ownership).
+
+### 2026-10-15: Explicit assertion labels, not a text classifier
+- **Chose:** Separate affirmed, negated and uncertain states with closed sentences; only affirmed states enter gold, including in mixed notes. Quote the full affirmed sentence.
+- **Why:** Gold truth comes from the scenario, not from the auditor being evaluated. Full-sentence evidence preserves assertion scope. Negative and uncertain notes provide empty-gold controls.
+- **Rejected:** Keyword extraction as the gold oracle (circular evaluation); equating uncertainty with negation (different evidence states); claiming these are payer rules (context-dependent and out of scope).
+
+### 2026-10-15: Fixed 37-scenario expansion without new mappings
+- **Chose:** A separate pure goldset module, five existing provisional mappings and 37 unique scenarios: single statuses, positive/negative pairs, positive/uncertain pairs, multi-positive and all-nonpositive controls.
+- **Why:** Reaches 50 cases while varying support patterns, keeps the frozen day-2 generator reproducible and avoids adding unverified code descriptions.
+- **Rejected:** Randomly cloning wrappers to reach a count (little new label coverage); modifying the day-2 generator or fixtures (breaks reproducibility); describing template diversity as real clinical generalization.
+
+### 2026-10-15: Fail closed on repeated conditions
+- **Chose:** Reject any repeated condition within a scenario, even when statuses match.
+- **Why:** Prevents duplicate gold codes and unresolved contradictory evidence without adding an adjudication policy.
+- **Rejected:** Last assertion wins (silently discards contradictory evidence); supporting temporal contradictions today (needs its own spec).
+
+### 2026-10-15: Day-3 verification and review boundary
+- **Chose:** Write and freeze new tests before implementation, capture missing-module red locally, publish implementation and fixtures before unchanged tests; retain a provenance/review checklist.
+- **Why:** Keeps remote history green, preserves original tests, and separates structural checks from clinical validation. No scores are trusted before milestone 6.
+- **Rejected:** Publishing failing test commits; treating generated-label agreement as independent clinical review; weakening tests to suppress a pytest iterator deprecation warning.
