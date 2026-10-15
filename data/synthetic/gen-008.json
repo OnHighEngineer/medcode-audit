@@ -1,0 +1,12 @@
+{
+  "id": "gen-008",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Documented diagnosis: iron deficiency anemia, unspecified. Review visit.",
+  "gold_codes": [
+    {
+      "code": "D50.9",
+      "evidence_quote": "iron deficiency anemia, unspecified"
+    }
+  ],
+  "injected_errors": []
+}
