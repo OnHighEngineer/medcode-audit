@@ -1,0 +1,12 @@
+{
+  "id": "gen-010",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assessment: essential hypertension. Routine follow-up.",
+  "gold_codes": [
+    {
+      "code": "I10",
+      "evidence_quote": "essential hypertension"
+    }
+  ],
+  "injected_errors": []
+}
