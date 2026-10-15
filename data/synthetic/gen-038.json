@@ -1,0 +1,12 @@
+{
+  "id": "gen-038",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: iron deficiency anemia, unspecified. Condition explicitly absent: essential hypertension.",
+  "gold_codes": [
+    {
+      "code": "D50.9",
+      "evidence_quote": "Confirmed diagnosis: iron deficiency anemia, unspecified."
+    }
+  ],
+  "injected_errors": []
+}
