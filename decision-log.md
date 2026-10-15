@@ -96,3 +96,28 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** 3-4 heavy days (10+ commits) then 1-2 light days (1-2 commits); light-day work is batched into the next heavy day. Bundle related changes into one meaningful commit.
 - **Why:** Matches how Manju wants the history to look and keeps each commit explainable in an interview.
 - **Rejected:** Equal commits every day (forces noise commits); one big commit per week (loses the reasoning trail).
+
+### 2026-10-15: Closed templates and local random state
+- **Chose:** Five provisional day-1 condition mappings, round-robin coverage, seeded local RNG for neutral wrappers, no identifier fields or free text.
+- **Why:** Small batches cover every condition; exact evidence survives every wrapper; output is reproducible without accessing patient records or an API.
+- **Rejected:** LLM generation (cost and label drift); random condition selection (can miss conditions); global random.seed (changes caller state); realistic names and dates (unnecessary identifiers).
+
+### 2026-10-15: Generated IDs and API boundaries
+- **Chose:** JSON-ready independent dictionaries, gen-* IDs starting at 004, strict integer parameters, pure generation without file writes.
+- **Why:** Reuses parse_case, avoids collisions with syn-* fixtures and mutable-record aliasing; the caller controls later batch ranges.
+- **Rejected:** Returning dataclasses (needs another serializer); overwriting fixture files inside the API (silent data loss); allowing bool as int (surprising counts).
+
+### 2026-10-15: Positive-only provisional labels
+- **Chose:** One explicit positive diagnosis per note; 10 seed-42 fixtures; defer negation, uncertainty and clinical label review to the next plan.
+- **Why:** Establishes a small deterministic source before adding harder gold-label rules. Schema validation is not clinical validation.
+- **Rejected:** Mixing contradictory negation into gold notes now (ambiguous truth); claiming a validated benchmark before manual review.
+
+### 2026-10-15: Red tests locally, green remote history
+- **Chose:** Write and freeze generator tests before implementation; run red locally (missing generator import); publish the passing implementation before the unchanged tests.
+- **Why:** Preserves test-first development and the no-failing-push rule at the same time. No existing tests changed.
+- **Rejected:** Pushing a red test commit (breaks AGENTS.md); weakening tests after implementation (hides defects).
+
+### 2026-10-15: Web-editor commit metadata
+- **Chose:** Continue the signed-in OnHighEngineer web editor with manjuss0409@gmail.com; document its account display-name author and GitHub platform committer exception in AGENTS.md.
+- **Why:** Preserves the sole visible project contributor and the established web-editor route. GitHub controls the web commit's platform committer.
+- **Rejected:** Claiming web commits have local-git committer metadata (not true); adding co-author trailers or using a different contributor account (violates ownership).
