@@ -1,0 +1,12 @@
+{
+  "id": "gen-013",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assessment: iron deficiency anemia, unspecified. Routine follow-up.",
+  "gold_codes": [
+    {
+      "code": "D50.9",
+      "evidence_quote": "iron deficiency anemia, unspecified"
+    }
+  ],
+  "injected_errors": []
+}
