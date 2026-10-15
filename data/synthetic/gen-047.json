@@ -1,0 +1,16 @@
+{
+  "id": "gen-047",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: chronic kidney disease stage 3a. Confirmed diagnosis: iron deficiency anemia, unspecified.",
+  "gold_codes": [
+    {
+      "code": "N18.31",
+      "evidence_quote": "Confirmed diagnosis: chronic kidney disease stage 3a."
+    },
+    {
+      "code": "D50.9",
+      "evidence_quote": "Confirmed diagnosis: iron deficiency anemia, unspecified."
+    }
+  ],
+  "injected_errors": []
+}
