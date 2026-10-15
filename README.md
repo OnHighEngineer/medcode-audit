@@ -30,3 +30,22 @@ The pure API does not write files. Five consecutive cases cover the five provisi
 condition mappings. Seed affects wording only. The notes are deliberately simple;
 clinical label review, error injection and auditor evaluation are later milestones.
 No accuracy claim is made from this synthetic batch.
+
+## Assertion scenarios (day 3)
+
+```python
+from medcode_audit.goldset import build_gold_cases, make_assertion_case
+
+batch = build_gold_cases()  # 37 deterministic cases, gen-014..050
+mixed = make_assertion_case('example', [
+    ('E11.9', 'affirmed'), ('I10', 'negated'), ('D50.9', 'uncertain'),
+])
+assert [item['code'] for item in mixed['gold_codes']] == ['E11.9']
+```
+
+There are now 50 checked-in synthetic cases. Negation and uncertainty are separate
+explicit states, not inferred by NLP. Only confirmed assertions enter gold; their
+full sentences are the evidence. Duplicate conditions are rejected. The batch
+covers mixed notes, multiple confirmed conditions and empty-gold controls.
+Mappings and labels remain provisional; this is not clinical/payer guidance or an
+accuracy benchmark. See spec 003 and `docs/reviews/day-03-provenance.md`.
