@@ -1,0 +1,12 @@
+{
+  "id": "gen-035",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: essential hypertension. Condition explicitly absent: chronic kidney disease stage 3a.",
+  "gold_codes": [
+    {
+      "code": "I10",
+      "evidence_quote": "Confirmed diagnosis: essential hypertension."
+    }
+  ],
+  "injected_errors": []
+}
