@@ -1,0 +1,12 @@
+{
+  "id": "gen-017",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: chronic kidney disease stage 3a.",
+  "gold_codes": [
+    {
+      "code": "N18.31",
+      "evidence_quote": "Confirmed diagnosis: chronic kidney disease stage 3a."
+    }
+  ],
+  "injected_errors": []
+}
