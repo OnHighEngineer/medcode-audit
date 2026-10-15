@@ -1,0 +1,16 @@
+{
+  "id": "gen-045",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: essential hypertension. Confirmed diagnosis: mild persistent asthma, uncomplicated.",
+  "gold_codes": [
+    {
+      "code": "I10",
+      "evidence_quote": "Confirmed diagnosis: essential hypertension."
+    },
+    {
+      "code": "J45.30",
+      "evidence_quote": "Confirmed diagnosis: mild persistent asthma, uncomplicated."
+    }
+  ],
+  "injected_errors": []
+}
