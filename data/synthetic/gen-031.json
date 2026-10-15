@@ -1,0 +1,12 @@
+{
+  "id": "gen-031",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: mild persistent asthma, uncomplicated. Condition explicitly absent: chronic kidney disease stage 3a.",
+  "gold_codes": [
+    {
+      "code": "J45.30",
+      "evidence_quote": "Confirmed diagnosis: mild persistent asthma, uncomplicated."
+    }
+  ],
+  "injected_errors": []
+}
