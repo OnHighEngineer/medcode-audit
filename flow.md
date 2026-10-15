@@ -27,3 +27,13 @@ The checked-in batch uses count=10, seed=42, start_id=4 (gen-004 to gen-013).
 Together with syn-001 to syn-003 the directory holds 13 cases. All labels remain
 provisional until the manual label-validation milestone; no scores claimed.
 - Day 2: generator and reproducible fixtures added; positive-only vocabulary.
+
+## Assertion gold layer (day 3)
+Explicit `(code, status)` scenarios -> `make_assertion_case` -> closed status
+sentences + affirmed-only full-sentence gold quotes -> `parse_case` validation.
+`build_gold_cases(14)` emits 37 fixed scenarios gen-014..050, independently of the
+frozen day-2 positive generator. Negated and uncertain are separate statuses, both
+excluded from support labels. Duplicate/contradictory conditions are rejected.
+The full directory is 50 cases after expansion; the labels remain provisional.
+See docs/specs/003-assertion-gold-set.md and docs/reviews/day-03-provenance.md.
+No auditor, metrics or payer policy is implemented by this assertion builder.
