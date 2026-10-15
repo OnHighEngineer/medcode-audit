@@ -1,0 +1,12 @@
+{
+  "id": "gen-029",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: type 2 diabetes without complications. Condition explicitly absent: essential hypertension.",
+  "gold_codes": [
+    {
+      "code": "E11.9",
+      "evidence_quote": "Confirmed diagnosis: type 2 diabetes without complications."
+    }
+  ],
+  "injected_errors": []
+}
