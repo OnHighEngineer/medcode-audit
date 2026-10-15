@@ -17,3 +17,13 @@ Heavy days (10+ commits) x 3-4, then light days (1-2 commits) x 1-2. Light-day w
 ## Change log of flow
 - Setup: initial flow defined.
 - Day 1: added the data layer (schema + loader) and the cadence note.
+
+## Synthetic generation (day 2)
+`generate_cases(count, seed, start_id)` -> five round-robin positive conditions +
+local seeded wrapper selection -> JSON-ready synthetic dictionaries -> parse_case
+validation -> one file per case -> load_cases -> future injector/eval.
+No LLM, real identifiers, global RNG mutation or file writes inside the generator.
+The checked-in batch uses count=10, seed=42, start_id=4 (gen-004 to gen-013).
+Together with syn-001 to syn-003 the directory holds 13 cases. All labels remain
+provisional until the manual label-validation milestone; no scores claimed.
+- Day 2: generator and reproducible fixtures added; positive-only vocabulary.
