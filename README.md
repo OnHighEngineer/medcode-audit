@@ -24,7 +24,7 @@ from medcode_audit.schema import parse_case, load_cases
 
 cases = generate_cases(10, seed=42, start_id=4)
 validated = [parse_case(case) for case in cases]
-fixtures = load_cases('data/synthetic')  # 13 checked-in cases
+fixtures = load_cases('data/synthetic')  # 50 checked-in cases after day 3
 ```
 The pure API does not write files. Five consecutive cases cover the five provisional
 condition mappings. Seed affects wording only. The notes are deliberately simple;
