@@ -1,0 +1,12 @@
+{
+  "id": "gen-016",
+  "synthetic": true,
+  "note_text": "SYNTHETIC NOTE. Assertion exercise. Confirmed diagnosis: mild persistent asthma, uncomplicated.",
+  "gold_codes": [
+    {
+      "code": "J45.30",
+      "evidence_quote": "Confirmed diagnosis: mild persistent asthma, uncomplicated."
+    }
+  ],
+  "injected_errors": []
+}
