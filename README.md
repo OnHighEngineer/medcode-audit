@@ -7,7 +7,7 @@ Input: a clinical note + the claimed codes. Output: per code a verdict (correct 
 Built in 30 days, spec-driven. See `docs/specs/`, `docs/plans/`, `SESSION.md`, `decision-log.md`, `flow.md`.
 
 ## Data policy
-All fixtures in git are SYNTHETIC and labelled as such. No Arintra data, no restricted patient text (e.g. MIMIC) is ever committed, logged, screenshotted or demoed. See decision-log.md.
+All fixtures in git are SYNTHETIC and labelled as such. No real data, no restricted patient text (e.g. MIMIC) is ever committed, logged, screenshotted or demoed. See decision-log.md.
 
 ## Working rules
 See `AGENTS.md`.
