@@ -21,11 +21,12 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 3 (2026-10-15)
-50 provisional synthetic cases; 91 passing tests on Python 3.11.16. Read spec 003,
-`docs/reviews/day-03-provenance.md` and day-04 plan before the next feature. Original
-46 tests and 13 fixtures are unchanged. Negated/uncertain states are separate and
-excluded from gold; all-nonpositive controls have empty gold. Independent clinical
-review remains milestone 6. Day 4 is the error injector in a fresh feature session,
-planned light cadence. Do not infer code hierarchy or mutate gold to represent a
-claim. One harmless pytest iterator warning is recorded in the day-03 completion.
+## Latest completed feature: day 4 (2026-10-16)
+Deterministic error injector `medcode_audit.injector.inject_error` (spec 004). 110
+passing tests on Python 3.11 (91 frozen earlier tests unchanged, 19 new). Implements
+missed_code, unsupported_code and negated_condition; upcoding and wrong_code are
+deferred (`deferred_unverified_mapping`) until a verified source exists. Claimed codes
+are a separate result; gold is never mutated. Read spec 004 and the day-05 plan next.
+Day 5 is a light day: eval runner skeleton. Independent clinical review is still
+milestone 6; no trusted scores. One harmless pytest iterator warning remains in a
+frozen day-3 test.
