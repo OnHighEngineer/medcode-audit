@@ -37,3 +37,12 @@ excluded from support labels. Duplicate/contradictory conditions are rejected.
 The full directory is 50 cases after expansion; the labels remain provisional.
 See docs/specs/003-assertion-gold-set.md and docs/reviews/day-03-provenance.md.
 No auditor, metrics or payer policy is implemented by this assertion builder.
+
+## Error injection layer (day 4)
+Immutable case dict + error_type + int seed -> `inject_error` -> new dict with
+`claimed_codes` (gold/injected origin), injection, expected findings, or an explicit
+inapplicable reason. Gold is never mutated. missed_code, unsupported_code and
+negated_condition are implemented; upcoding and wrong_code are deferred until a
+verified mapping exists. Over gen-014..050: 25 missed, 35 unsupported, 16 negated
+applicable. See docs/specs/004-error-injector.md. No auditor or scoring yet.
+- Day 4: injector module added (light day).

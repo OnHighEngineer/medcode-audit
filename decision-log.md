@@ -141,3 +141,33 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Write and freeze new tests before implementation, capture missing-module red locally, publish implementation and fixtures before unchanged tests; retain a provenance/review checklist.
 - **Why:** Keeps remote history green, preserves original tests, and separates structural checks from clinical validation. No scores are trusted before milestone 6.
 - **Rejected:** Publishing failing test commits; treating generated-label agreement as independent clinical review; weakening tests to suppress a pytest iterator deprecation warning.
+
+### 2026-10-16: Claimed codes live in a separate result, gold stays immutable
+- **Chose:** `inject_error(case, error_type, seed)` returns a new dict with `claimed_codes` (origin gold or injected), the injection, and expected findings. The input case and its gold_codes are never touched.
+- **Why:** The auditor is scored against gold. Editing gold to carry a claim would erase the truth. No schema change, so the 91 frozen tests stay valid.
+- **Rejected:** Mutating gold_codes; adding a claimed field to the frozen Case schema today.
+
+### 2026-10-16: Only three error types implemented; upcoding and wrong_code deferred
+- **Chose:** Implement missed_code, unsupported_code and negated_condition. upcoding and wrong_code return `applicable: false` with reason `deferred_unverified_mapping`.
+- **Why:** The five code mappings have no verified hierarchy or same-family table, and no license-safe source was checked in. Inventing severity relationships would put unverified clinical claims into the eval labels.
+- **Rejected:** Treating a swap of unrelated codes as wrong_code (it is just missed plus unsupported); hand-writing an upcoding ladder.
+
+### 2026-10-16: No RNG, seed picks from a fixed candidate order
+- **Chose:** Candidates in table or gold order; index is seed % len(candidates). Seed must be a real int.
+- **Why:** Exact reproducible output without touching global random state.
+- **Rejected:** random.Random(seed) shuffles (harder to hand-verify in tests).
+
+### 2026-10-16: Explicit inapplicability instead of silent no-ops
+- **Chose:** Closed reasons: no_gold_code, no_unmentioned_condition, no_negated_target, deferred_unverified_mapping. Empty-gold controls cannot support missed_code; negated_condition needs the explicit day-3 absent sentence, not merely uncertain or absent text.
+- **Why:** Callers and later metrics must tell "not applicable" from "injected nothing".
+- **Rejected:** Returning the unchanged claim list; treating uncertain as negated.
+
+### 2026-10-16: Lexical mention check is limited to the closed vocabulary
+- **Chose:** unsupported_code targets conditions whose phrase and stem (diabet, hypertens, asthma, kidney, anemi) are absent from the note.
+- **Why:** Cheap and exact for the five provisional conditions.
+- **Rejected:** Presenting it as NLP mention detection; it does not generalize beyond this vocabulary.
+
+### 2026-10-16: Two tests of my own corrected before first commit
+- **Chose:** Two assertions compared whole results including the seed field, and one expected count (negated applicable) was miscounted as 20; fixed to compare claimed_codes/injection and 16 (5 negated singles + 10 affirmed/negated pairs + 1 all-negated). Counts derived from the scenario schedule.
+- **Why:** The spec was right; the draft tests were wrong before ever being published. No committed test changed.
+- **Rejected:** Changing the implementation to match a miscounted test.
