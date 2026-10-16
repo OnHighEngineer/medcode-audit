@@ -5,7 +5,7 @@
 3. Build, test, push every day. Never push with failing tests.
 4. One feature per fresh session/chat. Start by reading SESSION.md protocol (docs, plans, decision-log.md, flow.md).
 5. Every feature or code change adds an entry to `decision-log.md` (Chose / Why / Rejected) and updates `flow.md`.
-6. Synthetic data only in git. No Arintra or restricted patient data anywhere.
+6. Synthetic data only in git. No restricted patient data anywhere.
 7. Authorship: every commit is authored and committed as Manjunath S <manjuss0409@gmail.com> only. No Co-authored-by trailers, no bot or agent names in author, committer or commit messages. Before the first commit in any session run:
    git config user.name "Manjunath S"
    git config user.email "manjuss0409@gmail.com"

@@ -5,7 +5,7 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 
 ### 2026-10-13: What to build
 - **Chose:** An auditor that checks claimed codes against chart evidence.
-- **Why:** Matches Arintra experience; cleaner to test (inject known errors, see if caught).
+- **Why:** Matches prior medical-coding work at a YC-backed healthcare AI startup; cleaner to test (inject known errors, see if caught).
 - **Rejected:** A code-assigning agent (coder) - crowded, harder to score, not the goal.
 
 ### 2026-10-13: Whose side
@@ -20,8 +20,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 
 ### 2026-10-13: Synthetic-first data
 - **Chose:** Clearly labelled synthetic charts and codes for the first milestone.
-- **Why:** MIMIC is gated (credentialing, training, DUA, ~1-2 week approval, no sharing, external LLM use restricted to zero-retention). Arintra records are off limits. Synthetic needs no approval and is safe to publish.
-- **Rejected:** MIMIC-first - blocked on access, risk of leaking restricted text. Rejected Arintra data - confidentiality.
+- **Why:** MIMIC is gated (credentialing, training, DUA, ~1-2 week approval, no sharing, external LLM use restricted to zero-retention). Employer records are off limits. Synthetic needs no approval and is safe to publish.
+- **Rejected:** MIMIC-first - blocked on access, risk of leaking restricted text. Rejected employer data - confidentiality.
 
 ### 2026-10-13: MIMIC as separate private track
 - **Chose:** Optional later track, access-verified, kept outside this repo, zero-retention LLM only.
