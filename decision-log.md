@@ -5,7 +5,7 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 
 ### 2026-10-13: What to build
 - **Chose:** An auditor that checks claimed codes against chart evidence.
-- **Why:** Matches prior medical-coding work at a YC-backed healthcare AI startup; cleaner to test (inject known errors, see if caught).
+- **Why:** Matches prior medical-coding work; cleaner to test (inject known errors, see if caught).
 - **Rejected:** A code-assigning agent (coder) - crowded, harder to score, not the goal.
 
 ### 2026-10-13: Whose side
