@@ -9,7 +9,7 @@ Medical coding errors lead to claim denials and compliance risk. Billing teams n
 3. Auditor, insurer side (payment integrity). Same engine, deferred; pitch only.
 
 ## Data
-- Synthetic charts + codes first (labelled synthetic). No Arintra data. No restricted data in git.
+- Synthetic charts + codes first (labelled synthetic). No restricted data in git.
 - MIMIC: gated (credentialing, training, DUA, zero-retention for external LLMs). Separate private track, only if access verified.
 - Gold labels need validation before scores are trusted.
 
