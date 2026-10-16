@@ -1,6 +1,6 @@
 # Synthetic fixtures
 
-All cases here are synthetic and labelled `synthetic: true`. No real patient or Arintra data.
+All cases here are synthetic and labelled `synthetic: true`. No real patient data.
 
 ## Day-2 generated batch
 `gen-004.json` through `gen-013.json`: generate_cases(10, seed=42, start_id=4).
