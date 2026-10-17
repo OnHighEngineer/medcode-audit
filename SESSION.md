@@ -21,12 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 4 (2026-10-16)
-Deterministic error injector `medcode_audit.injector.inject_error` (spec 004). 110
-passing tests on Python 3.11 (91 frozen earlier tests unchanged, 19 new). Implements
-missed_code, unsupported_code and negated_condition; upcoding and wrong_code are
-deferred (`deferred_unverified_mapping`) until a verified source exists. Claimed codes
-are a separate result; gold is never mutated. Read spec 004 and the day-05 plan next.
-Day 5 is a light day: eval runner skeleton. Independent clinical review is still
-milestone 6; no trusted scores. One harmless pytest iterator warning remains in a
-frozen day-3 test.
+## Latest completed feature: day 5 (2026-10-17)
+Eval runner skeleton `medcode_audit.runner` (`run_eval`, `format_report`, `VERDICTS`,
+spec 005). 127 passing tests on Python 3.10 in the sandbox (3.11 was not available
+this session; project target is 3.11). The 110 earlier tests are unchanged; 17 are new.
+The auditor is a plain callable seeing only note text and claimed codes; output is
+validated fail closed; the report is provisional and prints counts only. Only stub
+auditors exist. upcoding and wrong_code stay deferred (no verified mapping source).
+Next: read the day-06 plan. Independent clinical label review is milestone 6; no
+trusted scores until then. One harmless pytest iterator warning remains in a frozen
+day-3 test.

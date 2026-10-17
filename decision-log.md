@@ -171,3 +171,28 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Two assertions compared whole results including the seed field, and one expected count (negated applicable) was miscounted as 20; fixed to compare claimed_codes/injection and 16 (5 negated singles + 10 affirmed/negated pairs + 1 all-negated). Counts derived from the scenario schedule.
 - **Why:** The spec was right; the draft tests were wrong before ever being published. No committed test changed.
 - **Rejected:** Changing the implementation to match a miscounted test.
+
+### 2026-10-17: Auditor is a plain callable that sees only note and claimed codes
+- **Chose:** `auditor(note_text, claimed_codes) -> {'verdicts': [...], 'missed_codes': [...]}`. The runner never passes origins, injection or expected findings.
+- **Why:** A stub or later auditor cannot pass by reading the answer. Real auditors plug in without runner changes.
+- **Rejected:** Passing the whole injected result (leaks truth); building a concrete rule auditor inside the runner (week 2 work).
+
+### 2026-10-17: Output validation fails closed
+- **Chose:** Verdicts must cover exactly the claimed codes once each, use known verdict names, and `missed_codes` must be a list of strings. Anything else raises ValueError.
+- **Why:** A malformed auditor reply must not be counted as a miss or a hit.
+- **Rejected:** Treating malformed output as "not detected" (hides auditor bugs inside the metrics).
+
+### 2026-10-17: How expected findings are matched
+- **Chose:** missed is detected when the removed code is in `missed_codes`. unsupported and negated_claim are detected when the injected code gets UNSUPPORTED. WRONG_SPECIFICITY is an accepted verdict but no implemented error type expects it.
+- **Why:** A negated condition has no support in the note, so UNSUPPORTED is the only verdict that fits without a new policy.
+- **Rejected:** A separate NEGATED verdict (changes spec 000 for one case); counting WRONG_SPECIFICITY as detection.
+
+### 2026-10-17: Report prints counts, flags false positives, and hides deferred types
+- **Chose:** Plain text, first line says provisional, counts as `detected k/n`, no percentages. `false_flags` counts gold-origin claims the auditor did not mark SUPPORTED. upcoding and wrong_code print "not implemented" with the injector reason and no counts.
+- **Why:** Scores are not trusted before milestone 6, and a deferred type must not look covered. Detection alone rewards an auditor that flags everything, so false flags sit beside it.
+- **Rejected:** Percentages or an overall score; silently omitting deferred types; a CLI today.
+
+### 2026-10-17: Test-first order and a runner draft written early
+- **Chose:** Spec and tests were written first. The runner draft was written before the red run was captured; red was then confirmed by removing the module (collection error), restoring it, and running the full suite unchanged.
+- **Why:** Records what happened so the sequence is not overstated. No committed test changed.
+- **Rejected:** Claiming a clean red-then-green sequence that did not occur.

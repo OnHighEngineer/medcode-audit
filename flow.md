@@ -46,3 +46,13 @@ negated_condition are implemented; upcoding and wrong_code are deferred until a
 verified mapping exists. Over gen-014..050: 25 missed, 35 unsupported, 16 negated
 applicable. See docs/specs/004-error-injector.md. No auditor or scoring yet.
 - Day 4: injector module added (light day).
+
+## Eval runner layer (day 5)
+cases + auditor callable -> `run_eval` -> per (case, error type): `inject_error` ->
+auditor sees only note text and claimed code strings -> output validated (fail closed)
+-> expected findings matched -> per-type tally (applicable, detected, not detected,
+inapplicable with reasons, false flags on gold claims) -> `format_report`.
+The report says provisional on its first line and prints counts only. upcoding and
+wrong_code show as not implemented. Only stub auditors exist; no real auditor, CLI
+or trusted score. See docs/specs/005-eval-runner.md.
+- Day 5: runner module and report added (light day).
