@@ -1,0 +1,91 @@
+{
+  "provisional": true,
+  "rows": [
+    {
+      "case_id": "gen-016",
+      "evidence_quote": "Confirmed diagnosis: mild persistent asthma, uncomplicated.",
+      "gold_code": "J45.30",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-031",
+      "evidence_quote": "Confirmed diagnosis: mild persistent asthma, uncomplicated.",
+      "gold_code": "J45.30",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-041",
+      "evidence_quote": "Confirmed diagnosis: mild persistent asthma, uncomplicated.",
+      "gold_code": "J45.30",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-019",
+      "evidence_quote": null,
+      "gold_code": null,
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-024",
+      "evidence_quote": null,
+      "gold_code": null,
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-007",
+      "evidence_quote": "chronic kidney disease stage 3a",
+      "gold_code": "N18.31",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-017",
+      "evidence_quote": "Confirmed diagnosis: chronic kidney disease stage 3a.",
+      "gold_code": "N18.31",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-032",
+      "evidence_quote": "Confirmed diagnosis: chronic kidney disease stage 3a.",
+      "gold_code": "N18.31",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-042",
+      "evidence_quote": "Confirmed diagnosis: chronic kidney disease stage 3a.",
+      "gold_code": "N18.31",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-020",
+      "evidence_quote": null,
+      "gold_code": null,
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-025",
+      "evidence_quote": null,
+      "gold_code": null,
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    },
+    {
+      "case_id": "gen-008",
+      "evidence_quote": "iron deficiency anemia, unspecified",
+      "gold_code": "D50.9",
+      "reviewer_mark": null,
+      "reviewer_note": ""
+    }
+  ],
+  "sheet": "medcode-audit-label-review",
+  "version": 1
+}
