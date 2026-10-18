@@ -196,3 +196,33 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Spec and tests were written first. The runner draft was written before the red run was captured; red was then confirmed by removing the module (collection error), restoring it, and running the full suite unchanged.
 - **Why:** Records what happened so the sequence is not overstated. No committed test changed.
 - **Rejected:** Claiming a clean red-then-green sequence that did not occur.
+
+### 2026-10-18: Strata come from the closed assertion sentences
+- **Chose:** `stratum_key` reads the note for the three spec-003 markers and returns presence letters in fixed order (`A`, `N`, `U`, combinations, or `none` for prose notes).
+- **Why:** The markers are part of the frozen day-3 spec, so strata are inspectable and stable, and the day-1/2 prose cases still get sampled via `none`.
+- **Rejected:** Adding status fields to the schema (a schema change with its own spec); sampling by file name or batch (couples review to directory layout).
+
+### 2026-10-18: Round-robin stratified sampling with seeded rotation
+- **Chose:** Group by stratum, order strata by key, sort each stratum by id, rotate by `seed % len`, then take round-robin across strata until the requested size.
+- **Why:** Every support pattern in the set is guaranteed a seat, the rule is hand-verifiable, and the seed changes the sample without RNG state.
+- **Rejected:** `random.Random(seed)` shuffle (harder to hand-verify); first-N (skips whole label patterns); proportional allocation (tiny strata could get zero seats).
+
+### 2026-10-18: One sheet row per gold label, control row for empty gold
+- **Chose:** One row per (case, gold code) with `reviewer_mark` (`agree`/`disagree`/null) and `reviewer_note`; an empty-gold case gets one row with null code and quote so the reviewer confirms nothing is supported.
+- **Why:** Each label is judged on its own, and an empty gold list is itself a label that can be wrong.
+- **Rejected:** One row per case with a code list (cannot mark codes independently); CSV (lossy round trips, weaker validation).
+
+### 2026-10-18: Counts-only agreement summary; disagreements fixed only by logged decision
+- **Chose:** `summarize_review` returns total/reviewed/unreviewed/agree/disagree counts plus the disagreement rows. Disagreements stay in the sheet; a fixture changes only through a decision-log entry.
+- **Why:** Counts are the auditable artifact; the sheet is the evidence and the log is the authority, so label history stays traceable.
+- **Rejected:** Percentages or kappa in the summary (small set, implies more certainty than a 12-case sample holds); editing fixtures directly from review notes.
+
+### 2026-10-18: Sample artifact is 12 cases, seed 42, checked into docs/reviews
+- **Chose:** `docs/reviews/day-06-label-review-sheet.json` holds the unmarked sheet for `sample_cases(all 50 cases, 12, seed=42)` - two cases from each of the six strata, 12 rows.
+- **Why:** Gives the milestone 6 human review a concrete, reproducible starting sheet without claiming any review happened.
+- **Rejected:** Sampling all 50 (defeats the purpose of a sample); not checking the sheet in (the reviewer would have to regenerate it).
+
+### 2026-10-18: Green push order on a heavy day
+- **Chose:** Tests were written and frozen first and ran red locally (missing module); commits publish the implementation before the new tests so every pushed state is green, as on days 2-3. Suite: 142 passing on Python 3.10 (3.11 still unavailable in the sandbox).
+- **Why:** Keeps test-first development and the never-push-failing rule at once.
+- **Rejected:** Pushing the red test commit first (breaks AGENTS.md); one squashed commit (loses the heavy-day trail).
