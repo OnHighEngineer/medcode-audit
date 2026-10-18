@@ -56,3 +56,13 @@ The report says provisional on its first line and prints counts only. upcoding a
 wrong_code show as not implemented. Only stub auditors exist; no real auditor, CLI
 or trusted score. See docs/specs/005-eval-runner.md.
 - Day 5: runner module and report added (light day).
+
+## Label review layer (day 6)
+checked-in cases -> `sample_cases(cases, size, seed)` (stratified round-robin over
+spec-003 sentence-marker strata) -> `build_review_sheet` (one row per gold label,
+control row per empty-gold case) -> human reviewer marks agree/disagree per row ->
+`summarize_review` (counts plus disagreement list) -> disagreements fixed only via
+a logged decision-log entry. No clinical judgment is automated; labels stay
+provisional until the review is recorded. See docs/specs/006-label-review-prep.md
+and the unmarked sample sheet docs/reviews/day-06-label-review-sheet.json.
+- Day 6: review prep module added (heavy day).
