@@ -21,15 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 6 (2026-10-18)
-Label validation prep `medcode_audit.review` (`sample_cases`, `build_review_sheet`,
-`dump_sheet`, `load_sheet`, `summarize_review`, spec 006). 142 passing tests on
-Python 3.10 in the sandbox (3.11 still unavailable; project target is 3.11). The
-127 earlier tests are unchanged; 15 are new. Sampling is stratified round-robin
-over the spec-003 sentence-marker strata; the sheet has one row per gold label
-plus a control row per empty-gold case; the summary prints counts only. The
-unmarked 12-case sample sheet (seed 42, two per stratum) is checked into
-docs/reviews/day-06-label-review-sheet.json for the milestone 6 human review.
-Next: read the day-07 plan (week 1 review). upcoding and wrong_code stay deferred
-(no verified mapping source). One harmless pytest iterator warning remains in a
-frozen day-3 test.
+## Latest completed feature: day 7 (2026-10-19)
+Week 1 review (plan item 7). 142 passing tests on Python 3.10.12 and on Python
+3.11.16 (via uv) - the earlier 3.10-only caveat is closed. decision-log.md read
+against flow.md and specs 001-006 with no drift. Week-1 review note at
+docs/reviews/day-07-week-1-review.md; label review guide for the pending
+milestone 6 human review at docs/reviews/label-review-guide.md. The provisional
+gate is verified visible in README, flow.md, SESSION.md and the runner report.
+Labels stay provisional until the human review is recorded. Next: read the
+day-08 plan (week 2 starts: auditor output schema + validators). upcoding and
+wrong_code stay deferred (no verified mapping source). One harmless pytest
+iterator warning remains in a frozen day-3 test.
