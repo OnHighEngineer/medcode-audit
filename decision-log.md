@@ -226,3 +226,18 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Tests were written and frozen first and ran red locally (missing module); commits publish the implementation before the new tests so every pushed state is green, as on days 2-3. Suite: 142 passing on Python 3.10 (3.11 still unavailable in the sandbox).
 - **Why:** Keeps test-first development and the never-push-failing rule at once.
 - **Rejected:** Pushing the red test commit first (breaks AGENTS.md); one squashed commit (loses the heavy-day trail).
+
+### 2026-10-19: Python 3.11 rerun closes the version caveat
+- **Chose:** Ran the full suite on Python 3.11.16 (installed via uv in the sandbox) alongside 3.10.12: 142 passing on both. Recorded both versions in the week-1 review and SESSION.md.
+- **Why:** The project targets 3.11 and days 5-6 could only verify 3.10; the open question is now closed with evidence.
+- **Rejected:** Leaving the 3.10-only caveat standing (it implied unverified risk that no longer exists).
+
+### 2026-10-19: Label review guide lives in docs/reviews; gate stays visible
+- **Chose:** A short reviewer-facing guide (`docs/reviews/label-review-guide.md`) next to the sample sheet, and a week-1 review note that re-checks the provisional gate in README, flow.md, SESSION.md and the runner report.
+- **Why:** The milestone 6 review is pending with a human; the guide makes it executable without inventing any clinical judgment, and the gate check proves no score reads as trusted.
+- **Rejected:** Putting review instructions only in chat (not durable, not versioned); automating any part of the judgment (out of scope by spec 006).
+
+### 2026-10-19: Week-1 consistency read found no drift
+- **Chose:** Read decision-log.md against flow.md and specs 001-006; every flow layer traces to a spec and decision entries; deferred items match across all three. No corrections needed.
+- **Why:** Week 2 builds on these documents; a quiet drift would surface as rework mid-week.
+- **Rejected:** Skipping the read because the same author wrote everything (fresh eyes per session is the protocol).
