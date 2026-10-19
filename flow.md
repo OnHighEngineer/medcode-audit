@@ -66,3 +66,7 @@ a logged decision-log entry. No clinical judgment is automated; labels stay
 provisional until the review is recorded. See docs/specs/006-label-review-prep.md
 and the unmarked sample sheet docs/reviews/day-06-label-review-sheet.json.
 - Day 6: review prep module added (heavy day).
+- Day 7: week 1 review recorded (docs/reviews/day-07-week-1-review.md). Suite
+green on Python 3.10 and 3.11. Label review guide added
+(docs/reviews/label-review-guide.md); labels stay provisional until the human
+review is recorded.
