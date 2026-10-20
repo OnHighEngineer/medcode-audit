@@ -5,32 +5,11 @@ whether each expected finding was caught. Counts are provisional.
 """
 from __future__ import annotations
 
+from .auditor_schema import VERDICTS, validate_auditor_output
 from .injector import inject_error
 from .schema import ERROR_TYPES
 
-VERDICTS = ('SUPPORTED', 'UNSUPPORTED', 'WRONG_SPECIFICITY', 'MISSED')
 _DEFERRED_REASON = 'deferred_unverified_mapping'
-
-
-def _check_output(out, claimed):
-    if not isinstance(out, dict):
-        raise ValueError('auditor output must be a dict')
-    verdicts, missed = out.get('verdicts'), out.get('missed_codes')
-    if not isinstance(verdicts, list) or not isinstance(missed, list):
-        raise ValueError('auditor output needs verdicts and missed_codes lists')
-    if any(not isinstance(m, str) for m in missed):
-        raise ValueError('missed_codes must be strings')
-    by_code = {}
-    for v in verdicts:
-        if (not isinstance(v, dict) or not isinstance(v.get('code'), str)
-                or v.get('verdict') not in VERDICTS):
-            raise ValueError('each verdict needs a code and a known verdict')
-        if v['code'] in by_code:
-            raise ValueError('duplicate verdict for a code')
-        by_code[v['code']] = v['verdict']
-    if sorted(by_code) != sorted(claimed):
-        raise ValueError('verdicts must cover exactly the claimed codes')
-    return by_code, missed
 
 
 def _caught(finding, by_code, missed):
@@ -65,8 +44,11 @@ def run_eval(cases, auditor, error_types=ERROR_TYPES, seed=0) -> dict:
                 results.append(rec)
                 continue
             claimed = [c['code'] for c in inj['claimed_codes']]
-            out = auditor(str(case.get('note_text', '')), list(claimed))
-            by_code, missed = _check_output(out, claimed)
+            note = str(case.get('note_text', ''))
+            out = auditor(note, list(claimed))
+            checked = validate_auditor_output(out, claimed, note_text=note)
+            by_code = {v['code']: v['verdict'] for v in checked['verdicts']}
+            missed = checked['missed_codes']
             ok = all(_caught(f, by_code, missed) for f in inj['expected_findings'])
             rec['status'] = 'detected' if ok else 'not_detected'
             rec['false_flags'] = [c['code'] for c in inj['claimed_codes']
