@@ -241,3 +241,18 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Read decision-log.md against flow.md and specs 001-006; every flow layer traces to a spec and decision entries; deferred items match across all three. No corrections needed.
 - **Why:** Week 2 builds on these documents; a quiet drift would surface as rework mid-week.
 - **Rejected:** Skipping the read because the same author wrote everything (fresh eyes per session is the protocol).
+
+### 2026-10-20: Auditor output contract becomes a module; runner re-exports VERDICTS
+- **Chose:** `medcode_audit/auditor_schema.py` owns `VERDICTS` and `validate_auditor_output`; the runner imports and re-exports `VERDICTS` so frozen day-5 imports keep working.
+- **Why:** Week-2 auditors need an importable, separately tested contract instead of the runner's inline checks.
+- **Rejected:** Keeping validation inline in the runner (unimportable, drifts per auditor); moving the name without a re-export (breaks frozen tests).
+
+### 2026-10-20: Evidence quote is optional but verbatim-checked when volunteered
+- **Chose:** A verdict may carry `evidence_quote`; it must be a nonempty string and, when the caller passes the note, a verbatim case-sensitive substring. The runner passes the note, so volunteered quotes are checked against the chart from today.
+- **Why:** The LLM auditor (item 10) must return quotes; holding them to the gold-evidence standard now gives item 11 its hook without writing verification policy yet. No committed auditor returns quotes, so no current behavior changes.
+- **Rejected:** Requiring quotes on every verdict (a missed code has no span; item 11 owns that policy); accepting quotes unchecked (lets auditors fabricate support).
+
+### 2026-10-20: Validator returns a normalized deep copy
+- **Chose:** `validate_auditor_output` returns a fresh dict (verdicts cleaned to known keys, missed_codes copied) and never mutates the auditor's reply.
+- **Why:** Callers can annotate results without aliasing auditor state; the copy is proof the shape passed.
+- **Rejected:** Returning the input object (aliases mutable auditor state); returning only an error-or-None (every caller rebuilds the same maps).
