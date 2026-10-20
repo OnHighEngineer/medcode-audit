@@ -21,14 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 7 (2026-10-19)
-Week 1 review (plan item 7). 142 passing tests on Python 3.10.12 and on Python
-3.11.16 (via uv) - the earlier 3.10-only caveat is closed. decision-log.md read
-against flow.md and specs 001-006 with no drift. Week-1 review note at
-docs/reviews/day-07-week-1-review.md; label review guide for the pending
-milestone 6 human review at docs/reviews/label-review-guide.md. The provisional
-gate is verified visible in README, flow.md, SESSION.md and the runner report.
-Labels stay provisional until the human review is recorded. Next: read the
-day-08 plan (week 2 starts: auditor output schema + validators). upcoding and
-wrong_code stay deferred (no verified mapping source). One harmless pytest
-iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 8 (2026-10-20)
+Auditor output schema `medcode_audit.auditor_schema` (`VERDICTS`,
+`validate_auditor_output`, spec 007). 154 passing tests on Python 3.10.12 and
+3.11.16. The 142 earlier tests are unchanged; 12 are new. The runner re-exports
+`VERDICTS` and validates every auditor reply through the module, passing the
+note so a volunteered evidence_quote must be a verbatim substring. Detection,
+false flags, tallies and the report are unchanged. Only stub auditors exist.
+Labels stay provisional until the milestone 6 human review is recorded. Next:
+read the day-09 plan (rule-based baseline auditor). upcoding and wrong_code
+stay deferred (no verified mapping source). One harmless pytest iterator
+warning remains in a frozen day-3 test.
