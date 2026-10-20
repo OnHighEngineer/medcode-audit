@@ -70,3 +70,11 @@ and the unmarked sample sheet docs/reviews/day-06-label-review-sheet.json.
 green on Python 3.10 and 3.11. Label review guide added
 (docs/reviews/label-review-guide.md); labels stay provisional until the human
 review is recorded.
+
+## Auditor output schema (day 8)
+auditor reply -> `validate_auditor_output(output, claimed_codes, note_text)`
+(fail closed; verdicts cover exactly the claimed codes; optional evidence_quote
+must be a verbatim note substring when the note is passed) -> normalized copy ->
+runner matching. `VERDICTS` lives in `medcode_audit/auditor_schema.py` and the
+runner re-exports it. See docs/specs/007-auditor-output-schema.md.
+- Day 8: auditor output schema module added; runner consumes it (heavy day).
