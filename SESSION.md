@@ -21,14 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 8 (2026-10-20)
-Auditor output schema `medcode_audit.auditor_schema` (`VERDICTS`,
-`validate_auditor_output`, spec 007). 154 passing tests on Python 3.10.12 and
-3.11.16. The 142 earlier tests are unchanged; 12 are new. The runner re-exports
-`VERDICTS` and validates every auditor reply through the module, passing the
-note so a volunteered evidence_quote must be a verbatim substring. Detection,
-false flags, tallies and the report are unchanged. Only stub auditors exist.
-Labels stay provisional until the milestone 6 human review is recorded. Next:
-read the day-09 plan (rule-based baseline auditor). upcoding and wrong_code
-stay deferred (no verified mapping source). One harmless pytest iterator
-warning remains in a frozen day-3 test.
+## Latest completed feature: day 9 (2026-10-21)
+Rule-based baseline auditor `medcode_audit.baseline` (`audit_baseline`,
+spec 008). 166 passing tests on Python 3.10.12 and 3.11.16. The 154 earlier
+tests are unchanged; 12 are new. The baseline scores with the five provisional
+mappings and the spec-003 closed sentences, volunteers verbatim evidence
+quotes, and marks unknown codes UNSUPPORTED. Provisional full-set counts are in
+docs/reviews/day-09-baseline-eval.md: it detects every injected error, which is
+expected on self-templated data, not a result. Labels stay provisional until
+the milestone 6 human review is recorded. Next: read the day-10 plan (LLM
+auditor v1). upcoding and wrong_code stay deferred (no verified mapping
+source). One harmless pytest iterator warning remains in a frozen day-3 test.
