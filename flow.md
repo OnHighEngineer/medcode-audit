@@ -78,3 +78,11 @@ must be a verbatim note substring when the note is passed) -> normalized copy ->
 runner matching. `VERDICTS` lives in `medcode_audit/auditor_schema.py` and the
 runner re-exports it. See docs/specs/007-auditor-output-schema.md.
 - Day 8: auditor output schema module added; runner consumes it (heavy day).
+
+## Rule baseline auditor (day 9)
+note + claimed codes -> `audit_baseline` (five provisional mappings + spec-003
+closed sentences; affirmed > negated > uncertain > mention > absent) ->
+spec-007 output with verbatim evidence quotes -> runner. Known limits: lexical,
+five conditions, no general negation; perfect goldset detection is expected,
+not a result. Counts: docs/reviews/day-09-baseline-eval.md (provisional).
+- Day 9: baseline auditor added (heavy day).
