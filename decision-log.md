@@ -256,3 +256,23 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** `validate_auditor_output` returns a fresh dict (verdicts cleaned to known keys, missed_codes copied) and never mutates the auditor's reply.
 - **Why:** Callers can annotate results without aliasing auditor state; the copy is proof the shape passed.
 - **Rejected:** Returning the input object (aliases mutable auditor state); returning only an error-or-None (every caller rebuilds the same maps).
+
+### 2026-10-21: Baseline knows only the five mappings and the closed sentences
+- **Chose:** `audit_baseline` scores with the five provisional (code, phrase, stem) mappings plus the spec-003 assertion sentences, in priority affirmed > negated > uncertain > mention > absent. SUPPORTED only for affirmed or plain mention; unknown claimed codes are UNSUPPORTED.
+- **Why:** The baseline is the honest floor for the LLM auditor: exactly what the data was built from, nothing more. Its perfect goldset detection is recorded as expected, not as a result.
+- **Rejected:** General negation or keyword NLP (unverifiable on this vocabulary, hides the limits); treating unknown codes as SUPPORTED-by-default (would fabricate support).
+
+### 2026-10-21: Baseline volunteers verbatim evidence quotes
+- **Chose:** SUPPORTED verdicts quote the affirmed sentence or the verbatim matched prose substring; negated UNSUPPORTED verdicts quote the absent sentence; uncertain/absent verdicts carry no quote.
+- **Why:** Exercises the day-8 verbatim check on a real auditor and makes every verdict inspectable; all quotes are verbatim by construction.
+- **Rejected:** No quotes (wastes the spec-007 hook); paraphrased quotes (would fail the verbatim check the runner enforces).
+
+### 2026-10-21: The baseline duplicates the mapping table
+- **Chose:** baseline.py carries its own copy of the five (code, phrase, stem) mappings, intentionally isolated like the goldset's copy.
+- **Why:** Sharing a private table across generator, injector, goldset and baseline couples independently evolving modules; the mappings are provisional and small.
+- **Rejected:** Importing the injector's private `_TABLE` (couples modules); a shared constants module today (premature for five rows).
+
+### 2026-10-21: Baseline counts published as a provisional floor
+- **Chose:** Recorded the full-50-case run in docs/reviews/day-09-baseline-eval.md with the runner's provisional report and an explicit "expected, not a result" caveat.
+- **Why:** Week-2 comparisons need a recorded baseline, but 100% detection on self-templated data must not read as a solved problem.
+- **Rejected:** Publishing counts without the caveat; withholding them until milestone 6 (the floor is useful precisely because it is recorded early).
