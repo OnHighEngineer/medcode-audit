@@ -276,3 +276,23 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Recorded the full-50-case run in docs/reviews/day-09-baseline-eval.md with the runner's provisional report and an explicit "expected, not a result" caveat.
 - **Why:** Week-2 comparisons need a recorded baseline, but 100% detection on self-templated data must not read as a solved problem.
 - **Rejected:** Publishing counts without the caveat; withholding them until milestone 6 (the floor is useful precisely because it is recorded early).
+
+### 2026-10-22: LLM auditor is offline-first with an injected transport
+- **Chose:** `make_llm_auditor(transport)` takes a `transport(prompt) -> reply_text` callable; the module has no network, SDK or credential handling, and tests run on canned replies via `static_transport`.
+- **Why:** The suite stays offline and deterministic; a live provider call is a later, separately approved step (provider, secure secret intake, spend cap, data scope), not something the module can stumble into.
+- **Rejected:** Direct SDK calls in the module (network in the unit path, credentials near code); a config-file key route (secrets do not belong in git or chat).
+
+### 2026-10-22: Prompt shows the note and claimed codes only
+- **Chose:** The v1 prompt contains the full note, the claimed codes as JSON, the four verdict names, and the requirement that SUPPORTED verdicts carry a verbatim evidence_quote. It does not include the baseline's five-phrase table.
+- **Why:** The model must read the chart; handing it the toy vocabulary would cap what v1 can demonstrate and leak the test fixture's structure.
+- **Rejected:** Constraining the prompt to the five known phrases (revisit only if a later eval needs constrained decoding).
+
+### 2026-10-22: Malformed model replies fail closed
+- **Chose:** `parse_model_reply` tolerates fences and surrounding prose but raises ValueError on anything unparseable or non-object; the auditor then validates through spec 007 with the note, so fabricated quotes also raise. Transport exceptions propagate unchanged.
+- **Why:** A crashed run is honest; a silently miscounted one corrupts the eval. The runner's fail-closed stance now extends across the model boundary.
+- **Rejected:** Counting malformed replies as "not detected" (hides model/parser bugs in the metrics); retrying inside v1 (masks instability; a live transport can add retries later).
+
+### 2026-10-22: No cost or latency tracking in v1
+- **Chose:** The module records nothing about calls; the transport boundary is where a future live integration times and prices them (plan item 20).
+- **Why:** Keeping the module pure lets the tracking hook wrap any transport without changes here.
+- **Rejected:** Timing inside the auditor (mixes concerns, complicates offline tests).
