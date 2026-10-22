@@ -21,14 +21,15 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 9 (2026-10-21)
-Rule-based baseline auditor `medcode_audit.baseline` (`audit_baseline`,
-spec 008). 166 passing tests on Python 3.10.12 and 3.11.16. The 154 earlier
-tests are unchanged; 12 are new. The baseline scores with the five provisional
-mappings and the spec-003 closed sentences, volunteers verbatim evidence
-quotes, and marks unknown codes UNSUPPORTED. Provisional full-set counts are in
-docs/reviews/day-09-baseline-eval.md: it detects every injected error, which is
-expected on self-templated data, not a result. Labels stay provisional until
-the milestone 6 human review is recorded. Next: read the day-10 plan (LLM
-auditor v1). upcoding and wrong_code stay deferred (no verified mapping
+## Latest completed feature: day 10 (2026-10-22)
+LLM auditor v1 `medcode_audit.llm_auditor` (`build_prompt`,
+`parse_model_reply`, `make_llm_auditor`, `static_transport`, spec 009).
+178 passing tests on Python 3.10.12 and 3.11.16. The 166 earlier tests are
+unchanged; 12 are new. Offline-first: the model call is an injected transport,
+tests use canned replies, there is no network, SDK or credential in the module,
+and malformed replies fail closed. A canned perfect-reader transport runs the
+full eval offline. A live eval needs explicit approval (provider, secure
+secret intake, spend cap, data scope). Labels stay provisional until the
+milestone 6 human review is recorded. Next: read the day-11 plan (evidence-span
+verification). upcoding and wrong_code stay deferred (no verified mapping
 source). One harmless pytest iterator warning remains in a frozen day-3 test.
