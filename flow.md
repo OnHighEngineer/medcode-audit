@@ -86,3 +86,11 @@ spec-007 output with verbatim evidence quotes -> runner. Known limits: lexical,
 five conditions, no general negation; perfect goldset detection is expected,
 not a result. Counts: docs/reviews/day-09-baseline-eval.md (provisional).
 - Day 9: baseline auditor added (heavy day).
+
+## LLM auditor v1 (day 10)
+note + claimed codes -> `build_prompt` -> injected `transport(prompt) -> reply`
+(canned in tests; no live provider yet) -> `parse_model_reply` (fences/prose
+tolerated, fail closed) -> spec-007 validation with the note (fabricated quotes
+rejected) -> runner. No network, SDK or credentials in the module. A live eval
+needs approved provider, secure secret intake, spend cap and data scope first.
+- Day 10: offline-first LLM auditor added (heavy day).
