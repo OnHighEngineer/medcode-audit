@@ -49,3 +49,25 @@ full sentences are the evidence. Duplicate conditions are rejected. The batch
 covers mixed notes, multiple confirmed conditions and empty-gold controls.
 Mappings and labels remain provisional; this is not clinical/payer guidance or an
 accuracy benchmark. See spec 003 and `docs/reviews/day-03-provenance.md`.
+
+## Auditors (week 2)
+
+Two auditors plug into the eval runner behind one contract (spec 007):
+
+```python
+from medcode_audit.baseline import audit_baseline          # rule baseline (day 9)
+from medcode_audit.llm_auditor import make_llm_auditor, static_transport
+from medcode_audit.runner import run_eval
+
+run_eval(cases, audit_baseline)                  # lexical, five known conditions
+llm = make_llm_auditor(static_transport(canned)) # offline: canned replies only
+run_eval(cases, llm)
+```
+
+The LLM auditor (day 10) is offline-first: the model call is an injected
+`transport(prompt) -> reply` callable. There is no live provider integration,
+no credential in this repo, and no network in the tests. A live eval would need
+an approved provider, secure secret intake, a spend cap and a data scope first.
+Every auditor reply is validated fail-closed, and any volunteered evidence
+quote must be a verbatim note substring. All counts stay provisional until the
+milestone 6 label review is recorded.
