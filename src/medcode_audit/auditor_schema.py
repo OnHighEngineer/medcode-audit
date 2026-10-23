@@ -6,6 +6,8 @@ whenever the caller supplies the note. All outputs stay provisional.
 """
 from __future__ import annotations
 
+from .evidence import find_span
+
 VERDICTS = ('SUPPORTED', 'UNSUPPORTED', 'WRONG_SPECIFICITY', 'MISSED')
 
 
@@ -35,7 +37,7 @@ def validate_auditor_output(output, claimed_codes, note_text=None) -> dict:
             quote = entry['evidence_quote']
             if not isinstance(quote, str) or not quote:
                 raise ValueError('evidence_quote must be a nonempty string')
-            if note_text is not None and quote not in note_text:
+            if note_text is not None and find_span(note_text, quote) is None:
                 raise ValueError('evidence_quote must be a verbatim note substring')
             clean['evidence_quote'] = quote
         normalized.append(clean)
