@@ -296,3 +296,18 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The module records nothing about calls; the transport boundary is where a future live integration times and prices them (plan item 20).
 - **Why:** Keeping the module pure lets the tracking hook wrap any transport without changes here.
 - **Rejected:** Timing inside the auditor (mixes concerns, complicates offline tests).
+
+### 2026-10-23: SUPPORTED without a quote is flagged, not failed
+- **Chose:** The verifier reports `unverified` for a SUPPORTED verdict with no evidence quote; only non-verbatim quotes are hard failures (at the spec-007 boundary, as since day 8).
+- **Why:** Frozen day-5/8 tests run stub auditors that return SUPPORTED without quotes, and frozen tests do not change. A visible flag keeps the accounting honest without rewriting history.
+- **Rejected:** Hard-failing quote-less SUPPORTED in the runner (breaks frozen tests); ignoring missing quotes entirely (silently accepts unverifiable support).
+
+### 2026-10-23: One verbatim rule, one implementation
+- **Chose:** `evidence.find_span` owns the case-sensitive substring check and returns (start, end) offsets; `auditor_schema` imports it for validation, and the verifier reuses it for spans. The verifier reads the verdict vocabulary lazily from the schema module to keep the import one-directional.
+- **Why:** A single source of truth for the rule gold data and auditors are held to; spans come free for the item-22 report generator.
+- **Rejected:** Duplicating the substring check in both modules (drift); moving VERDICTS into the evidence module (verdicts are not evidence); changing the runner's record shape (frozen tests).
+
+### 2026-10-23: Verification statuses are a closed four-value set
+- **Chose:** `verified`, `unverified`, `invalid`, `not_applicable`; non-SUPPORTED verdicts may carry quotes (checked like any other) and are `not_applicable` without one.
+- **Why:** Closed vocabularies have kept every layer testable so far; summaries zero-fill all four keys.
+- **Rejected:** Per-verdict-type status sets (harder to count); a boolean verified flag (cannot express "flagged, not failed").
