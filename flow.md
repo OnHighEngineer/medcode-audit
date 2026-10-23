@@ -94,3 +94,11 @@ tolerated, fail closed) -> spec-007 validation with the note (fabricated quotes
 rejected) -> runner. No network, SDK or credentials in the module. A live eval
 needs approved provider, secure secret intake, spend cap and data scope first.
 - Day 10: offline-first LLM auditor added (heavy day).
+
+## Evidence-span verification (day 11)
+verdict + note -> `verify_verdict` -> closed status (verified with span offsets,
+unverified when SUPPORTED lacks a quote, invalid for non-verbatim, not_applicable)
+-> `verification_summary` counts. `find_span` owns the verbatim rule and the
+spec-007 validator uses it, so gold data and auditors face one implementation.
+Invalid quotes still fail closed at validation; unverified is a report flag.
+- Day 11: evidence verifier added (heavy day).
