@@ -21,15 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 10 (2026-10-22)
-LLM auditor v1 `medcode_audit.llm_auditor` (`build_prompt`,
-`parse_model_reply`, `make_llm_auditor`, `static_transport`, spec 009).
-178 passing tests on Python 3.10.12 and 3.11.16. The 166 earlier tests are
-unchanged; 12 are new. Offline-first: the model call is an injected transport,
-tests use canned replies, there is no network, SDK or credential in the module,
-and malformed replies fail closed. A canned perfect-reader transport runs the
-full eval offline. A live eval needs explicit approval (provider, secure
-secret intake, spend cap, data scope). Labels stay provisional until the
-milestone 6 human review is recorded. Next: read the day-11 plan (evidence-span
-verification). upcoding and wrong_code stay deferred (no verified mapping
-source). One harmless pytest iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 11 (2026-10-23)
+Evidence-span verifier `medcode_audit.evidence` (`find_span`, `verify_verdict`,
+`verify_evidence`, `verification_summary`, spec 010). 190 passing tests on
+Python 3.10.12 and 3.11.16. The 178 earlier tests are unchanged; 12 are new.
+`find_span` now owns the verbatim rule and the spec-007 validator uses it (one
+implementation). SUPPORTED without a quote is flagged `unverified`, not failed,
+so stub auditors keep working; non-verbatim quotes still fail closed. Labels
+stay provisional until the milestone 6 human review is recorded. Next: read the
+day-12 plan (negation and uncertainty handling). upcoding and wrong_code stay
+deferred (no verified mapping source). One harmless pytest iterator warning
+remains in a frozen day-3 test.
