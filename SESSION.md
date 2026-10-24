@@ -21,14 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 11 (2026-10-23)
-Evidence-span verifier `medcode_audit.evidence` (`find_span`, `verify_verdict`,
-`verify_evidence`, `verification_summary`, spec 010). 190 passing tests on
-Python 3.10.12 and 3.11.16. The 178 earlier tests are unchanged; 12 are new.
-`find_span` now owns the verbatim rule and the spec-007 validator uses it (one
-implementation). SUPPORTED without a quote is flagged `unverified`, not failed,
-so stub auditors keep working; non-verbatim quotes still fail closed. Labels
-stay provisional until the milestone 6 human review is recorded. Next: read the
-day-12 plan (negation and uncertainty handling). upcoding and wrong_code stay
-deferred (no verified mapping source). One harmless pytest iterator warning
-remains in a frozen day-3 test.
+## Latest completed feature: day 12 (2026-10-24)
+Assertion-status detector `medcode_audit.assertions` (`detect_assertions`,
+`status_for`, spec 011). 201 passing tests on Python 3.10.12 and 3.11.16. The
+190 earlier tests are unchanged; 11 are new. Six closed statuses: affirmed,
+negated, uncertain (closed sentences), mentioned (prose), absent, conflict
+(contradictory sentences, all listed; the baseline treats it as UNSUPPORTED).
+The baseline now consults the detector with identical fixture behavior. No
+prose negation NLP. Labels stay provisional until the milestone 6 human review
+is recorded. Next: read the day-13 plan (run evals: baseline vs LLM). upcoding
+and wrong_code stay deferred (no verified mapping source). One harmless pytest
+iterator warning remains in a frozen day-3 test.
