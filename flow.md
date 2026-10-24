@@ -102,3 +102,11 @@ unverified when SUPPORTED lacks a quote, invalid for non-verbatim, not_applicabl
 spec-007 validator uses it, so gold data and auditors face one implementation.
 Invalid quotes still fail closed at validation; unverified is a report flag.
 - Day 11: evidence verifier added (heavy day).
+
+## Assertion-status detection (day 12)
+note -> `detect_assertions` -> per known condition: affirmed / negated /
+uncertain (closed spec-003 sentences, verbatim quote + span), mentioned
+(lexical prose match), absent, or conflict (contradictory sentences, all
+listed). The baseline consults this detector; conflicts are UNSUPPORTED. No
+prose negation NLP. Spans come from `evidence.find_span`.
+- Day 12: assertion detector added; baseline rewired (heavy day).
