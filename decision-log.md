@@ -311,3 +311,18 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** `verified`, `unverified`, `invalid`, `not_applicable`; non-SUPPORTED verdicts may carry quotes (checked like any other) and are `not_applicable` without one.
 - **Why:** Closed vocabularies have kept every layer testable so far; summaries zero-fill all four keys.
 - **Rejected:** Per-verdict-type status sets (harder to count); a boolean verified flag (cannot express "flagged, not failed").
+
+### 2026-10-24: Assertion detection has six closed statuses, including conflict
+- **Chose:** `affirmed`, `negated`, `uncertain` (closed spec-003 sentences), `mentioned` (lexical prose match), `absent`, and `conflict` for contradictory closed sentences, which lists every matched sentence.
+- **Why:** Prose mentions are weaker than affirmed sentences and must not read as equal; a contradiction must surface, not resolve silently - the same failure the day-3 goldset rejected with duplicate conditions.
+- **Rejected:** Priority rules that pick a winner (discards contradictory evidence); collapsing mentioned into affirmed (hides the difference).
+
+### 2026-10-24: No prose negation detection
+- **Chose:** Prose matches are `mentioned`; the detector does not guess negation or uncertainty in free text. The day-1/2 prose fixtures are positive-only by construction, so nothing in the repo depends on prose negation.
+- **Why:** General negation detection is NLP the project has refused since day 3; claiming it here would be unverifiable on this vocabulary.
+- **Rejected:** Keyword negation heuristics over prose (exactly the unverifiable NLP rejected repeatedly); treating uncertain prose hints as negated (different evidence states).
+
+### 2026-10-24: Baseline consults the shared detector; conflicts are UNSUPPORTED
+- **Chose:** The baseline dropped its private state logic and maps `detect_assertions` records (affirmed/mentioned SUPPORTED with quote, negated UNSUPPORTED with the absent sentence, conflict/uncertain/absent UNSUPPORTED without one). Fixture behavior is identical.
+- **Why:** One detector, one policy, for every current and future auditor; a conflict must not fabricate support.
+- **Rejected:** Keeping two assertion readers (drift); quoting the affirmed sentence on a conflict (there is no single truth to quote).
