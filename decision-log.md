@@ -326,3 +326,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The baseline dropped its private state logic and maps `detect_assertions` records (affirmed/mentioned SUPPORTED with quote, negated UNSUPPORTED with the absent sentence, conflict/uncertain/absent UNSUPPORTED without one). Fixture behavior is identical.
 - **Why:** One detector, one policy, for every current and future auditor; a conflict must not fabricate support.
 - **Rejected:** Keeping two assertion readers (drift); quoting the affirmed sentence on a conflict (there is no single truth to quote).
+
+### 2026-10-25: Comparison uses two canned LLM personas, not one
+- **Chose:** The day-13 comparison records the baseline beside a canned perfect-reader transport AND a canned flag-everything transport, all offline.
+- **Why:** Perfect vs baseline shows the ceiling; flag-all shows the eval is not gamed by detection counts (48/48 "detected" beside 45 false flags). One persona would have shown only half the story.
+- **Rejected:** A single perfect canned persona (cannot demonstrate the false-flag guard); any live model call (not approved; offline-first stands).
+
+### 2026-10-25: Day 13 adds no library code
+- **Chose:** The comparison is a review note with an inline reproduction snippet over existing public APIs; no new module, no test changes.
+- **Why:** A light day; the eval surface was already complete, and new code would exist only to be run once.
+- **Rejected:** A scripts/compare.py checked in (premature; the note's snippet reproduces exactly).

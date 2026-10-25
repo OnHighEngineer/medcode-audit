@@ -21,14 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 12 (2026-10-24)
-Assertion-status detector `medcode_audit.assertions` (`detect_assertions`,
-`status_for`, spec 011). 201 passing tests on Python 3.10.12 and 3.11.16. The
-190 earlier tests are unchanged; 11 are new. Six closed statuses: affirmed,
-negated, uncertain (closed sentences), mentioned (prose), absent, conflict
-(contradictory sentences, all listed; the baseline treats it as UNSUPPORTED).
-The baseline now consults the detector with identical fixture behavior. No
-prose negation NLP. Labels stay provisional until the milestone 6 human review
-is recorded. Next: read the day-13 plan (run evals: baseline vs LLM). upcoding
-and wrong_code stay deferred (no verified mapping source). One harmless pytest
-iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 13 (2026-10-25)
+Baseline vs LLM comparison recorded (docs/reviews/day-13-baseline-vs-llm.md).
+201 passing tests unchanged on Python 3.10.12 and 3.11.16; no library code
+added (light day). Three offline auditors compared over all 50 cases: the rule
+baseline, a canned perfect-reader transport (identical counts - expected on
+self-templated data, no live model claim), and a canned flag-everything
+transport (48/48 "detected" beside 45 false flags, proving detection counts
+are gameable and the false-flag column is the guard). Labels stay provisional
+until the milestone 6 human review is recorded. Next: read the day-14 plan
+(week 2 review). upcoding and wrong_code stay deferred (no verified mapping
+source). One harmless pytest iterator warning remains in a frozen day-3 test.
