@@ -110,3 +110,7 @@ uncertain (closed spec-003 sentences, verbatim quote + span), mentioned
 listed). The baseline consults this detector; conflicts are UNSUPPORTED. No
 prose negation NLP. Spans come from `evidence.find_span`.
 - Day 12: assertion detector added; baseline rewired (heavy day).
+- Day 13: baseline vs canned-LLM comparison recorded
+(docs/reviews/day-13-baseline-vs-llm.md). Detection counts are gameable; the
+false-flag column is what exposes a flag-everything auditor. All offline,
+all provisional.
