@@ -346,3 +346,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The week-2 review is a review note (docs/reviews/day-14-week-2-review.md) plus closeout updates; no module or test changes.
 - **Why:** A light review day; the only findings are risks for week 3, which belong in the day-15 plan, not in code.
 - **Rejected:** Pre-building the day-15 lookup table today (item 15 deserves its own spec-first session).
+
+### 2026-10-26: Lookup table is small, hand-checked and license-safe
+- **Chose:** A 21-code table covering the five provisional codes plus near relatives in their categories, with the public ICD-10-CM titles as descriptions and a provenance note in icd10_table.py (checked against the FY2026/2027 titles on icd10data.com).
+- **Why:** The week-3 agent loop needs description and family lookups now; a full code set raises the unresolved day-2 license question, and hand-checking 21 titles is verifiable.
+- **Rejected:** Scraping or bundling a full ICD-10-CM distribution (license risk, scope); inventing descriptions (unverified clinical claims).
