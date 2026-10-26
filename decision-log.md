@@ -351,3 +351,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** A 21-code table covering the five provisional codes plus near relatives in their categories, with the public ICD-10-CM titles as descriptions and a provenance note in icd10_table.py (checked against the FY2026/2027 titles on icd10data.com).
 - **Why:** The week-3 agent loop needs description and family lookups now; a full code set raises the unresolved day-2 license question, and hand-checking 21 titles is verifiable.
 - **Rejected:** Scraping or bundling a full ICD-10-CM distribution (license risk, scope); inventing descriptions (unverified clinical claims).
+
+### 2026-10-26: Lookup fails closed and records no severity order
+- **Chose:** `lookup` raises ValueError on bad shape, LookupError on valid-but-unknown codes; `family` groups by 3-character category only. No severity ranking anywhere in the module.
+- **Why:** A lookup that guesses would fabricate clinical claims inside an auditor. Family membership is structural and checkable; severity ordering (needed later for upcoding) has no verified source yet, so it is not recorded or implied.
+- **Rejected:** Returning None for unknown codes (silently miscounts in callers); nearest-match suggestions (a guess wearing a lookup's clothes); embedding a severity ladder in the table (premature, unverified).
