@@ -21,13 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 14 (2026-10-26)
-Week 2 review recorded (docs/reviews/day-14-week-2-review.md). 201 passing
-tests unchanged on Python 3.10.12 and 3.11.16; no library code added (light
-day). The consistency read of decision-log.md against flow.md and specs
-007-011 found no drift. Deferred items unchanged: live LLM run (needs
-approval), upcoding/wrong_code mappings, milestone 6 human label review.
-Week-3 risks written down: license-safe code lookup first, fail-closed agent
-loop, cost tracking at the transport boundary only. Next: read the day-15
-plan (ICD code lookup tool, plan item 15). One harmless pytest iterator
-warning remains in a frozen day-3 test.
+## Latest completed feature: day 15 (2026-10-26)
+ICD-10 code lookup tool (spec 012, plan item 15). 222 passing tests (201
+frozen + 21 new) on Python 3.10.12 and 3.11.16. `code_lookup.py` answers
+description, hierarchy and same-category family from a hand-checked 21-code
+table (`icd10_table.py`, public ICD-10-CM titles, provenance noted); unknown
+codes raise LookupError, bad shapes ValueError. No severity ordering, so
+upcoding/wrong_code stay deferred. Manju's priority note from today: code
+first, docs supporting. Next: read the day-16 plan (agent loop with tools,
+plan item 16). One harmless pytest iterator warning remains in a frozen
+day-3 test.
