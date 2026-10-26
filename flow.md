@@ -117,3 +117,10 @@ all provisional.
 - Day 14: week 2 review recorded (docs/reviews/day-14-week-2-review.md).
 Consistency read found no drift across decision-log, flow and specs 007-011.
 Week 3 starts with the ICD code lookup tool (plan item 15).
+
+## Code lookup layer (day 15)
+code string -> `code_lookup.lookup` (normalize, shape-check, fail closed) ->
+hand-checked 21-code ICD-10-CM table (icd10_table.py, public titles,
+provenance noted) -> description + category/block/chapter hierarchy +
+same-category family. Unknown codes raise LookupError; bad shapes ValueError.
+No severity ordering; upcoding/wrong_code stay deferred.
