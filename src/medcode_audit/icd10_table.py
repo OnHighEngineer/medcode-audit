@@ -1,8 +1,15 @@
 """Hand-checked ICD-10-CM lookup table. See docs/specs/012-code-lookup.md.
 
-Provenance: every description is the public ICD-10-CM code title as published
-in the FY2026/2027 code set (readable mirror: icd10data.com, checked
-2026-10-26). The table covers the five provisional codes plus near relatives
+Provenance and license: every description is the official ICD-10-CM code
+title. ICD-10-CM is maintained by CDC/NCHS, a US federal agency, and is a
+public-domain work: the CDC Use of Agency Materials policy states CDC
+information is not subject to copyright and may be freely used and
+reproduced (cdc.gov/other/agencymaterials.html), and CMS describes NCHS/CDC
+ICD-10-CM reference materials as "public domain" (cms.gov GEMs document).
+Titles were checked against the FY2026/2027 titles on 2026-10-26 using
+icd10data.com as a readable mirror of the official NCHS/CMS files. Per the
+NCHS preface, unofficial modifications are not official ICD-10-CM; this
+table quotes titles verbatim and modifies nothing. The table covers the five provisional codes plus near relatives
 in the same categories. It is NOT a full code set: the day-2 license
 question about redistributing the complete set stays open, so nothing is
 scraped or bundled. Family membership is structural (same 3-character
