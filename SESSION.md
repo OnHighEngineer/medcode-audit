@@ -21,14 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 13 (2026-10-25)
-Baseline vs LLM comparison recorded (docs/reviews/day-13-baseline-vs-llm.md).
-201 passing tests unchanged on Python 3.10.12 and 3.11.16; no library code
-added (light day). Three offline auditors compared over all 50 cases: the rule
-baseline, a canned perfect-reader transport (identical counts - expected on
-self-templated data, no live model claim), and a canned flag-everything
-transport (48/48 "detected" beside 45 false flags, proving detection counts
-are gameable and the false-flag column is the guard). Labels stay provisional
-until the milestone 6 human review is recorded. Next: read the day-14 plan
-(week 2 review). upcoding and wrong_code stay deferred (no verified mapping
-source). One harmless pytest iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 14 (2026-10-26)
+Week 2 review recorded (docs/reviews/day-14-week-2-review.md). 201 passing
+tests unchanged on Python 3.10.12 and 3.11.16; no library code added (light
+day). The consistency read of decision-log.md against flow.md and specs
+007-011 found no drift. Deferred items unchanged: live LLM run (needs
+approval), upcoding/wrong_code mappings, milestone 6 human label review.
+Week-3 risks written down: license-safe code lookup first, fail-closed agent
+loop, cost tracking at the transport boundary only. Next: read the day-15
+plan (ICD code lookup tool, plan item 15). One harmless pytest iterator
+warning remains in a frozen day-3 test.
