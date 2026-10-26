@@ -114,3 +114,6 @@ prose negation NLP. Spans come from `evidence.find_span`.
 (docs/reviews/day-13-baseline-vs-llm.md). Detection counts are gameable; the
 false-flag column is what exposes a flag-everything auditor. All offline,
 all provisional.
+- Day 14: week 2 review recorded (docs/reviews/day-14-week-2-review.md).
+Consistency read found no drift across decision-log, flow and specs 007-011.
+Week 3 starts with the ICD code lookup tool (plan item 15).
