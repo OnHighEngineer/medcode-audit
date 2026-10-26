@@ -336,3 +336,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The comparison is a review note with an inline reproduction snippet over existing public APIs; no new module, no test changes.
 - **Why:** A light day; the eval surface was already complete, and new code would exist only to be run once.
 - **Rejected:** A scripts/compare.py checked in (premature; the note's snippet reproduces exactly).
+
+### 2026-10-26: Week-2 consistency read found no drift
+- **Chose:** Read decision-log.md against flow.md and specs 007-011; every flow layer traces to a spec and decision entries, and the deferred items (live LLM run, upcoding/wrong_code, milestone 6 review) match across all three. No corrections needed.
+- **Why:** Week 3 adds an agent loop and tools on top of these documents; quiet drift would surface as rework mid-week.
+- **Rejected:** Skipping the read because the same author wrote everything (fresh eyes per session is the protocol).
+
+### 2026-10-26: Day 14 adds no library code
+- **Chose:** The week-2 review is a review note (docs/reviews/day-14-week-2-review.md) plus closeout updates; no module or test changes.
+- **Why:** A light review day; the only findings are risks for week 3, which belong in the day-15 plan, not in code.
+- **Rejected:** Pre-building the day-15 lookup table today (item 15 deserves its own spec-first session).
