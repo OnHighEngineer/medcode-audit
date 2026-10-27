@@ -124,3 +124,12 @@ hand-checked 21-code ICD-10-CM table (icd10_table.py, public titles,
 provenance noted) -> description + category/block/chapter hierarchy +
 same-category family. Unknown codes raise LookupError; bad shapes ValueError.
 No severity ordering; upcoding/wrong_code stay deferred.
+
+## Agent loop layer (day 16)
+note + claimed codes -> `run_agent_audit` (spec 013): per turn, the spec-009
+transport replies with ONE JSON object - a tool call (lookup_code /
+verify_quote / detect_assertions, all local and deterministic, results
+appended to the transcript) or a final answer validated through spec 007 with
+the note. Protocol violations raise ValueError, tool errors are observable,
+no final within MAX_STEPS=8 raises RuntimeError. `make_agent_auditor` plugs
+the loop into run_eval as a spec-005 auditor. Offline only.
