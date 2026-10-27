@@ -366,3 +366,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** A tool-level failure (unknown code value) returns {"ok": false, "error": ...} into the transcript so the model can recover; a protocol violation (unknown tool, non-dict args, wrong arg types, no JSON object) raises ValueError; exceeding MAX_STEPS=8 raises RuntimeError.
 - **Why:** Mirrors a real agent loop (tools can legitimately fail) while keeping bugs loud; the loop never degrades to a partial score.
 - **Rejected:** Raising on tool errors (a lookup of an unknown code is a normal audit event); swallowing protocol violations (silently miscounts).
+
+### 2026-10-27: Tools compose local deterministic functions, not a hidden oracle
+- **Chose:** lookup_code (spec 012), verify_quote (spec 010) and detect_assertions (spec 011) run as local functions; every call and result is visible in the transcript.
+- **Why:** The audit is inspectable end to end and the model boundary stays the only untrusted input; no network, no credentials, no state.
+- **Rejected:** Injecting assertion results into the initial prompt (hides the audit trail); any tool that calls out (offline-first stands).
