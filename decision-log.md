@@ -361,3 +361,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The model replies with either {"tool": name, "args": {...}} or {"final": {...}}; the transcript is one deterministically built string; the transport signature stays transport(prompt) -> reply.
 - **Why:** Reuses spec-009 parsing and keeps canned transports trivial to script; one object per turn makes protocol violations unambiguous.
 - **Rejected:** A multi-message chat object (new transport contract, breaks spec-009 reuse); free-text tool syntax (ambiguous parsing).
+
+### 2026-10-27: Tool errors are observable, protocol violations raise
+- **Chose:** A tool-level failure (unknown code value) returns {"ok": false, "error": ...} into the transcript so the model can recover; a protocol violation (unknown tool, non-dict args, wrong arg types, no JSON object) raises ValueError; exceeding MAX_STEPS=8 raises RuntimeError.
+- **Why:** Mirrors a real agent loop (tools can legitimately fail) while keeping bugs loud; the loop never degrades to a partial score.
+- **Rejected:** Raising on tool errors (a lookup of an unknown code is a normal audit event); swallowing protocol violations (silently miscounts).
