@@ -21,13 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 15 (2026-10-26)
-ICD-10 code lookup tool (spec 012, plan item 15). 222 passing tests (201
-frozen + 21 new) on Python 3.10.12 and 3.11.16. `code_lookup.py` answers
-description, hierarchy and same-category family from a hand-checked 21-code
-table (`icd10_table.py`, public ICD-10-CM titles, provenance noted); unknown
-codes raise LookupError, bad shapes ValueError. No severity ordering, so
-upcoding/wrong_code stay deferred. Manju's priority note from today: code
-first, docs supporting. Next: read the day-16 plan (agent loop with tools,
-plan item 16). One harmless pytest iterator warning remains in a frozen
-day-3 test.
+## Latest completed feature: day 16 (2026-10-27)
+Agent loop with tools (spec 013, plan item 16). 245 passing tests (222 frozen
++ 23 new) on Python 3.10.12 and 3.11.16. `agent_loop.py` runs a
+one-JSON-object-per-turn loop over the spec-009 transport: the model may call
+lookup_code, verify_quote or detect_assertions (local, deterministic, visible
+in the transcript) before returning a spec-007-validated final answer.
+Protocol violations raise ValueError, tool errors are observable, no final
+within 8 steps raises RuntimeError. `make_agent_auditor` plugs into run_eval;
+verified end to end over all 50 cases with a scripted transport. Offline
+only. Next: read the day-17 plan (missed-code detection, plan item 17). One
+harmless pytest iterator warning remains in a frozen day-3 test.
