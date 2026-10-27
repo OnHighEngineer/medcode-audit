@@ -356,3 +356,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** `lookup` raises ValueError on bad shape, LookupError on valid-but-unknown codes; `family` groups by 3-character category only. No severity ranking anywhere in the module.
 - **Why:** A lookup that guesses would fabricate clinical claims inside an auditor. Family membership is structural and checkable; severity ordering (needed later for upcoding) has no verified source yet, so it is not recorded or implied.
 - **Rejected:** Returning None for unknown codes (silently miscounts in callers); nearest-match suggestions (a guess wearing a lookup's clothes); embedding a severity ladder in the table (premature, unverified).
+
+### 2026-10-27: Agent loop speaks one JSON object per turn over the spec-009 transport
+- **Chose:** The model replies with either {"tool": name, "args": {...}} or {"final": {...}}; the transcript is one deterministically built string; the transport signature stays transport(prompt) -> reply.
+- **Why:** Reuses spec-009 parsing and keeps canned transports trivial to script; one object per turn makes protocol violations unambiguous.
+- **Rejected:** A multi-message chat object (new transport contract, breaks spec-009 reuse); free-text tool syntax (ambiguous parsing).
