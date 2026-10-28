@@ -376,3 +376,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** A new `missed.find_missed` returns {code, evidence_quote, span} per supported-but-unclaimed condition, built on the spec-011 detector; baseline derives its missed_codes from it; the agent loop gains a find_missed tool. The spec-007 missed_codes contract (list of code strings) is unchanged.
 - **Why:** Missed detection becomes inspectable (every finding has verbatim evidence) without touching frozen validator behavior or any frozen test.
 - **Rejected:** Richer missed objects in the validator (breaks the frozen spec-007 contract and stub auditors); a separate detection rule for missed codes (second implementation, drift).
+
+### 2026-10-28: Only affirmed and mentioned statuses can be missed
+- **Chose:** find_missed reports detector statuses affirmed and mentioned only; negated, uncertain, absent and conflict never produce findings.
+- **Why:** A missed-code claim asserts the note supports the condition; conflict has no single truth to quote, and negated/uncertain are different evidence states (decisions of days 3 and 12 stand).
+- **Rejected:** Reporting conflicts as missed (fabricates support); prose negation heuristics (unverifiable NLP, rejected repeatedly).
