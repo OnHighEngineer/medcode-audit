@@ -8,6 +8,7 @@ generalization. All counts stay provisional until the milestone 6 review.
 from __future__ import annotations
 
 from .assertions import detect_assertions
+from .missed import find_missed
 
 
 def audit_baseline(note_text, claimed_codes) -> dict:
@@ -29,6 +30,5 @@ def audit_baseline(note_text, claimed_codes) -> dict:
                              'evidence_quote': quote})
         else:
             verdicts.append({'code': code, 'verdict': 'UNSUPPORTED'})
-    missed = [code for code, (status, _) in states.items()
-              if status in ('affirmed', 'mentioned') and code not in claimed_codes]
+    missed = [f['code'] for f in find_missed(note_text, claimed_codes)]
     return {'verdicts': verdicts, 'missed_codes': missed}
