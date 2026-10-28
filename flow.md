@@ -133,3 +133,10 @@ appended to the transcript) or a final answer validated through spec 007 with
 the note. Protocol violations raise ValueError, tool errors are observable,
 no final within MAX_STEPS=8 raises RuntimeError. `make_agent_auditor` plugs
 the loop into run_eval as a spec-005 auditor. Offline only.
+
+## Missed-findings layer (day 17)
+note + claimed codes -> `find_missed` (spec 014): spec-011 detector statuses
+affirmed/mentioned that no claim covers -> findings {code, evidence_quote,
+span}. Baseline derives missed_codes from it; the agent loop exposes it as a
+tool. Negated/uncertain/absent/conflict never produce findings. The spec-007
+missed_codes contract is unchanged.
