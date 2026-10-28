@@ -16,6 +16,7 @@ from .auditor_schema import validate_auditor_output
 from .code_lookup import lookup
 from .evidence import find_span
 from .llm_auditor import parse_model_reply
+from .missed import find_missed
 
 MAX_STEPS = 8
 
@@ -26,6 +27,8 @@ _INSTRUCTIONS = (
     'official description and family, {"tool": "verify_quote", "args": '
     '{"code": "...", "quote": "..."}} to check text is verbatim in the note, '
     '{"tool": "detect_assertions", "args": {}} to list detected conditions, '
+    '{"tool": "find_missed", "args": {"claimed_codes": [...]}} to list '
+    'supported conditions no claim covers, with evidence, '
     'or {"final": {"verdicts": [...], "missed_codes": [...]}} when done. '
     'Every SUPPORTED verdict needs a verbatim evidence_quote from the note.')
 
@@ -60,6 +63,14 @@ def _run_tool(note_text, name, args):
         if span is None:
             return {'ok': True, 'result': {'status': 'invalid', 'span': None}}
         return {'ok': True, 'result': {'status': 'verified', 'span': list(span)}}
+    if name == 'find_missed':
+        codes = args.get('claimed_codes')
+        if (not isinstance(codes, list)
+                or any(not isinstance(c, str) for c in codes)):
+            raise ValueError('find_missed args.claimed_codes must be a list of strings')
+        result = [dict(f, span=list(f['span'])) if f['span'] else f
+                  for f in find_missed(note_text, codes)]
+        return {'ok': True, 'result': result}
     if name == 'detect_assertions':
         if args:
             raise ValueError('detect_assertions takes no args')
