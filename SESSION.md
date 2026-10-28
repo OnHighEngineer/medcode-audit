@@ -21,14 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 16 (2026-10-27)
-Agent loop with tools (spec 013, plan item 16). 245 passing tests (222 frozen
-+ 23 new) on Python 3.10.12 and 3.11.16. `agent_loop.py` runs a
-one-JSON-object-per-turn loop over the spec-009 transport: the model may call
-lookup_code, verify_quote or detect_assertions (local, deterministic, visible
-in the transcript) before returning a spec-007-validated final answer.
-Protocol violations raise ValueError, tool errors are observable, no final
-within 8 steps raises RuntimeError. `make_agent_auditor` plugs into run_eval;
-verified end to end over all 50 cases with a scripted transport. Offline
-only. Next: read the day-17 plan (missed-code detection, plan item 17). One
-harmless pytest iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 17 (2026-10-28)
+Missed-code detection with evidence (spec 014, plan item 17). 259 passing
+tests (245 frozen + 14 new) on Python 3.10.12 and 3.11.16. `missed.py`
+returns findings {code, evidence_quote, span} for every supported-but-
+unclaimed condition (detector statuses affirmed/mentioned only); the baseline
+derives its missed_codes from it (behavior unchanged, frozen tests stand)
+and the agent loop gains a find_missed tool. Eval over all 50 cases is
+unchanged. Next: read the day-18 plan (upcoding detection, item 18 -
+reassessed against title-verified ordinal scales). One harmless pytest
+iterator warning remains in a frozen day-3 test.
