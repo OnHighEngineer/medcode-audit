@@ -371,3 +371,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** lookup_code (spec 012), verify_quote (spec 010) and detect_assertions (spec 011) run as local functions; every call and result is visible in the transcript.
 - **Why:** The audit is inspectable end to end and the model boundary stays the only untrusted input; no network, no credentials, no state.
 - **Rejected:** Injecting assertion results into the initial prompt (hides the audit trail); any tool that calls out (offline-first stands).
+
+### 2026-10-28: Missed findings carry evidence; validator contract unchanged
+- **Chose:** A new `missed.find_missed` returns {code, evidence_quote, span} per supported-but-unclaimed condition, built on the spec-011 detector; baseline derives its missed_codes from it; the agent loop gains a find_missed tool. The spec-007 missed_codes contract (list of code strings) is unchanged.
+- **Why:** Missed detection becomes inspectable (every finding has verbatim evidence) without touching frozen validator behavior or any frozen test.
+- **Rejected:** Richer missed objects in the validator (breaks the frozen spec-007 contract and stub auditors); a separate detection rule for missed codes (second implementation, drift).
