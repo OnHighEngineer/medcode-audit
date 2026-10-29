@@ -140,3 +140,11 @@ affirmed/mentioned that no claim covers -> findings {code, evidence_quote,
 span}. Baseline derives missed_codes from it; the agent loop exposes it as a
 tool. Negated/uncertain/absent/conflict never produce findings. The spec-007
 missed_codes contract is unchanged.
+
+## Upcoding layer (day 18)
+note + claimed codes -> `assess_upcoding` (spec 015): claimed code has a
+title-derived rank AND spec-011 supports a lower-ranked same-family condition
+-> finding {code, supported_code, claimed_rank, supported_rank,
+evidence_quote, span}. Ordinal families: N18 stages, J45 severity (ranks in
+icd10_table, pinned to official titles). Unranked codes never assessed.
+Injector upcoding type still deferred (day 19 wiring).
