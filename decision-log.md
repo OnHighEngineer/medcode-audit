@@ -386,3 +386,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Ranks derive from the public ICD-10-CM titles themselves: N18 stages 1 < 2 < 3a < 3b < 4 < 5 and J45 mild intermittent < mild persistent < moderate persistent < severe persistent. N18.9 and all non-ordinal families (E11, I10, D50, D64) carry rank None and are never assessed.
 - **Why:** This ends the day-4 deferral with a verifiable source instead of a hand-invented severity ladder - the rejected option that had blocked item 18 since day 4.
 - **Rejected:** Assigning severity to non-ordinal families (no verified source); an external severity dataset (license and verification burden for ten codes).
+
+### 2026-10-29: Upcoding detector is a read-only assessment, injector wiring is day 19
+- **Chose:** `assess_upcoding` returns findings {code, supported_code, claimed_rank, supported_rank, evidence_quote, span} over the spec-011 detector (affirmed/mentioned only); the injector's upcoding type stays deferred until the injection can target same-family higher ranks from the ordinal table.
+- **Why:** The detector is testable today against the existing fixtures; wiring the injector changes eval labels and deserves its own frozen tests.
+- **Rejected:** Flagging downcoding too (separate question, no user need stated); prose severity detection (unverifiable NLP, rejected repeatedly).
