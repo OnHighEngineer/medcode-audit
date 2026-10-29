@@ -381,3 +381,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** find_missed reports detector statuses affirmed and mentioned only; negated, uncertain, absent and conflict never produce findings.
 - **Why:** A missed-code claim asserts the note supports the condition; conflict has no single truth to quote, and negated/uncertain are different evidence states (decisions of days 3 and 12 stand).
 - **Rejected:** Reporting conflicts as missed (fabricates support); prose negation heuristics (unverifiable NLP, rejected repeatedly).
+
+### 2026-10-29: Upcoding ranks come from official titles, ordinal families only
+- **Chose:** Ranks derive from the public ICD-10-CM titles themselves: N18 stages 1 < 2 < 3a < 3b < 4 < 5 and J45 mild intermittent < mild persistent < moderate persistent < severe persistent. N18.9 and all non-ordinal families (E11, I10, D50, D64) carry rank None and are never assessed.
+- **Why:** This ends the day-4 deferral with a verifiable source instead of a hand-invented severity ladder - the rejected option that had blocked item 18 since day 4.
+- **Rejected:** Assigning severity to non-ordinal families (no verified source); an external severity dataset (license and verification burden for ten codes).
