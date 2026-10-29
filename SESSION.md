@@ -21,13 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 17 (2026-10-28)
-Missed-code detection with evidence (spec 014, plan item 17). 259 passing
-tests (245 frozen + 14 new) on Python 3.10.12 and 3.11.16. `missed.py`
-returns findings {code, evidence_quote, span} for every supported-but-
-unclaimed condition (detector statuses affirmed/mentioned only); the baseline
-derives its missed_codes from it (behavior unchanged, frozen tests stand)
-and the agent loop gains a find_missed tool. Eval over all 50 cases is
-unchanged. Next: read the day-18 plan (upcoding detection, item 18 -
-reassessed against title-verified ordinal scales). One harmless pytest
+## Latest completed feature: day 18 (2026-10-29)
+Upcoding detection for ordinal families (spec 015, plan item 18 narrowed).
+276 passing tests (259 frozen + 17 new) on Python 3.10.12 and 3.11.16.
+`upcoding.py` flags a claimed code whose title-derived severity rank exceeds
+what the note supports: N18 stages 1-5 and J45 severity 1-4, with ranks in
+icd10_table.py pinned to the official ICD-10-CM titles. N18.9, E11, I10, D50
+and D64 stay unranked and unassessed - no invented severity. The injector's
+upcoding type stays deferred until day 19 wires same-family injections.
+wrong_code remains deferred. Next: read the day-19 plan. One harmless pytest
 iterator warning remains in a frozen day-3 test.
