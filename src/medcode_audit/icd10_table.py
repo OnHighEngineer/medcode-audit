@@ -104,6 +104,15 @@ _ROWS = {
                           'failure syndromes', _CH3),
 }
 
+# Ordinal severity ranks for families whose official titles carry an
+# ordinal scale (spec 015): N18 stages 1, 2, 3a, 3b, 4, 5 and J45 mild
+# intermittent, mild persistent, moderate persistent, severe persistent.
+# N18.9 ("unspecified") and all non-ordinal families stay unranked.
+_ORDINAL_RANKS = {
+    'N18.1': 1, 'N18.2': 2, 'N18.31': 3, 'N18.32': 4, 'N18.4': 5, 'N18.5': 6,
+    'J45.20': 1, 'J45.30': 2, 'J45.40': 3, 'J45.50': 4,
+}
+
 TABLE = {
     code: {
         'code': code,
@@ -112,6 +121,7 @@ TABLE = {
         'category_description': category_description,
         'block': block,
         'block_title': block_title,
+        'rank': _ORDINAL_RANKS.get(code),
         **chapter_fields,
     }
     for code, (description, category, category_description, block,
