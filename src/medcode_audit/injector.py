@@ -4,6 +4,7 @@ Builds a claimed-code list from an immutable case. Gold truth is never edited.
 """
 from __future__ import annotations
 
+from .icd10_table import TABLE
 from .schema import ERROR_TYPES
 
 # (code, condition phrase, stem). Same five provisional mappings as day 2/3.
@@ -15,7 +16,7 @@ _TABLE = (
     ('D50.9', 'iron deficiency anemia, unspecified', 'anemi'),
 )
 _NEGATED_PREFIX = 'Condition explicitly absent: '
-_DEFERRED = ('upcoding', 'wrong_code')
+_DEFERRED = ('wrong_code',)
 
 
 def _result(case_id, error_type, seed, claimed=None, injection=None, finding=None,
@@ -51,6 +52,27 @@ def inject_error(case, error_type, seed=0) -> dict:
 
     if error_type in _DEFERRED:
         return fail('deferred_unverified_mapping')
+    if error_type == 'upcoding':
+        def higher(code):
+            entry = TABLE.get(code)
+            if entry is None or entry['rank'] is None:
+                return []
+            return [c for c, e in TABLE.items()
+                    if e['category'] == entry['category']
+                    and e['rank'] is not None and e['rank'] > entry['rank']]
+        targets = [(i, g, higher(g)) for i, g in enumerate(gold) if higher(g)]
+        if not targets:
+            if any(TABLE.get(g) and TABLE[g]['rank'] is not None for g in gold):
+                return fail('no_higher_rank_in_family')
+            return fail('no_ordinal_gold_code')
+        idx, target, cands = targets[seed % len(targets)]
+        new_code = cands[seed % len(cands)]
+        claimed = [dict(d) for d in baseline]
+        claimed[idx] = {'code': new_code, 'origin': 'injected'}
+        return _result(case_id, error_type, seed, claimed,
+                       {'code': new_code, 'action': 'replaced',
+                        'replaced_code': target},
+                       {'code': new_code, 'finding': 'upcoding'})
     if error_type == 'missed_code':
         if not gold:
             return fail('no_gold_code')

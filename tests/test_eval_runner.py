@@ -7,7 +7,7 @@ from medcode_audit.runner import VERDICTS, format_report, run_eval
 from medcode_audit.schema import ERROR_TYPES
 
 IMPLEMENTED = ('missed_code', 'unsupported_code', 'negated_condition')
-DEFERRED = ('upcoding', 'wrong_code')
+DEFERRED = ('wrong_code',)
 
 
 def cases():

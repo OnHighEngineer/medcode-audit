@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from .assertions import detect_assertions
 from .missed import find_missed
+from .upcoding import assess_upcoding
 
 
 def audit_baseline(note_text, claimed_codes) -> dict:
@@ -19,8 +20,13 @@ def audit_baseline(note_text, claimed_codes) -> dict:
         raise ValueError('claimed_codes must be a list of strings')
     states = {rec['code']: (rec['status'], rec['quote'])
               for rec in detect_assertions(note_text)}
+    upcoded = {f['code']: f for f in assess_upcoding(note_text, claimed_codes)}
     verdicts = []
     for code in claimed_codes:
+        if code in upcoded:
+            verdicts.append({'code': code, 'verdict': 'UNSUPPORTED',
+                             'evidence_quote': upcoded[code]['evidence_quote']})
+            continue
         status, quote = states.get(code, ('absent', None))
         if status in ('affirmed', 'mentioned'):
             verdicts.append({'code': code, 'verdict': 'SUPPORTED',

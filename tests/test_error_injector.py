@@ -107,7 +107,7 @@ def test_negated_works_on_empty_gold_control():
     assert r['claimed_codes'] == [{'code': 'J45.30', 'origin': 'injected'}]
 
 
-@pytest.mark.parametrize('etype', ['upcoding', 'wrong_code'])
+@pytest.mark.parametrize('etype', ['wrong_code'])
 def test_deferred_types_always_inapplicable(etype):
     for c in build_gold_cases(14):
         r = inject_error(c, etype, seed=5)
@@ -128,12 +128,13 @@ def test_batch_is_deterministic_and_pure():
 
 
 def test_applicability_counts_over_37_assertion_cases():
-    # by scenario: 25 have gold; 16 have a negated sentence; 35 leave a condition unmentioned
+    # by scenario: 25 have gold; 16 have a negated sentence; 35 leave a condition unmentioned;
+    # 11 have ordinal gold (spec 016)
     cases = build_gold_cases(14)
     counts = {e: sum(inject_error(c, e)['applicable'] for c in cases) for e in ERROR_TYPES}
     assert counts['missed_code'] == 25
     assert counts['negated_condition'] == 16
-    assert counts['upcoding'] == 0 and counts['wrong_code'] == 0
+    assert counts['upcoding'] == 11 and counts['wrong_code'] == 0
     assert counts['unsupported_code'] == 35
 
 
