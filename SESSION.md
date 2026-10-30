@@ -21,13 +21,15 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 18 (2026-10-29)
-Upcoding detection for ordinal families (spec 015, plan item 18 narrowed).
-276 passing tests (259 frozen + 17 new) on Python 3.10.12 and 3.11.16.
-`upcoding.py` flags a claimed code whose title-derived severity rank exceeds
-what the note supports: N18 stages 1-5 and J45 severity 1-4, with ranks in
-icd10_table.py pinned to the official ICD-10-CM titles. N18.9, E11, I10, D50
-and D64 stay unranked and unassessed - no invented severity. The injector's
-upcoding type stays deferred until day 19 wires same-family injections.
-wrong_code remains deferred. Next: read the day-19 plan. One harmless pytest
-iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 19 (2026-10-30)
+Upcoding is a first-class eval error type (spec 016, plan item 18 done).
+287 passing tests (276 carried + 11 new; three committed spots repinned
+under AGENTS.md rule 2, see decision-log) on Python 3.10.12 and 3.11.16.
+The injector replaces an ordinal gold code with a seeded higher-rank
+same-family code (action 'replaced'); the baseline flags it UNSUPPORTED
+through the spec-015 detector with the lower-rank sentence as evidence;
+the runner scores it with the existing UNSUPPORTED matching - no new
+verdicts. 50-case eval: upcoding detected 17/17, 0 false flags
+(docs/reviews/day-19-upcoding-eval.md, provisional). wrong_code remains
+deferred. Next: read the day-20 plan. One harmless pytest iterator
+warning remains in a frozen day-3 test.
