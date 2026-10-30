@@ -148,3 +148,15 @@ title-derived rank AND spec-011 supports a lower-ranked same-family condition
 evidence_quote, span}. Ordinal families: N18 stages, J45 severity (ranks in
 icd10_table, pinned to official titles). Unranked codes never assessed.
 Injector upcoding type still deferred (day 19 wiring).
+
+## Upcoding injection and scoring (day 19)
+Injector upcoding type (spec 016): an ordinal gold code (ranked in
+icd10_table) with a higher same-category rank available is REPLACED in the
+claim by a seed-picked higher-rank code, origin injected, action
+'replaced'; expected finding {code, finding: 'upcoding'}. No ordinal gold:
+'no_ordinal_gold_code'; top rank already: 'no_higher_rank_in_family'.
+Detection contract: the auditor marks the injected code UNSUPPORTED -
+runner unchanged, no new verdicts. Baseline: assess_upcoding finding ->
+UNSUPPORTED with the lower-rank sentence as evidence quote. wrong_code
+stays deferred. 50-case eval: upcoding detected 17/17, 0 false flags
+(provisional, expected-not-a-result; docs/reviews/day-19-upcoding-eval.md).
