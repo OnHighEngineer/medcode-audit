@@ -160,3 +160,14 @@ runner unchanged, no new verdicts. Baseline: assess_upcoding finding ->
 UNSUPPORTED with the lower-rank sentence as evidence quote. wrong_code
 stays deferred. 50-case eval: upcoding detected 17/17, 0 false flags
 (provisional, expected-not-a-result; docs/reviews/day-19-upcoding-eval.md).
+
+## Failure analysis layer (day 20)
+`failure_analysis.py` turns a run result into an explainable breakdown
+(spec 017, plan item 19): `analyze_run(run, cases)` groups not_detected
+rows and false flags by error type, spec-006 marker stratum and gold-count
+band (no_gold / single_condition / multi_condition);
+`format_failure_analysis` renders deterministic plain text with the
+provisional header and no percentages. `make_mentioned_blind_auditor()`
+is a canned demo auditor (baseline rules minus mentioned-status
+evidence) that gives the report real failures; its 50-case run and
+breakdown are in docs/reviews/day-20-failure-analysis.md (provisional).
