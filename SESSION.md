@@ -21,15 +21,15 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 19 (2026-10-30)
-Upcoding is a first-class eval error type (spec 016, plan item 18 done).
-287 passing tests (276 carried + 11 new; three committed spots repinned
-under AGENTS.md rule 2, see decision-log) on Python 3.10.12 and 3.11.16.
-The injector replaces an ordinal gold code with a seeded higher-rank
-same-family code (action 'replaced'); the baseline flags it UNSUPPORTED
-through the spec-015 detector with the lower-rank sentence as evidence;
-the runner scores it with the existing UNSUPPORTED matching - no new
-verdicts. 50-case eval: upcoding detected 17/17, 0 false flags
-(docs/reviews/day-19-upcoding-eval.md, provisional). wrong_code remains
-deferred. Next: read the day-20 plan. One harmless pytest iterator
-warning remains in a frozen day-3 test.
+## Latest completed feature: day 20 (2026-10-31)
+Failure analysis report (spec 017, plan item 19 done). 300 passing tests
+(287 carried + 13 new, all frozen) on Python 3.10.12 and 3.11.17.
+`analyze_run(run, cases)` breaks not_detected rows and false flags down
+by error type, spec-006 marker stratum and gold-count band;
+`format_failure_analysis` renders deterministic provisional text with no
+percentages. `make_mentioned_blind_auditor()` (demo-only, baseline rules
+minus mentioned-status evidence) gives the report real failures: its
+50-case run puts all 13 misses and all 18 false flags in the `none`
+marker stratum (docs/reviews/day-20-failure-analysis.md, provisional).
+wrong_code remains deferred. Next: read the day-21 plan. One harmless
+pytest iterator warning remains in a frozen day-3 test.
