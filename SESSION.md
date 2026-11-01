@@ -21,15 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 20 (2026-10-31)
-Failure analysis report (spec 017, plan item 19 done). 300 passing tests
-(287 carried + 13 new, all frozen) on Python 3.10.12 and 3.11.17.
-`analyze_run(run, cases)` breaks not_detected rows and false flags down
-by error type, spec-006 marker stratum and gold-count band;
-`format_failure_analysis` renders deterministic provisional text with no
-percentages. `make_mentioned_blind_auditor()` (demo-only, baseline rules
-minus mentioned-status evidence) gives the report real failures: its
-50-case run puts all 13 misses and all 18 false flags in the `none`
-marker stratum (docs/reviews/day-20-failure-analysis.md, provisional).
-wrong_code remains deferred. Next: read the day-21 plan. One harmless
-pytest iterator warning remains in a frozen day-3 test.
+## Latest completed feature: day 21 (2026-11-01)
+Cost/latency tracking at the transport boundary (spec 018, plan item 20
+done). 316 passing tests (300 carried + 16 new, all frozen) on Python
+3.10.12 and 3.11. `make_tracking_transport(transport, clock)` wraps the
+spec-009 seam and records prompt/reply characters plus injected-clock
+latency per call; `format_cost_latency` renders a deterministic
+provisional summary. Records live beside the frozen spec-005 run shape.
+50-case tracked run on a canned transport: 119 calls, all accounted
+(docs/reviews/day-21-cost-latency.md, provisional). wrong_code remains
+deferred. Next: read the day-22 plan. One harmless pytest iterator
+warning remains in a frozen day-3 test.
