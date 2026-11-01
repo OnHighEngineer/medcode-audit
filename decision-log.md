@@ -411,3 +411,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** `make_mentioned_blind_auditor()` ships in `failure_analysis.py`, documented as demo-only: the spec-008 baseline rules with mentioned-status evidence ignored, so mentioned gold reads UNSUPPORTED (false flags) and missed mentioned codes go unreported (misses).
 - **Why:** The day-20 plan offered tests-or-docs placement; a module function makes docs/reviews/day-20-failure-analysis.md reproducible from the repo with one import, and the frozen tests pin its behavior. It composes the spec-011 detector and spec-015 assessment instead of duplicating them.
 - **Rejected:** Hiding it in the test suite (the review doc could not be regenerated without importing tests); a parameter on audit_baseline (muddies the canonical baseline that day-9/day-19 reviews reference).
+
+### 2026-11-01: Cost is characters, latency is an injected clock
+- **Chose:** The spec-018 wrapper counts prompt/reply size in characters and measures latency from a caller-injected `clock() -> number` read before and after each transport call. Tests and review docs use scripted clocks; nothing in the library reads wall-clock time.
+- **Why:** Characters are exact, reproducible and provider-neutral - a tokenizer would add a dependency and vendor-specific accounting for a suite that never makes live calls (Oct 21 rule). An injected clock keeps the suite deterministic and lets the day-21 review reproduce byte-for-byte.
+- **Rejected:** Token counting (dependency plus vendor coupling, rejected for v1); wall-clock capture inside the library (non-deterministic tests); estimating cost from detection counts (measures nothing that crosses the boundary).
+
+### 2026-11-01: Cost records live beside the run, never inside it
+- **Chose:** `make_tracking_transport` returns the wrapped transport plus a caller-owned records list; `summarize_records` and `format_cost_latency` take that list. The spec-005 run dict keeps its frozen keys.
+- **Why:** The run shape is pinned by frozen day-5 tests and referenced by every review; growing it for accounting would force repins with no scoring benefit. A separate list also lets one tracked transport feed several runs with continuous call numbering.
+- **Rejected:** Attaching records to the run dict (spec-005 churn); global module state (hidden coupling, breaks determinism under reuse).
