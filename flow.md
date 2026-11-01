@@ -171,3 +171,14 @@ provisional header and no percentages. `make_mentioned_blind_auditor()`
 is a canned demo auditor (baseline rules minus mentioned-status
 evidence) that gives the report real failures; its 50-case run and
 breakdown are in docs/reviews/day-20-failure-analysis.md (provisional).
+
+## Cost/latency layer (day 21)
+`cost_latency.py` accounts every model call at the spec-009 transport
+seam (spec 018, plan item 20): `make_tracking_transport(transport,
+clock)` wraps any transport and appends `{call, prompt_chars,
+reply_chars, latency}` per call to a caller-owned list - characters are
+the offline unit, latency comes from the injected clock, no live
+provider needed. `summarize_records` and `format_cost_latency` render a
+deterministic provisional summary; records stay outside the frozen
+spec-005 run shape. The 50-case tracked run with a canned transport is
+in docs/reviews/day-21-cost-latency.md (provisional).
