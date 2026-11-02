@@ -21,14 +21,12 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 21 (2026-11-01)
-Cost/latency tracking at the transport boundary (spec 018, plan item 20
-done). 316 passing tests (300 carried + 16 new, all frozen) on Python
-3.10.12 and 3.11. `make_tracking_transport(transport, clock)` wraps the
-spec-009 seam and records prompt/reply characters plus injected-clock
-latency per call; `format_cost_latency` renders a deterministic
-provisional summary. Records live beside the frozen spec-005 run shape.
-50-case tracked run on a canned transport: 119 calls, all accounted
-(docs/reviews/day-21-cost-latency.md, provisional). wrong_code remains
-deferred. Next: read the day-22 plan. One harmless pytest iterator
+## Latest completed feature: day 22 (2026-11-02)
+Week 3 review (plan item 21 done, docs-only day - no code or test
+changes). 316 passing tests on Python 3.10.12 and 3.11, confirmed before
+and after. docs/reviews/day-22-week-3-review.md covers the seven week-3
+layers (specs 012-018), the consistency read (one drift fixed: day-15
+flow section now cites spec 012), the deferred list (wrong_code mapping,
+live LLM eval pending Manju's approval, milestone 6 label review) and
+week 4's theme. Next: read the day-23 plan. One harmless pytest iterator
 warning remains in a frozen day-3 test.
