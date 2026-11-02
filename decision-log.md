@@ -421,3 +421,8 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** `make_tracking_transport` returns the wrapped transport plus a caller-owned records list; `summarize_records` and `format_cost_latency` take that list. The spec-005 run dict keeps its frozen keys.
 - **Why:** The run shape is pinned by frozen day-5 tests and referenced by every review; growing it for accounting would force repins with no scoring benefit. A separate list also lets one tracked transport feed several runs with continuous call numbering.
 - **Rejected:** Attaching records to the run dict (spec-005 churn); global module state (hidden coupling, breaks determinism under reuse).
+
+### 2026-11-02: Week-3 consistency read found one drift - day-15 flow section missed its spec citation
+- **Chose:** Added "(spec 012: ...)" to the code lookup flow section; every other week-3 layer cites its spec inline. No code or test change.
+- **Why:** The week-2 review established that every flow layer traces to a spec; the day-15 section was the one exception, so the citation was dropped in at the week-3 read rather than left for a later archaeology session.
+- **Rejected:** Rewriting the section's structure (text already matches the code; only the citation was missing); a rule that flow sections must name plan items too (spec trace is the load-bearing link).
