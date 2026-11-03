@@ -426,3 +426,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Added "(spec 012: ...)" to the code lookup flow section; every other week-3 layer cites its spec inline. No code or test change.
 - **Why:** The week-2 review established that every flow layer traces to a spec; the day-15 section was the one exception, so the citation was dropped in at the week-3 read rather than left for a later archaeology session.
 - **Rejected:** Rewriting the section's structure (text already matches the code; only the citation was missing); a rule that flow sections must name plan items too (spec trace is the load-bearing link).
+
+### 2026-11-03: The report generator assembles frozen formatters verbatim
+- **Chose:** `generate_report(run, analysis=None, cost_records=None)` owns the title, provisional header and seed line, and embeds `format_report`, `format_failure_analysis` and `format_cost_latency` output verbatim in fenced blocks. Separate inputs, cost records optional; the generator never re-renders numbers itself.
+- **Why:** Report wording lives in exactly one place per module, so the assembled document cannot drift from the artifacts a reviewer would check separately, and no new rendering logic needs its own wording rules. Optional cost records keep baseline-only runs generatable; an empty list renders the honest "no calls recorded" section.
+- **Rejected:** One bundle dict (hides which artifact is missing); re-rendering tallies inside the generator (two sources of the same numbers); validating provisional headers on inputs instead of owning the header (a caller could still produce an unheaded report).
+
+### 2026-11-03: HTML stays out of report-generator v1
+- **Chose:** The 30-day plan's "report generator (markdown/HTML)" is satisfied by markdown now; HTML waits for a later day if one picks it up.
+- **Why:** The markdown report is the reviewer-facing artifact every review doc already uses; HTML adds escaping and styling surface with no consumer yet.
+- **Rejected:** Shipping a minimal HTML wrapper the same day (unrequested surface, new escaping rules to test).
