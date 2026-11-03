@@ -182,3 +182,13 @@ provider needed. `summarize_records` and `format_cost_latency` render a
 deterministic provisional summary; records stay outside the frozen
 spec-005 run shape. The 50-case tracked run with a canned transport is
 in docs/reviews/day-21-cost-latency.md (provisional).
+
+## Report generator layer (day 23)
+run + analysis + cost records -> `generate_report` (spec 019, plan item
+22): one markdown eval report. The generator owns the title, provisional
+header and seed line and embeds the frozen spec-005/017/018 formatters
+verbatim in fenced blocks - it assembles, never recomputes. Separate
+inputs, cost records optional (an empty list renders "no calls
+recorded" for the rule baseline). Deterministic, no percentages, no HTML
+in v1. The 50-case baseline report is docs/reviews/day-23-report.md
+(provisional).
