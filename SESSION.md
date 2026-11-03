@@ -21,12 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 22 (2026-11-02)
-Week 3 review (plan item 21 done, docs-only day - no code or test
-changes). 316 passing tests on Python 3.10.12 and 3.11, confirmed before
-and after. docs/reviews/day-22-week-3-review.md covers the seven week-3
-layers (specs 012-018), the consistency read (one drift fixed: day-15
-flow section now cites spec 012), the deferred list (wrong_code mapping,
-live LLM eval pending Manju's approval, milestone 6 label review) and
-week 4's theme. Next: read the day-23 plan. One harmless pytest iterator
-warning remains in a frozen day-3 test.
+## Latest completed feature: day 23 (2026-11-03)
+Report generator, markdown v1 (spec 019, plan item 22 done). 328 passing
+tests (316 carried + 12 new, all frozen) on Python 3.10.12 and 3.11.
+`generate_report(run, analysis=None, cost_records=None)` assembles one
+markdown eval report: it owns the title, provisional header and seed
+line and embeds the frozen spec-005/017/018 formatters verbatim - it
+assembles, never recomputes. HTML out of scope for v1. The 50-case
+baseline report is docs/reviews/day-23-report.md (provisional).
+wrong_code remains deferred. Next: read the day-24 plan. One harmless
+pytest iterator warning remains in a frozen day-3 test.
