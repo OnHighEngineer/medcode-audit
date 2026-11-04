@@ -192,3 +192,13 @@ inputs, cost records optional (an empty list renders "no calls
 recorded" for the rule baseline). Deterministic, no percentages, no HTML
 in v1. The 50-case baseline report is docs/reviews/day-23-report.md
 (provisional).
+
+## Case schema v2 (day 24)
+case JSON -> `parse_case` (specs 001 + 020): optional `procedure_codes`
+list, each entry a code (generic uppercase-alnum 4-7 shape,
+vocabulary-neutral) plus a verbatim evidence quote in the note. v1 cases
+parse unchanged; the Case dataclass gains `procedure_codes` defaulting
+empty. The runner and all auditors ignore procedure codes in v2; the
+real procedure vocabulary for case DATA is pending the owner's licensing
+decision (see decision-log 2026-11-04) and no real codes or descriptions
+are committed anywhere.
