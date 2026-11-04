@@ -436,3 +436,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The 30-day plan's "report generator (markdown/HTML)" is satisfied by markdown now; HTML waits for a later day if one picks it up.
 - **Why:** The markdown report is the reviewer-facing artifact every review doc already uses; HTML adds escaping and styling surface with no consumer yet.
 - **Rejected:** Shipping a minimal HTML wrapper the same day (unrequested surface, new escaping rules to test).
+
+### 2026-11-04: Case schema v2 is vocabulary-neutral; the procedure vocabulary stays pending
+- **Chose:** Spec 020 adds an optional `procedure_codes` field (each entry a code plus verbatim evidence quote) validated by a generic shape rule - uppercase alphanumeric, 4-7 chars - that fits CPT-style, HCPCS-Level-II-style and clearly synthetic placeholders without naming any of them. Every v1 case parses unchanged and no existing test was touched.
+- **Why:** Licensing research on primary sources (AMA CPT licensing page; AMA compliance article; US DOL OWCP page stating HCPCS Level II is public domain unless CMS notes otherwise; CMS HCPCS page) shows CPT content requires an AMA license while HCPCS Level II is CMS-maintained and public domain unless otherwise noted. Choosing the vocabulary is a scope decision for the owner, not for the build; the schema does not depend on it.
+- **Rejected:** Committing bare CPT codes before permission is verified (AMA's blanket license language establishes no bare-code exception); silently substituting HCPCS Level II for the CPT-scoped plan item (owner's call); blocking the schema on the vocabulary decision (they are independent).
+
+### 2026-11-04: Tests and fixtures use clearly synthetic placeholder procedure codes only
+- **Chose:** All v2 test fixtures use placeholder codes (PX001, A0000-shape strings) that match no real code set.
+- **Why:** Even committing bare real procedure identifiers is the unsettled licensing question; placeholders keep the suite lawful under every outcome of the pending vocabulary decision.
+- **Rejected:** Real CPT numbers in tests "because tests are not data" (they are still committed publication).
