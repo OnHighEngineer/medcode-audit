@@ -202,3 +202,14 @@ empty. The runner and all auditors ignore procedure codes in v2; the
 real procedure vocabulary for case DATA is pending the owner's licensing
 decision (see decision-log 2026-11-04) and no real codes or descriptions
 are committed anywhere.
+
+## Regression suite + CI (day 26)
+data/synthetic (50 cases) -> `run_regression` (spec 022, plan item 26):
+run_eval + audit_baseline at seeds (0, 1, 2), tally numbers and
+inapplicability reasons captured per seed per error type.
+`check_snapshot` diffs a live run against
+data/regression/baseline-snapshot.json and names every drifted value.
+The committed snapshot is day-26 actual behavior, provisional as ever;
+regenerating it is a deliberate commit with its own decision-log entry.
+GitHub Actions runs pytest on Python 3.10 and 3.11 on every push/PR to
+main, enforcing the dual-version rule.
