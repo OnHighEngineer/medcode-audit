@@ -21,16 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 24 partial (2026-11-04)
-Case schema v2, vocabulary-neutral slice only (spec 020, plan item 23
-PARTIAL). 348 passing tests (328 carried + 20 new, all frozen; no
-existing test touched) on Python 3.10.12 and 3.11. `parse_case` accepts
-an optional `procedure_codes` field - generic shape rule, verbatim
-evidence quotes, v1 cases unchanged. Licensing research (AMA, CMS, US
-DOL primary sources) shows CPT content requires an AMA license while
-HCPCS Level II is CMS-maintained and public domain unless otherwise
-noted; the vocabulary decision for case data is PENDING Manju (raised
-via main, morning of Nov 4). The CPT plan item is NOT complete: case
-data, lookup and procedure auditing wait on that decision. Next: read
-the day-25 plan. One harmless pytest iterator warning remains in a
-frozen day-3 test.
+## Latest completed feature: day 26 (2026-11-08)
+Regression suite + CI (spec 022, plan item 26). 356 passing tests (348
+carried + 8 new, all frozen; no existing test touched) on Python 3.10.12
+and 3.11. `run_regression` snapshots the baseline eval over all 50
+synthetic cases at seeds (0, 1, 2); `check_snapshot` names any drifted
+tally number or reason against data/regression/baseline-snapshot.json.
+GitHub Actions now runs pytest on 3.10 and 3.11 on every push/PR to
+main. The procedure vocabulary decision (plan items 23/24, spec 021
+draft) is still PENDING Manju; spec 021's number is reserved for it.
+Next: read the day-27 plan.
