@@ -446,3 +446,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** All v2 test fixtures use placeholder codes (PX001, A0000-shape strings) that match no real code set.
 - **Why:** Even committing bare real procedure identifiers is the unsettled licensing question; placeholders keep the suite lawful under every outcome of the pending vocabulary decision.
 - **Rejected:** Real CPT numbers in tests "because tests are not data" (they are still committed publication).
+
+### 2026-11-08: Regression suite snapshots behavior, not labels
+- **Chose:** `run_regression` re-runs the 50 synthetic cases through run_eval + audit_baseline at seeds (0, 1, 2) and `check_snapshot` diffs every tally number and inapplicability reason against a committed snapshot (data/regression/baseline-snapshot.json). Drift surfaces as a failing test naming the seed, error type, field and both values.
+- **Why:** Later days will edit the injector, runner, baseline and detectors; without a snapshot, a change that alters eval behavior could land silently under a green unit suite. Three seeds cover seed-dependent injector branches. The snapshot records actual behavior as of day 26 - it guards against drift, it does not re-validate labels (milestone 6 stays the label gate).
+- **Rejected:** Asserting expected detection counts directly in tests without a snapshot file (same coverage but unreadable diffs and no single artifact to review); snapshotting LLM-auditor output too (needs a canned transport decision, deferred to a later day); auto-regenerating the snapshot inside the test run (defeats the guard).
+
+### 2026-11-08: CI enforces the dual-Python rule on every push
+- **Chose:** GitHub Actions matrix on Python 3.10 and 3.11 running pytest on push/PR to main, with fail-fast disabled so both versions always report.
+- **Why:** The standing rule says the suite stays green on 3.10 and 3.11; until now that was verified by hand each day. The repo installs nothing beyond pytest (test imports resolve through the pytest pythonpath setting), so the workflow stays minimal.
+- **Rejected:** uv-based setup (extra moving part for zero gain here); running only on PRs (direct pushes to main are this project's actual flow).
