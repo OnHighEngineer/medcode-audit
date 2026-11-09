@@ -71,3 +71,28 @@ an approved provider, secure secret intake, a spend cap and a data scope first.
 Every auditor reply is validated fail-closed, and any volunteered evidence
 quote must be a verbatim note substring. All counts stay provisional until the
 milestone 6 label review is recorded.
+
+## Results (day 27)
+
+One offline command runs the whole pipeline on the 50 synthetic cases and
+prints the eval report a reviewer reads - runner tally plus failure
+analysis, no keys, no network:
+
+```
+PYTHONPATH=src python -m medcode_audit.demo
+```
+
+Full committed output: `docs/reviews/day-27-demo-output.md`. Headline at
+seed 0 (rule baseline):
+
+```
+wrong_code: not implemented (deferred_unverified_mapping), 50 cases skipped
+upcoding: detected 17/17, not detected 0, inapplicable 33, false flags on gold claims 0
+unsupported_code: detected 48/48, not detected 0, inapplicable 2, false flags on gold claims 0
+missed_code: detected 38/38, not detected 0, inapplicable 12, false flags on gold claims 0
+negated_condition: detected 16/16, not detected 0, inapplicable 34, false flags on gold claims 0
+```
+
+Every count is provisional: synthetic labels, milestone 6 label review
+still pending. This is a behavior demo, not an accuracy benchmark and not
+clinical or payer guidance.
