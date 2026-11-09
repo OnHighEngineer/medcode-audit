@@ -213,3 +213,12 @@ The committed snapshot is day-26 actual behavior, provisional as ever;
 regenerating it is a deliberate commit with its own decision-log entry.
 GitHub Actions runs pytest on Python 3.10 and 3.11 on every push/PR to
 main, enforcing the dual-version rule.
+
+## Demo entry point (day 27)
+data/synthetic -> `run_demo` (spec 023, plan item 27): the spec-022
+loader, run_eval + audit_baseline at seed 0, analyze_run,
+generate_report - the assembled markdown report, printed by
+`python -m medcode_audit.demo`. Baseline-only on purpose: no transports,
+no network, deterministic; the committed output is
+docs/reviews/day-27-demo-output.md and README quotes its tally lines
+verbatim. Provisional header, no percentages.
