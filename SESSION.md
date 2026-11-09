@@ -21,13 +21,12 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 26 (2026-11-08)
-Regression suite + CI (spec 022, plan item 26). 356 passing tests (348
-carried + 8 new, all frozen; no existing test touched) on Python 3.10.12
-and 3.11. `run_regression` snapshots the baseline eval over all 50
-synthetic cases at seeds (0, 1, 2); `check_snapshot` names any drifted
-tally number or reason against data/regression/baseline-snapshot.json.
-GitHub Actions now runs pytest on 3.10 and 3.11 on every push/PR to
-main. The procedure vocabulary decision (plan items 23/24, spec 021
-draft) is still PENDING Manju; spec 021's number is reserved for it.
-Next: read the day-27 plan.
+## Latest completed feature: day 27 (2026-11-09)
+Demo entry point + README results (spec 023, plan item 27). 363 passing
+tests (356 carried + 7 new, all frozen; no existing test touched) on
+Python 3.10.12 and 3.11. `python -m medcode_audit.demo` runs the full
+offline pipeline (regression loader, baseline eval, failure analysis,
+report) and prints the assembled report; committed output at
+docs/reviews/day-27-demo-output.md, README quotes it verbatim. The
+procedure vocabulary decision (items 23/24, spec 021 draft) is still
+PENDING Manju. Next: read the day-28 plan.
