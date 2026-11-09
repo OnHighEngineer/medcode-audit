@@ -456,3 +456,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** GitHub Actions matrix on Python 3.10 and 3.11 running pytest on push/PR to main, with fail-fast disabled so both versions always report.
 - **Why:** The standing rule says the suite stays green on 3.10 and 3.11; until now that was verified by hand each day. The repo installs nothing beyond pytest (test imports resolve through the pytest pythonpath setting), so the workflow stays minimal.
 - **Rejected:** uv-based setup (extra moving part for zero gain here); running only on PRs (direct pushes to main are this project's actual flow).
+
+### 2026-11-09: The demo is baseline-only and reuses the regression loader
+- **Chose:** `run_demo` loads cases with the spec-022 `load_regression_cases` and assembles exactly `generate_report(run_eval(cases, audit_baseline, seed), analyze_run(run, cases))`; `main()` prints it. No LLM-auditor lane in the demo.
+- **Why:** One loader for the demo and the regression suite means both read the same bytes the same way, and the spec-019 formatter stays the only output contract. A canned-reply LLM demo could read as a real model result to a casual reviewer; the honest offline story is the rule baseline end to end.
+- **Rejected:** A canned-transport LLM section in the demo (invites misreading; the wiring is already covered by tests); argparse/flags (new surface with no consumer); retyping tally numbers in README (numbers are quoted verbatim from the committed demo artifact).
+
+### 2026-11-09: README results quote the committed artifact, never retyped numbers
+- **Chose:** The README results section shows the run command and quotes the seed-0 tally lines verbatim from docs/reviews/day-27-demo-output.md.
+- **Why:** Numbers a reader sees must trace to a generated artifact; hand-copied figures drift silently.
+- **Rejected:** A badge or percentage summary (the repo bans percentages and unverified claims); leaving results undocumented (plan item 27's README half).
