@@ -13,9 +13,13 @@ import json
 from pathlib import Path
 
 from .baseline import audit_baseline
+from .canned_llm import make_gold_transport
+from .llm_auditor import make_llm_auditor
 from .runner import run_eval
 
 REGRESSION_SEEDS = (0, 1, 2)
+
+LANES = ('baseline', 'llm')
 
 _ROW_FIELDS = ('applicable', 'detected', 'not_detected', 'inapplicable',
                'false_flags', 'reasons')
@@ -47,15 +51,19 @@ def load_regression_cases(directory) -> list:
     return cases
 
 
-def run_regression(cases, seeds=REGRESSION_SEEDS) -> dict:
-    """Snapshot the baseline eval tally over cases for each seed."""
+def run_regression(cases, seeds=REGRESSION_SEEDS, lane='baseline') -> dict:
+    """Snapshot the eval tally over cases for each seed and lane."""
     if not isinstance(cases, list) or any(not isinstance(c, dict) for c in cases):
         raise ValueError('cases must be a list of dicts')
     if not _valid_seeds(seeds):
         raise ValueError('seeds must be a tuple or list of ints')
+    if lane not in LANES:
+        raise ValueError(f'lane must be one of {LANES}')
+    auditor = (audit_baseline if lane == 'baseline'
+               else make_llm_auditor(make_gold_transport(cases)))
     out = {'case_count': len(cases), 'seeds': {}}
     for seed in seeds:
-        run = run_eval(cases, audit_baseline, seed=seed)
+        run = run_eval(cases, auditor, seed=seed)
         out['seeds'][str(seed)] = {
             etype: {field: run['tally'][etype][field] for field in _ROW_FIELDS}
             for etype in run['tally']
