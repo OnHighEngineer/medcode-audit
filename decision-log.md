@@ -466,3 +466,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The README results section shows the run command and quotes the seed-0 tally lines verbatim from docs/reviews/day-27-demo-output.md.
 - **Why:** Numbers a reader sees must trace to a generated artifact; hand-copied figures drift silently.
 - **Rejected:** A badge or percentage summary (the repo bans percentages and unverified claims); leaving results undocumented (plan item 27's README half).
+
+### 2026-11-10: The LLM regression lane answers from gold truth through the real prompt
+- **Chose:** `make_gold_transport` (canned_llm.py) parses the spec-009 prompt back - note between the fences, claimed codes from the JSON line - and replies from the committed case gold: SUPPORTED with the verbatim evidence quote for gold codes, UNSUPPORTED otherwise, missed = sorted unclaimed gold. `run_regression(..., lane='llm')` runs the eval through make_llm_auditor with that transport; snapshot at data/regression/llm-snapshot.json.
+- **Why:** The lane guards the LLM auditor's end-to-end wiring (prompt build, transport, reply parse, spec-007 validation, runner integration) with zero provider access. Parsing the real prompt, rather than keying replies by hash, keeps the canned side honest: a prompt-format change breaks the lane loudly instead of silently passing on stale replies. Gold-truth replies detect everything, so any drift shows as a named mismatch. The lane parameter defaults to 'baseline', so the day-26 snapshot and every existing test pass untouched.
+- **Rejected:** Committing hundreds of per-prompt canned replies (heavy, drifts stale silently); a noisy/imperfect canned reply set (a robustness question, not a wiring guard); a separate runner function (a lane parameter keeps one entry point and the frozen shape).
+
+### 2026-11-10: Repeated notes are allowed only with identical gold
+- **Chose:** make_gold_transport accepts a repeated note_text when its gold map is identical (the day-2 batch has three such template pairs: gen-005/010, gen-006/011, gen-007/012) and raises on the same note with different gold.
+- **Why:** Keying replies by note is unambiguous for identical-gold duplicates; conflicting gold for one note would be true ambiguity and must fail loudly rather than guess.
+- **Rejected:** Keying by case id (the transport only ever sees the prompt, never the case); rejecting all duplicates (false failure on real committed data).
