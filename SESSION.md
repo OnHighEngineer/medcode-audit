@@ -21,12 +21,12 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 27 (2026-11-09)
-Demo entry point + README results (spec 023, plan item 27). 363 passing
-tests (356 carried + 7 new, all frozen; no existing test touched) on
-Python 3.10.12 and 3.11. `python -m medcode_audit.demo` runs the full
-offline pipeline (regression loader, baseline eval, failure analysis,
-report) and prints the assembled report; committed output at
-docs/reviews/day-27-demo-output.md, README quotes it verbatim. The
-procedure vocabulary decision (items 23/24, spec 021 draft) is still
-PENDING Manju. Next: read the day-28 plan.
+## Latest completed feature: day 28 (2026-11-10)
+LLM-auditor regression lane (spec 024). 371 passing tests (363 carried +
+8 new, all frozen; no existing test touched) on Python 3.10.12 and 3.11.
+canned_llm.make_gold_transport answers spec-009 prompts from committed
+gold truth; run_regression(lane='llm') snapshots the LLM-auditor eval at
+data/regression/llm-snapshot.json. Baseline lane and its snapshot are
+byte-identical to day 26. The procedure vocabulary decision (items
+23/24, spec 021 draft) is still PENDING Manju. Next: read the day-29
+plan.
