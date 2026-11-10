@@ -222,3 +222,14 @@ generate_report - the assembled markdown report, printed by
 no network, deterministic; the committed output is
 docs/reviews/day-27-demo-output.md and README quotes its tally lines
 verbatim. Provisional header, no percentages.
+
+## LLM regression lane (day 28)
+data/synthetic -> `run_regression(..., lane='llm')` (spec 024): the same
+50-case eval, but through make_llm_auditor with `make_gold_transport`
+(canned_llm.py) - a deterministic canned transport that parses the
+spec-009 prompt and answers from committed gold truth, fail-closed on
+unknown notes or malformed prompts. The lane guards LLM-auditor WIRING
+end to end (prompt build, reply parse, spec-007 validation, runner
+integration); it says nothing about real model quality. Snapshot:
+data/regression/llm-snapshot.json, same regeneration rules as the
+baseline lane. Offline, no provider, no spend; counts provisional.
