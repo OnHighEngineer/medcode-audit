@@ -233,3 +233,12 @@ end to end (prompt build, reply parse, spec-007 validation, runner
 integration); it says nothing about real model quality. Snapshot:
 data/regression/llm-snapshot.json, same regeneration rules as the
 baseline lane. Offline, no provider, no spend; counts provisional.
+
+## HTML report rendering (day 29)
+spec-019 markdown report -> `render_html` (spec 025, plan item 22's
+HTML half): a grammar-limited translator - h1 title, PROVISIONAL banner,
+h2 sections, pre/code fenced blocks, p paragraphs - with total escaping
+of every text node, one inline style block, no JavaScript, no assets,
+deterministic. `run_demo_html` wraps run_demo; the committed rendering
+is docs/reviews/day-29-demo-report.html. Numbers still come only from
+the frozen module formatters; unknown markdown stays literal text.
