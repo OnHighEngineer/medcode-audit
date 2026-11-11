@@ -11,6 +11,7 @@ from pathlib import Path
 
 from .baseline import audit_baseline
 from .failure_analysis import analyze_run
+from .html_report import render_html
 from .regression import load_regression_cases
 from .report import generate_report
 from .runner import run_eval
@@ -28,6 +29,11 @@ def run_demo(case_dir=None, seed=DEMO_SEED) -> str:
     cases = load_regression_cases(directory)
     run = run_eval(cases, audit_baseline, seed=seed)
     return generate_report(run, analyze_run(run, cases))
+
+
+def run_demo_html(case_dir=None, seed=DEMO_SEED) -> str:
+    """Return run_demo rendered as a standalone HTML page (spec 025)."""
+    return render_html(run_demo(case_dir, seed))
 
 
 def main() -> int:
