@@ -476,3 +476,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** make_gold_transport accepts a repeated note_text when its gold map is identical (the day-2 batch has three such template pairs: gen-005/010, gen-006/011, gen-007/012) and raises on the same note with different gold.
 - **Why:** Keying replies by note is unambiguous for identical-gold duplicates; conflicting gold for one note would be true ambiguity and must fail loudly rather than guess.
 - **Rejected:** Keying by case id (the transport only ever sees the prompt, never the case); rejecting all duplicates (false failure on real committed data).
+
+### 2026-11-11: HTML renders the assembled markdown, never the run dict
+- **Chose:** `render_html(markdown)` translates the spec-019 report text (h1 title, banner for the provisional header line, h2 sections, pre/code for fenced blocks, p for the rest) with total escaping of & < > " ' in every text node. One inline style block, no JavaScript, no assets. `run_demo_html` wraps run_demo.
+- **Why:** Rendering the frozen formatter output guarantees no number is ever recomputed or re-rendered outside the module that owns its wording (the day-23 report decision). A grammar-limited translator needs no markdown dependency and treats unknown markdown as literal text, so nothing in the input can become markup.
+- **Rejected:** A structured render from the run dict (a second source of the same numbers); a markdown library (new dependency for a five-construct grammar); inline-markdown support (interpreting ** or links lets input become markup for zero reviewer value).
+
+### 2026-11-11: Escaping is total and banner detection is content-based
+- **Chose:** The provisional banner is any non-fenced line containing PROVISIONAL; escaping covers apostrophes as &#x27; and escapes & first so entities can never double-decode.
+- **Why:** The banner must survive formatter wording tweaks as long as the milestone-6 keyword stays; & -first ordering is the standard injection-safe escape order.
+- **Rejected:** Matching the exact current banner sentence (brittle); escaping only the HTML4 quartet (attribute contexts with single quotes stay exposed).
