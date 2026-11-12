@@ -13,13 +13,17 @@ import json
 from pathlib import Path
 
 from .baseline import audit_baseline
-from .canned_llm import make_gold_transport
+from .canned_llm import make_gold_transport, make_noisy_transport
 from .llm_auditor import make_llm_auditor
 from .runner import run_eval
 
 REGRESSION_SEEDS = (0, 1, 2)
 
-LANES = ('baseline', 'llm')
+LANES = ('baseline', 'llm', 'noisy_wrong_verdict', 'noisy_fabricated_quote',
+         'noisy_dropped_verdict')
+
+_NOISY_CORRUPTION = {f'noisy_{c}': c
+                     for c in ('wrong_verdict', 'fabricated_quote', 'dropped_verdict')}
 
 _ROW_FIELDS = ('applicable', 'detected', 'not_detected', 'inapplicable',
                'false_flags', 'reasons')
@@ -59,11 +63,22 @@ def run_regression(cases, seeds=REGRESSION_SEEDS, lane='baseline') -> dict:
         raise ValueError('seeds must be a tuple or list of ints')
     if lane not in LANES:
         raise ValueError(f'lane must be one of {LANES}')
-    auditor = (audit_baseline if lane == 'baseline'
-               else make_llm_auditor(make_gold_transport(cases)))
+    if lane == 'baseline':
+        auditor = audit_baseline
+    elif lane == 'llm':
+        auditor = make_llm_auditor(make_gold_transport(cases))
+    else:
+        auditor = make_llm_auditor(
+            make_noisy_transport(cases, _NOISY_CORRUPTION[lane]))
     out = {'case_count': len(cases), 'seeds': {}}
     for seed in seeds:
-        run = run_eval(cases, auditor, seed=seed)
+        try:
+            run = run_eval(cases, auditor, seed=seed)
+        except ValueError as exc:
+            if lane not in _NOISY_CORRUPTION:
+                raise
+            out['seeds'][str(seed)] = {'validation_error': str(exc)}
+            continue
         out['seeds'][str(seed)] = {
             etype: {field: run['tally'][etype][field] for field in _ROW_FIELDS}
             for etype in run['tally']
