@@ -1,0 +1,193 @@
+{
+  "lanes": {
+    "noisy_dropped_verdict": {
+      "case_count": 50,
+      "seeds": {
+        "0": {
+          "validation_error": "verdicts must cover exactly the claimed codes"
+        },
+        "1": {
+          "validation_error": "verdicts must cover exactly the claimed codes"
+        },
+        "2": {
+          "validation_error": "verdicts must cover exactly the claimed codes"
+        }
+      }
+    },
+    "noisy_fabricated_quote": {
+      "case_count": 50,
+      "seeds": {
+        "0": {
+          "validation_error": "evidence_quote must be a verbatim note substring"
+        },
+        "1": {
+          "validation_error": "evidence_quote must be a verbatim note substring"
+        },
+        "2": {
+          "validation_error": "evidence_quote must be a verbatim note substring"
+        }
+      }
+    },
+    "noisy_wrong_verdict": {
+      "case_count": 50,
+      "seeds": {
+        "0": {
+          "missed_code": {
+            "applicable": 38,
+            "detected": 38,
+            "false_flags": 7,
+            "inapplicable": 12,
+            "not_detected": 0,
+            "reasons": {
+              "no_gold_code": 12
+            }
+          },
+          "negated_condition": {
+            "applicable": 16,
+            "detected": 16,
+            "false_flags": 10,
+            "inapplicable": 34,
+            "not_detected": 0,
+            "reasons": {
+              "no_negated_target": 34
+            }
+          },
+          "unsupported_code": {
+            "applicable": 48,
+            "detected": 48,
+            "false_flags": 38,
+            "inapplicable": 2,
+            "not_detected": 0,
+            "reasons": {
+              "no_unmentioned_condition": 2
+            }
+          },
+          "upcoding": {
+            "applicable": 17,
+            "detected": 17,
+            "false_flags": 4,
+            "inapplicable": 33,
+            "not_detected": 0,
+            "reasons": {
+              "no_ordinal_gold_code": 33
+            }
+          },
+          "wrong_code": {
+            "applicable": 0,
+            "detected": 0,
+            "false_flags": 0,
+            "inapplicable": 50,
+            "not_detected": 0,
+            "reasons": {
+              "deferred_unverified_mapping": 50
+            }
+          }
+        },
+        "1": {
+          "missed_code": {
+            "applicable": 38,
+            "detected": 38,
+            "false_flags": 7,
+            "inapplicable": 12,
+            "not_detected": 0,
+            "reasons": {
+              "no_gold_code": 12
+            }
+          },
+          "negated_condition": {
+            "applicable": 16,
+            "detected": 16,
+            "false_flags": 10,
+            "inapplicable": 34,
+            "not_detected": 0,
+            "reasons": {
+              "no_negated_target": 34
+            }
+          },
+          "unsupported_code": {
+            "applicable": 48,
+            "detected": 48,
+            "false_flags": 38,
+            "inapplicable": 2,
+            "not_detected": 0,
+            "reasons": {
+              "no_unmentioned_condition": 2
+            }
+          },
+          "upcoding": {
+            "applicable": 17,
+            "detected": 17,
+            "false_flags": 4,
+            "inapplicable": 33,
+            "not_detected": 0,
+            "reasons": {
+              "no_ordinal_gold_code": 33
+            }
+          },
+          "wrong_code": {
+            "applicable": 0,
+            "detected": 0,
+            "false_flags": 0,
+            "inapplicable": 50,
+            "not_detected": 0,
+            "reasons": {
+              "deferred_unverified_mapping": 50
+            }
+          }
+        },
+        "2": {
+          "missed_code": {
+            "applicable": 38,
+            "detected": 38,
+            "false_flags": 7,
+            "inapplicable": 12,
+            "not_detected": 0,
+            "reasons": {
+              "no_gold_code": 12
+            }
+          },
+          "negated_condition": {
+            "applicable": 16,
+            "detected": 16,
+            "false_flags": 10,
+            "inapplicable": 34,
+            "not_detected": 0,
+            "reasons": {
+              "no_negated_target": 34
+            }
+          },
+          "unsupported_code": {
+            "applicable": 48,
+            "detected": 48,
+            "false_flags": 38,
+            "inapplicable": 2,
+            "not_detected": 0,
+            "reasons": {
+              "no_unmentioned_condition": 2
+            }
+          },
+          "upcoding": {
+            "applicable": 17,
+            "detected": 17,
+            "false_flags": 4,
+            "inapplicable": 33,
+            "not_detected": 0,
+            "reasons": {
+              "no_ordinal_gold_code": 33
+            }
+          },
+          "wrong_code": {
+            "applicable": 0,
+            "detected": 0,
+            "false_flags": 0,
+            "inapplicable": 50,
+            "not_detected": 0,
+            "reasons": {
+              "deferred_unverified_mapping": 50
+            }
+          }
+        }
+      }
+    }
+  }
+}
