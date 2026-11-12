@@ -66,3 +66,39 @@ def make_gold_transport(cases):
         return json.dumps({'verdicts': verdicts, 'missed_codes': missed})
 
     return transport
+
+
+CORRUPTIONS = ('wrong_verdict', 'fabricated_quote', 'dropped_verdict')
+
+_FABRICATED = 'FABRICATED QUOTE NOT IN NOTE'
+
+
+def make_noisy_transport(cases, corruption):
+    """Gold-truth transport with one deterministic corruption per reply.
+
+    See docs/specs/026-noisy-regression-lane.md."""
+    if corruption not in CORRUPTIONS:
+        raise ValueError(f'corruption must be one of {CORRUPTIONS}')
+    gold_transport = make_gold_transport(cases)  # validates cases
+
+    def transport(prompt):
+        reply = json.loads(gold_transport(prompt))
+        verdicts = reply['verdicts']
+        if not verdicts:
+            return json.dumps(reply)
+        if corruption == 'wrong_verdict':
+            for v in verdicts:
+                if v['verdict'] == 'SUPPORTED':
+                    v.pop('evidence_quote', None)
+                    v['verdict'] = 'UNSUPPORTED'
+                    break
+        elif corruption == 'fabricated_quote':
+            for v in verdicts:
+                if v['verdict'] == 'SUPPORTED':
+                    v['evidence_quote'] = _FABRICATED
+                    break
+        else:  # dropped_verdict
+            reply['verdicts'] = verdicts[1:]
+        return json.dumps(reply)
+
+    return transport
