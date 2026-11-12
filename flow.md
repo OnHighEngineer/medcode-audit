@@ -242,3 +242,14 @@ of every text node, one inline style block, no JavaScript, no assets,
 deterministic. `run_demo_html` wraps run_demo; the committed rendering
 is docs/reviews/day-29-demo-report.html. Numbers still come only from
 the frozen module formatters; unknown markdown stays literal text.
+
+## Noisy regression lanes (day 30)
+data/synthetic -> `run_regression(lane='noisy_*')` (spec 026):
+make_noisy_transport wraps the spec-024 gold transport with one
+deterministic corruption per reply. wrong_verdict flows through
+validation and surfaces as false flags on gold claims (detection
+intact); fabricated_quote and dropped_verdict are rejected by spec-007
+validation - the lane records {'validation_error': message} per seed,
+pinning that the eval aborts loudly on fabricated or incomplete output.
+Snapshot: data/regression/noisy-snapshot.json. Guards fail-closed
+wiring only; offline, provisional.
