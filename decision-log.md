@@ -486,3 +486,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** The provisional banner is any non-fenced line containing PROVISIONAL; escaping covers apostrophes as &#x27; and escapes & first so entities can never double-decode.
 - **Why:** The banner must survive formatter wording tweaks as long as the milestone-6 keyword stays; & -first ordering is the standard injection-safe escape order.
 - **Rejected:** Matching the exact current banner sentence (brittle); escaping only the HTML4 quartet (attribute contexts with single quotes stay exposed).
+
+### 2026-11-12: Noisy lanes pin BOTH halves of fail-closed
+- **Chose:** Three deterministic corruptions (make_noisy_transport): wrong_verdict flips the first claimed gold code to UNSUPPORTED (passes validation, surfaces as false flags with detection intact); fabricated_quote swaps in a clearly synthetic quote marker (spec-007 rejects: not a verbatim substring); dropped_verdict omits the first verdict (spec-007 rejects: coverage). run_regression records a rejecting lane's seed as {'validation_error': message}; clean runs keep the usual tally. One snapshot file with a lanes map.
+- **Why:** The llm lane proved good replies flow through; these lanes prove bad replies are caught exactly where the spec says - validation-time rejection for fabricated or incomplete output, visible false flags for plausible-but-wrong verdicts. Catching the ValueError inside run_regression keeps the abort honest and snapshot-able instead of crashing the suite.
+- **Rejected:** Catching ValueError for ALL lanes (would hide real baseline/llm regressions behind a snapshot edit); statistical random noise (unexplainable tallies); corrupting via regex on the reply text (bypasses the JSON contract the auditor actually parses).
+
+### 2026-11-12: Interview write-up waits for the owner's content direction
+- **Chose:** Day 30 ships the robustness lane only; the interview write-up (plan item 28) moves to day 31. Manju messaged on Nov 11 about including his HL7/CPT/ICD/EHR work; until main relays what he wants included, the write-up's content scope is his call, not the build's.
+- **Why:** A write-up is the owner's voice about his own project; drafting it hours before his direction arrives guarantees rework.
+- **Rejected:** Writing it now from the decision-log alone (scope guess); skipping the day's code while waiting (the noisy lane is independent).
