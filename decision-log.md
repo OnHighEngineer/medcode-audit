@@ -496,3 +496,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** Day 30 ships the robustness lane only; the interview write-up (plan item 28) moves to day 31. Manju messaged on Nov 11 about including his HL7/CPT/ICD/EHR work; until main relays what he wants included, the write-up's content scope is his call, not the build's.
 - **Why:** A write-up is the owner's voice about his own project; drafting it hours before his direction arrives guarantees rework.
 - **Rejected:** Writing it now from the decision-log alone (scope guess); skipping the day's code while waiting (the noisy lane is independent).
+
+### 2026-11-13: Narrow wrapping via media query, desktop untouched
+- **Chose:** A viewport meta tag plus one @media (max-width:40em) rule adding white-space:pre-wrap and overflow-wrap:anywhere to fenced blocks (spec 027). The desktop pre rule (overflow-x:auto) is byte-identical.
+- **Why:** Phone-width readers get wrapped text (measured 0px horizontal overflow in a 380px render) while desktop keeps the scrollable block reviewers already know (430px internal overflow, unchanged).
+- **Rejected:** Wrapping at all widths (changes the desktop reading the day-29 review blessed); JavaScript or a container-query polyfill (no-JS guarantee); shortening report lines (content stays verbatim from the frozen formatters).
+
+### 2026-11-13: Interview write-up scope is the decision log, nothing else
+- **Chose:** docs/interview-writeup.md (plan item 28) summarizes the project's decisions, rejections, and licensing posture strictly from decision-log.md, in the owner's first-person voice. Manju's Nov 11 messages were relayed by main as resume-tailoring clarification for a separate application, not repo content; no employment internals from that paste appear anywhere in the repo.
+- **Why:** The write-up's job is interview-ready reasoning, and the decision log is the auditable source of that reasoning. Anything beyond it would be unverified autobiography in a repo whose rule is "every claim traces to a source."
+- **Rejected:** Waiting longer (gate lifted Nov 12); folding in the HL7/EHR paste (explicitly out of scope per main's Nov 12 relay).
