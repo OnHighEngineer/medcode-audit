@@ -17,6 +17,7 @@ h2{font-size:1.1em;border-bottom:1px solid #ddd;padding-bottom:.2em}
 .banner{background:#fff8e1;border:1px solid #e0c060;padding:.6em .8em;font-weight:600}
 pre{background:#f6f8fa;border:1px solid #ddd;padding:.8em;overflow-x:auto}
 code{font-family:ui-monospace,monospace;font-size:.9em}
+@media (max-width:40em){pre{white-space:pre-wrap;overflow-wrap:anywhere}}
 </style>"""
 
 
@@ -55,5 +56,6 @@ def render_html(markdown) -> str:
     if in_fence:
         raise ValueError('unterminated fenced block')
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+            '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             f'<title>{_escape(title)}</title>\n{_STYLE}\n</head>\n<body>\n'
             f'<h1>{_escape(title)}</h1>\n' + '\n'.join(body) + '\n</body>\n</html>\n')
