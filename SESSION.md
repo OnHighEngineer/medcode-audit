@@ -21,14 +21,13 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 30 (2026-11-12)
-Noisy canned-reply regression lanes (spec 026). 390 passing tests (380
-carried + 10 new, all frozen; no existing test touched) on Python
-3.10.12 and 3.11. Three deterministic corruptions pin both halves of
-fail-closed: wrong verdicts surface as false flags, fabricated quotes
-and dropped verdicts abort the eval with a named validation error.
-Snapshot: data/regression/noisy-snapshot.json. The interview write-up
-(item 28) moved to day 31 - Manju messaged on Nov 11 about including
-his HL7/CPT/ICD/EHR work and its content scope waits on that direction
-(relayed via main). The procedure vocabulary decision (items 23/24,
-spec 021 draft) is still PENDING Manju. Next: read the day-31 plan.
+## Latest completed feature: day 31 (2026-11-13)
+Narrow-viewport HTML polish (spec 027) + interview write-up (plan item
+28). 395 passing tests (390 carried + 5 new, all frozen; no existing
+test touched) on Python 3.10.12 and 3.11. Phone-width renders wrap long
+fenced lines (0px horizontal overflow measured at 380px); desktop
+rendering is byte-identical. docs/interview-writeup.md records the
+project's decisions and licensing posture traceable to decision-log.md;
+Manju's Nov 11 messages were resume tailoring, not repo content (main
+relay Nov 12). The procedure vocabulary decision (items 23/24, spec 021
+draft) is still PENDING Manju. Next: read the day-32 plan.
