@@ -253,3 +253,10 @@ validation - the lane records {'validation_error': message} per seed,
 pinning that the eval aborts loudly on fabricated or incomplete output.
 Snapshot: data/regression/noisy-snapshot.json. Guards fail-closed
 wiring only; offline, provisional.
+
+## Narrow-viewport HTML (day 31)
+data/synthetic -> `render_html` (specs 019, 025, 027): the page now
+carries a viewport meta tag, and below 40em width fenced blocks wrap
+long lines (white-space:pre-wrap + overflow-wrap:anywhere) instead of
+scrolling. Desktop rendering, escaping and the provisional banner are
+unchanged; still no JavaScript and no external assets.
