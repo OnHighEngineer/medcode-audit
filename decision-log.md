@@ -506,3 +506,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** docs/interview-writeup.md (plan item 28) summarizes the project's decisions, rejections, and licensing posture strictly from decision-log.md, in the owner's first-person voice. Manju's Nov 11 messages were relayed by main as resume-tailoring clarification for a separate application, not repo content; no employment internals from that paste appear anywhere in the repo.
 - **Why:** The write-up's job is interview-ready reasoning, and the decision log is the auditable source of that reasoning. Anything beyond it would be unverified autobiography in a repo whose rule is "every claim traces to a source."
 - **Rejected:** Waiting longer (gate lifted Nov 12); folding in the HL7/EHR paste (explicitly out of scope per main's Nov 12 relay).
+
+### 2026-11-14: LLM-lane cost accounting lives beside the tally snapshot
+- **Chose:** run_llm_cost (spec 028) wraps the llm lane's gold transport in the spec-018 tracking transport with a deterministic step clock and snapshots summarize_records output per seed into data/regression/llm-cost-snapshot.json, reusing the spec-022 envelope and check_snapshot diff unchanged.
+- **Why:** A change that silently doubles prompt size or call count now fails a test that names the drifted number; the tally snapshot and the frozen spec-005 run shape stay untouched, so every intermediate commit stays green with no coupled push.
+- **Rejected:** Recording cost inside run_eval output (frozen shape); adding cost keys to the tally snapshot (couples the renderer of two concerns and forces a same-commit data+code change); real token counts or prices (offline-first, spec 018's character unit is the honest proxy).
+
+### 2026-11-14: requires-python corrected to >=3.10
+- **Chose:** pyproject requires-python ">=3.10" and a README line naming 3.10.12+ with CI on 3.10.12 and 3.11.
+- **Why:** CI has enforced both versions on every push since day 26 and the suite has been green on 3.10.12 since; the ">=3.11" metadata predated that and contradicted the enforced reality.
+- **Rejected:** Leaving the stale metadata (a contributor on 3.10 would be told the repo rejects the version CI proves works); claiming 3.9 (never tested - the floor is what CI runs).
