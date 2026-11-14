@@ -1,0 +1,26 @@
+{
+  "case_count": 50,
+  "seeds": {
+    "0": {
+      "calls": 119,
+      "mean_latency": 1.0,
+      "prompt_chars": 95602,
+      "reply_chars": 15586,
+      "total_latency": 119
+    },
+    "1": {
+      "calls": 119,
+      "mean_latency": 1.0,
+      "prompt_chars": 95586,
+      "reply_chars": 15597,
+      "total_latency": 119
+    },
+    "2": {
+      "calls": 119,
+      "mean_latency": 1.0,
+      "prompt_chars": 95646,
+      "reply_chars": 15630,
+      "total_latency": 119
+    }
+  }
+}
