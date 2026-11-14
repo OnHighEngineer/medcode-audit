@@ -21,13 +21,12 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 31 (2026-11-13)
-Narrow-viewport HTML polish (spec 027) + interview write-up (plan item
-28). 395 passing tests (390 carried + 5 new, all frozen; no existing
-test touched) on Python 3.10.12 and 3.11. Phone-width renders wrap long
-fenced lines (0px horizontal overflow measured at 380px); desktop
-rendering is byte-identical. docs/interview-writeup.md records the
-project's decisions and licensing posture traceable to decision-log.md;
-Manju's Nov 11 messages were resume tailoring, not repo content (main
-relay Nov 12). The procedure vocabulary decision (items 23/24, spec 021
-draft) is still PENDING Manju. Next: read the day-32 plan.
+## Latest completed feature: day 32 (2026-11-14)
+LLM-lane cost accounting (spec 028) + repo polish (item 29). 400
+passing tests (395 carried + 5 new, all frozen; no existing test
+touched) on Python 3.10.12 and 3.11. The llm lane now snapshots
+spec-018 character/latency summaries beside its tally; README gained
+the lanes/reports section and the stale requires-python >=3.11 became
+>=3.10 matching CI reality. The procedure vocabulary decision (items
+23/24, spec 021 draft) is still PENDING Manju. Next: read the day-33
+plan.
