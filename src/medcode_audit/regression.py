@@ -14,6 +14,7 @@ from pathlib import Path
 
 from .baseline import audit_baseline
 from .canned_llm import make_gold_transport, make_noisy_transport
+from .cost_latency import make_tracking_transport, summarize_records
 from .llm_auditor import make_llm_auditor
 from .runner import run_eval
 
@@ -83,6 +84,22 @@ def run_regression(cases, seeds=REGRESSION_SEEDS, lane='baseline') -> dict:
             etype: {field: run['tally'][etype][field] for field in _ROW_FIELDS}
             for etype in run['tally']
         }
+    return out
+
+
+def run_llm_cost(cases, seeds=REGRESSION_SEEDS) -> dict:
+    """Snapshot spec-018 cost accounting for the llm lane, beside the tally."""
+    if not isinstance(cases, list) or any(not isinstance(c, dict) for c in cases):
+        raise ValueError('cases must be a list of dicts')
+    if not _valid_seeds(seeds):
+        raise ValueError('seeds must be a tuple or list of ints')
+    out = {'case_count': len(cases), 'seeds': {}}
+    for seed in seeds:
+        ticks = iter(range(1_000_000_000))  # deterministic clock: +1 per reading
+        clock = lambda: next(ticks)
+        tracked, records = make_tracking_transport(make_gold_transport(cases), clock)
+        run_eval(cases, make_llm_auditor(tracked), seed=seed)
+        out['seeds'][str(seed)] = summarize_records(records)
     return out
 
 
