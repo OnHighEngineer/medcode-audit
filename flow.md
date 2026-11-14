@@ -260,3 +260,11 @@ carries a viewport meta tag, and below 40em width fenced blocks wrap
 long lines (white-space:pre-wrap + overflow-wrap:anywhere) instead of
 scrolling. Desktop rendering, escaping and the provisional banner are
 unchanged; still no JavaScript and no external assets.
+
+## LLM-lane cost accounting (day 32)
+data/synthetic -> `run_llm_cost` (spec 028): the llm lane's canned gold
+transport is wrapped in the spec-018 tracking transport with a
+deterministic step clock; per seed the spec-018 summary (calls,
+character totals, latency) is snapshotted beside the tally in
+data/regression/llm-cost-snapshot.json and diffed with the same
+check_snapshot machinery. Offline; synthetic accounting, provisional.
