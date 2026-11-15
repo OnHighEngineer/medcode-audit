@@ -21,12 +21,12 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 32 (2026-11-14)
-LLM-lane cost accounting (spec 028) + repo polish (item 29). 400
-passing tests (395 carried + 5 new, all frozen; no existing test
-touched) on Python 3.10.12 and 3.11. The llm lane now snapshots
-spec-018 character/latency summaries beside its tally; README gained
-the lanes/reports section and the stale requires-python >=3.11 became
->=3.10 matching CI reality. The procedure vocabulary decision (items
-23/24, spec 021 draft) is still PENDING Manju. Next: read the day-33
-plan.
+## Latest completed feature: day 33 (2026-11-15)
+Demo cost block (spec 029) + cost-snapshot review artifact. 405 passing
+tests (400 carried + 5 new, all frozen; no existing test touched) on
+Python 3.10.12 and 3.11. `python -m medcode_audit.demo --cost` prints
+the llm lane's spec-018 cost summary through the single rendering path;
+default demo output is byte-identical. docs/reviews/day-32-cost-snapshot.md
+explains the committed numbers; docs/plans/README.md indexes the daily
+plans. The procedure vocabulary decision (items 23/24, spec 021 draft)
+is still PENDING Manju. Next: read the day-34 plan.
