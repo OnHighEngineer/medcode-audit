@@ -516,3 +516,13 @@ Each entry: what I chose, why, what I rejected and why. This is not a change log
 - **Chose:** pyproject requires-python ">=3.10" and a README line naming 3.10.12+ with CI on 3.10.12 and 3.11.
 - **Why:** CI has enforced both versions on every push since day 26 and the suite has been green on 3.10.12 since; the ">=3.11" metadata predated that and contradicted the enforced reality.
 - **Rejected:** Leaving the stale metadata (a contributor on 3.10 would be told the repo rejects the version CI proves works); claiming 3.9 (never tested - the floor is what CI runs).
+
+### 2026-11-15: Cost rendering has one path, demo gains it behind a flag
+- **Chose:** format_cost_summary renders a spec-018 summary dict and format_cost_latency now delegates to it (spec 029); run_demo_cost renders the llm lane's committed cost numbers, and demo's main only prints them with --cost.
+- **Why:** Two rendering paths would drift; the frozen test test_main_prints_exactly_run_demo pins the default demo output byte-for-byte, so the block arrives behind a flag instead of changing what reviewers already scripted against.
+- **Rejected:** Printing cost by default (breaks a frozen test; would need a repin decision that buys nothing); a second formatter in demo.py (duplicate logic); reformatting the snapshot JSON into prose by hand (the formatter IS the prose).
+
+### 2026-11-15: Review artifact pattern extended to the cost snapshot
+- **Chose:** docs/reviews/day-32-cost-snapshot.md quotes the committed snapshot numbers verbatim and explains what a call, a character and a latency unit mean, matching the day-27 demo-output pattern.
+- **Why:** Reviewers read markdown, not JSON diffs; every quoted number traces to the committed artifact, never retyped.
+- **Rejected:** Folding the explanation into README (lanes section already points here); skipping the artifact (numbers without a reading guide invite misreading as provider cost).
