@@ -268,3 +268,10 @@ deterministic step clock; per seed the spec-018 summary (calls,
 character totals, latency) is snapshotted beside the tally in
 data/regression/llm-cost-snapshot.json and diffed with the same
 check_snapshot machinery. Offline; synthetic accounting, provisional.
+
+## Demo cost block (day 33)
+`python -m medcode_audit.demo --cost` (spec 029): after the usual
+baseline report, prints the llm lane's spec-018 cost/latency summary
+via run_demo_cost -> run_llm_cost -> format_cost_summary (the single
+rendering path format_cost_latency now delegates to). Default demo
+output is unchanged. Offline, deterministic, provisional.
