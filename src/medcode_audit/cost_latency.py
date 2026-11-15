@@ -76,8 +76,30 @@ def summarize_records(records) -> dict:
             'reply_chars': sum(r['reply_chars'] for r in records)}
 
 
-def format_cost_latency(records) -> str:
-    s = summarize_records(records)
+_SUMMARY_KEYS = ('calls', 'total_latency', 'mean_latency',
+                 'prompt_chars', 'reply_chars')
+
+
+def _check_summary(summary):
+    if not isinstance(summary, dict) or tuple(sorted(summary)) != tuple(sorted(_SUMMARY_KEYS)):
+        raise ValueError(f'summary needs exactly {sorted(_SUMMARY_KEYS)}')
+    for key in ('calls', 'prompt_chars', 'reply_chars'):
+        if type(summary[key]) is not int or summary[key] < 0:
+            raise ValueError(f'{key} must be an int >= 0')
+    if not _is_number(summary['total_latency']) or summary['total_latency'] < 0:
+        raise ValueError('total_latency must be a number >= 0')
+    mean = summary['mean_latency']
+    if summary['calls'] == 0:
+        if mean is not None:
+            raise ValueError('mean_latency must be None when calls is 0')
+    elif not _is_number(mean) or mean < 0:
+        raise ValueError('mean_latency must be a number >= 0')
+    return summary
+
+
+def format_cost_summary(summary) -> str:
+    """Render a spec-018 summary dict; the one cost/latency rendering path."""
+    s = _check_summary(summary)
     lines = [_HEADER, f"calls {s['calls']}"]
     if not s['calls']:
         lines.append('no calls recorded')
@@ -86,3 +108,7 @@ def format_cost_latency(records) -> str:
         lines.append(f"characters: prompt {s['prompt_chars']} in, "
                      f"reply {s['reply_chars']} out")
     return '\n'.join(lines) + '\n'
+
+
+def format_cost_latency(records) -> str:
+    return format_cost_summary(summarize_records(records))
