@@ -1,0 +1,116 @@
+{
+  "case_count": 50,
+  "seeds": {
+    "0": {
+      "missed_code": {
+        "calls": 38,
+        "mean_latency": 1.0,
+        "prompt_chars": 30157,
+        "reply_chars": 2391,
+        "total_latency": 38
+      },
+      "negated_condition": {
+        "calls": 16,
+        "mean_latency": 1.0,
+        "prompt_chars": 13240,
+        "reply_chars": 2458,
+        "total_latency": 16
+      },
+      "unsupported_code": {
+        "calls": 48,
+        "mean_latency": 1.0,
+        "prompt_chars": 38509,
+        "reply_chars": 8806,
+        "total_latency": 48
+      },
+      "upcoding": {
+        "calls": 17,
+        "mean_latency": 1.0,
+        "prompt_chars": 13696,
+        "reply_chars": 1931,
+        "total_latency": 17
+      },
+      "wrong_code": {
+        "calls": 0,
+        "mean_latency": null,
+        "prompt_chars": 0,
+        "reply_chars": 0,
+        "total_latency": 0
+      }
+    },
+    "1": {
+      "missed_code": {
+        "calls": 38,
+        "mean_latency": 1.0,
+        "prompt_chars": 30160,
+        "reply_chars": 2415,
+        "total_latency": 38
+      },
+      "negated_condition": {
+        "calls": 16,
+        "mean_latency": 1.0,
+        "prompt_chars": 13238,
+        "reply_chars": 2456,
+        "total_latency": 16
+      },
+      "unsupported_code": {
+        "calls": 48,
+        "mean_latency": 1.0,
+        "prompt_chars": 38501,
+        "reply_chars": 8798,
+        "total_latency": 48
+      },
+      "upcoding": {
+        "calls": 17,
+        "mean_latency": 1.0,
+        "prompt_chars": 13687,
+        "reply_chars": 1928,
+        "total_latency": 17
+      },
+      "wrong_code": {
+        "calls": 0,
+        "mean_latency": null,
+        "prompt_chars": 0,
+        "reply_chars": 0,
+        "total_latency": 0
+      }
+    },
+    "2": {
+      "missed_code": {
+        "calls": 38,
+        "mean_latency": 1.0,
+        "prompt_chars": 30157,
+        "reply_chars": 2391,
+        "total_latency": 38
+      },
+      "negated_condition": {
+        "calls": 16,
+        "mean_latency": 1.0,
+        "prompt_chars": 13241,
+        "reply_chars": 2459,
+        "total_latency": 16
+      },
+      "unsupported_code": {
+        "calls": 48,
+        "mean_latency": 1.0,
+        "prompt_chars": 38560,
+        "reply_chars": 8857,
+        "total_latency": 48
+      },
+      "upcoding": {
+        "calls": 17,
+        "mean_latency": 1.0,
+        "prompt_chars": 13688,
+        "reply_chars": 1923,
+        "total_latency": 17
+      },
+      "wrong_code": {
+        "calls": 0,
+        "mean_latency": null,
+        "prompt_chars": 0,
+        "reply_chars": 0,
+        "total_latency": 0
+      }
+    }
+  }
+}
