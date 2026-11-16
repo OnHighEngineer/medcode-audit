@@ -21,12 +21,14 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 33 (2026-11-15)
-Demo cost block (spec 029) + cost-snapshot review artifact. 405 passing
-tests (400 carried + 5 new, all frozen; no existing test touched) on
-Python 3.10.12 and 3.11. `python -m medcode_audit.demo --cost` prints
-the llm lane's spec-018 cost summary through the single rendering path;
-default demo output is byte-identical. docs/reviews/day-32-cost-snapshot.md
-explains the committed numbers; docs/plans/README.md indexes the daily
-plans. The procedure vocabulary decision (items 23/24, spec 021 draft)
-is still PENDING Manju. Next: read the day-34 plan.
+## Latest completed feature: day 34 (2026-11-16)
+Per-error-type cost split for the llm lane (spec 030) + week-5
+consistency read. 410 passing tests (405 carried + 5 new, all frozen;
+no existing test touched) on Python 3.10.12 and 3.11.
+run_llm_cost_by_type runs one tracked eval per error type and snapshots
+a spec-018 summary per type per seed beside the spec-028 totals; the
+split sums exactly to them (unsupported_code carries the most volume).
+The week-5 read found one drift - README named the wrong baseline
+snapshot file - corrected and logged. The procedure vocabulary branch
+(items 23/24, spec 021 reserved) is ON HOLD awaiting an owner decision;
+do not prep it. Next: read the day-35 plan.
