@@ -275,3 +275,12 @@ baseline report, prints the llm lane's spec-018 cost/latency summary
 via run_demo_cost -> run_llm_cost -> format_cost_summary (the single
 rendering path format_cost_latency now delegates to). Default demo
 output is unchanged. Offline, deterministic, provisional.
+
+## Per-error-type cost split (day 34)
+data/synthetic -> `run_llm_cost_by_type` (spec 030): the spec-028
+accounting split by error type - one tracked run per type through
+run_eval(..., error_types=(etype,)), one spec-018 summary per type per
+seed, snapshotted beside the combined totals in
+data/regression/llm-cost-by-type-snapshot.json. The split sums exactly
+to the spec-028 totals (pinned by a test); unsupported_code questions
+carry the most transport volume. Offline, canned, provisional.
