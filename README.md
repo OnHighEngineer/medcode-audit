@@ -97,18 +97,20 @@ Every count is provisional: synthetic labels, milestone 6 label review
 still pending. This is a behavior demo, not an accuracy benchmark and not
 clinical or payer guidance.
 
-## Regression suite, lanes and reports (days 26-31)
+## Regression suite, lanes and reports (days 26-34)
 
 A snapshot regression suite (spec 022) re-runs the 50 synthetic cases at
 fixed seeds and diffs every tally number against committed snapshots;
 CI enforces it on Python 3.10.12 and 3.11 on every push. Lanes:
 
-- `baseline`: rule-baseline tallies (data/regression/snapshot.json).
+- `baseline`: rule-baseline tallies (data/regression/baseline-snapshot.json).
 - `llm` (spec 024): the LLM auditor end to end through a deterministic
   gold-truth canned transport - drift in prompt build, reply parse or
   validation shows up as a named mismatch (data/regression/llm-snapshot.json).
 - `llm` cost accounting (spec 028): spec-018 character/latency summaries
-  beside the tally (data/regression/llm-cost-snapshot.json).
+  beside the tally (data/regression/llm-cost-snapshot.json), split per
+  error type by spec 030 (data/regression/llm-cost-by-type-snapshot.json);
+  `python -m medcode_audit.demo --cost` prints the summary (spec 029).
 - three noisy lanes (spec 026): deterministic corruptions pin both halves
   of fail-closed - wrong verdicts surface as false flags, fabricated
   quotes and dropped verdicts abort with a named validation error
@@ -116,7 +118,7 @@ CI enforces it on Python 3.10.12 and 3.11 on every push. Lanes:
 
 The same report renders as one self-contained HTML page (spec 025),
 readable on phone-width screens (spec 027): no JavaScript, no external
-assets, every report string escaped. 400 tests, green on both Python
+assets, every report string escaped. 410 tests, green on both Python
 versions (see SESSION.md).
 
 Every lane is offline: canned transports only, no provider, no key, no
