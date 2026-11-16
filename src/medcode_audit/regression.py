@@ -17,6 +17,7 @@ from .canned_llm import make_gold_transport, make_noisy_transport
 from .cost_latency import make_tracking_transport, summarize_records
 from .llm_auditor import make_llm_auditor
 from .runner import run_eval
+from .schema import ERROR_TYPES
 
 REGRESSION_SEEDS = (0, 1, 2)
 
@@ -100,6 +101,33 @@ def run_llm_cost(cases, seeds=REGRESSION_SEEDS) -> dict:
         tracked, records = make_tracking_transport(make_gold_transport(cases), clock)
         run_eval(cases, make_llm_auditor(tracked), seed=seed)
         out['seeds'][str(seed)] = summarize_records(records)
+    return out
+
+
+def run_llm_cost_by_type(cases, seeds=REGRESSION_SEEDS) -> dict:
+    """Snapshot spec-018 cost accounting per error type for the llm lane.
+
+    Runs the eval once per error type with its own tracked transport, so
+    each summary attributes calls/characters to exactly one type. The
+    per-type sums equal the combined run_llm_cost totals. See
+    docs/specs/030-llm-cost-by-type.md.
+    """
+    if not isinstance(cases, list) or any(not isinstance(c, dict) for c in cases):
+        raise ValueError('cases must be a list of dicts')
+    if not _valid_seeds(seeds):
+        raise ValueError('seeds must be a tuple or list of ints')
+    out = {'case_count': len(cases), 'seeds': {}}
+    for seed in seeds:
+        per_type = {}
+        for etype in ERROR_TYPES:
+            ticks = iter(range(1_000_000_000))  # same deterministic clock as run_llm_cost
+            clock = lambda: next(ticks)
+            tracked, records = make_tracking_transport(
+                make_gold_transport(cases), clock)
+            run_eval(cases, make_llm_auditor(tracked),
+                     error_types=(etype,), seed=seed)
+            per_type[etype] = summarize_records(records)
+        out['seeds'][str(seed)] = per_type
     return out
 
 
