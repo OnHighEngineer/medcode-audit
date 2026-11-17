@@ -13,9 +13,11 @@ from .baseline import audit_baseline
 from .cost_latency import format_cost_summary
 from .failure_analysis import analyze_run
 from .html_report import render_html
-from .regression import load_regression_cases, run_llm_cost
+from .regression import (load_regression_cases, run_llm_cost,
+                         run_llm_cost_by_type)
 from .report import generate_report
 from .runner import run_eval
+from .schema import ERROR_TYPES
 
 DEMO_SEED = 0
 
@@ -48,14 +50,29 @@ def run_demo_cost(case_dir=None, seed=DEMO_SEED) -> str:
             + format_cost_summary(summary))
 
 
+def run_demo_cost_by_type(case_dir=None, seed=DEMO_SEED) -> str:
+    """Return one spec-018 cost block per error type for one seed (spec 031)."""
+    if type(seed) is not int:
+        raise ValueError('seed must be an int')
+    directory = _DEFAULT_CASE_DIR if case_dir is None else Path(case_dir)
+    cases = load_regression_cases(directory)
+    per_type = run_llm_cost_by_type(cases, seeds=(seed,))['seeds'][str(seed)]
+    blocks = [f'llm lane (gold-truth canned transport), seed {seed}, by error type\n']
+    for etype in ERROR_TYPES:
+        blocks.append(f'{etype}\n' + format_cost_summary(per_type[etype]))
+    return '\n'.join(blocks)
+
+
 def main(argv=None) -> int:
     args = list(argv) if argv is not None else []
-    unknown = [a for a in args if a != '--cost']
+    unknown = [a for a in args if a not in ('--cost', '--cost-by-type')]
     if unknown:
         raise ValueError(f'unknown arguments: {unknown}')
     print(run_demo())
     if '--cost' in args:
         print(run_demo_cost())
+    if '--cost-by-type' in args:
+        print(run_demo_cost_by_type())
     return 0
 
 
