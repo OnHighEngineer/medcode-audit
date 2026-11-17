@@ -284,3 +284,12 @@ seed, snapshotted beside the combined totals in
 data/regression/llm-cost-by-type-snapshot.json. The split sums exactly
 to the spec-028 totals (pinned by a test); unsupported_code questions
 carry the most transport volume. Offline, canned, provisional.
+
+## Demo per-type cost block (day 35)
+`python -m medcode_audit.demo --cost-by-type` (spec 031): after the
+usual baseline report (and after the `--cost` block when both flags are
+given), prints one spec-018 summary block per error type in
+schema.ERROR_TYPES order via run_demo_cost_by_type ->
+run_llm_cost_by_type -> format_cost_summary (the single rendering
+path). Default and `--cost` outputs stay byte-identical (frozen tests
+pin both). Offline, deterministic, provisional.
