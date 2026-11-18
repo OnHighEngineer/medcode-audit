@@ -97,7 +97,7 @@ Every count is provisional: synthetic labels, milestone 6 label review
 still pending. This is a behavior demo, not an accuracy benchmark and not
 clinical or payer guidance.
 
-## Regression suite, lanes and reports (days 26-35)
+## Regression suite, lanes and reports (days 26-36)
 
 A snapshot regression suite (spec 022) re-runs the 50 synthetic cases at
 fixed seeds and diffs every tally number against committed snapshots;
@@ -119,8 +119,10 @@ CI enforces it on Python 3.10.12 and 3.11 on every push. Lanes:
 
 The same report renders as one self-contained HTML page (spec 025),
 readable on phone-width screens (spec 027): no JavaScript, no external
-assets, every report string escaped. 415 tests, green on both Python
+assets, every report string escaped. 419 tests, green on both Python
 versions (see SESSION.md).
 
 Every lane is offline: canned transports only, no provider, no key, no
 spend. All counts provisional until the milestone 6 label review.
+`python -m medcode_audit.regression` re-runs every lane and diffs each
+against the committed snapshots, one OK/drift line per lane (spec 032).
