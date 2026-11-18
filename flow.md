@@ -293,3 +293,13 @@ schema.ERROR_TYPES order via run_demo_cost_by_type ->
 run_llm_cost_by_type -> format_cost_summary (the single rendering
 path). Default and `--cost` outputs stay byte-identical (frozen tests
 pin both). Offline, deterministic, provisional.
+
+## Snapshot self-check (day 36)
+`python -m medcode_audit.regression` (spec 032): re-runs every lane -
+baseline, llm, the three noisy lanes and the two cost lanes - and diffs
+each live result against its committed snapshot via
+check_committed_snapshots -> run_regression / run_llm_cost /
+run_llm_cost_by_type -> check_snapshot, printing one OK/drift line per
+lane in SELF_CHECK_LANES order (exit 0/1). A reviewer verifies the
+committed numbers without pytest. Snapshot updates stay with the
+spec-022 process. Offline, deterministic, provisional.
