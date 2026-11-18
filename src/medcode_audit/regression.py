@@ -154,3 +154,66 @@ def check_snapshot(live, expected) -> list:
     problems = []
     _diff('', live, expected, problems)
     return problems
+
+
+SELF_CHECK_LANES = ('baseline', 'llm', 'noisy_wrong_verdict',
+                    'noisy_fabricated_quote', 'noisy_dropped_verdict',
+                    'llm_cost', 'llm_cost_by_type')
+
+_DEFAULT_DATA_DIR = Path(__file__).resolve().parents[2] / 'data'
+
+
+def check_committed_snapshots(data_dir=None) -> dict:
+    """Re-run every lane and diff each against its committed snapshot (spec 032).
+
+    Returns {lane: [problems]} in SELF_CHECK_LANES order; an empty list
+    means the lane matches its committed snapshot.
+    """
+    root = _DEFAULT_DATA_DIR if data_dir is None else Path(data_dir)
+    if not root.is_dir():
+        raise ValueError(f'not a directory: {root}')
+    cases = load_regression_cases(root / 'synthetic')
+    reg = root / 'regression'
+    expected = {
+        'baseline': json.loads((reg / 'baseline-snapshot.json').read_text()),
+        'llm': json.loads((reg / 'llm-snapshot.json').read_text()),
+        'llm_cost': json.loads((reg / 'llm-cost-snapshot.json').read_text()),
+        'llm_cost_by_type': json.loads(
+            (reg / 'llm-cost-by-type-snapshot.json').read_text()),
+    }
+    noisy = json.loads((reg / 'noisy-snapshot.json').read_text())
+    out = {}
+    out['baseline'] = check_snapshot(run_regression(cases), expected['baseline'])
+    out['llm'] = check_snapshot(run_regression(cases, lane='llm'),
+                                expected['llm'])
+    for lane in LANES[2:]:
+        out[lane] = check_snapshot(run_regression(cases, lane=lane),
+                                   noisy['lanes'][lane])
+    out['llm_cost'] = check_snapshot(run_llm_cost(cases), expected['llm_cost'])
+    out['llm_cost_by_type'] = check_snapshot(run_llm_cost_by_type(cases),
+                                             expected['llm_cost_by_type'])
+    return out
+
+
+def main(argv=None) -> int:
+    """Print one OK/drift line per lane; exit 0 when all match (spec 032)."""
+    args = list(argv) if argv is not None else []
+    if args:
+        raise ValueError(f'unknown arguments: {args}')
+    results = check_committed_snapshots()
+    drift = 0
+    for lane in SELF_CHECK_LANES:
+        problems = results[lane]
+        if problems:
+            drift += 1
+            print(f'{lane}: DRIFT ({len(problems)} problems)')
+            for problem in problems:
+                print(f'  {problem}')
+        else:
+            print(f'{lane}: OK')
+    return 1 if drift else 0
+
+
+if __name__ == '__main__':
+    import sys
+    raise SystemExit(main(sys.argv[1:]))
