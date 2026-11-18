@@ -21,19 +21,20 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 35 (2026-11-17)
-Demo per-error-type cost block (spec 031) + day-34 by-type review
-artifact. 415 passing tests (410 carried + 5 new, all frozen; no
+## Latest completed feature: day 36 (2026-11-18)
+Snapshot self-check entry point (spec 032) + noisy-lane review
+artifact. 419 passing tests (415 carried + 4 new, all frozen; no
 existing test touched) on Python 3.10.12 and 3.11.
-`python -m medcode_audit.demo --cost-by-type` prints one spec-018
-summary block per error type in schema.ERROR_TYPES order via
-run_demo_cost_by_type -> run_llm_cost_by_type -> format_cost_summary
-(the single rendering path); default and --cost outputs stay
-byte-identical (frozen tests pin both). Tests and implementation
-landed in one same commit per the standing test-first rule. The review
-artifact docs/reviews/day-34-cost-by-type.md quotes the by-type
-snapshot verbatim: unsupported_code carries the most transport volume
-(48 of 119 calls on seed 0); wrong_code is inapplicable on all 50
-cases. The procedure vocabulary branch (items 23/24, spec 021
-reserved) is ON HOLD awaiting an owner decision; do not prep it.
-Next: read the day-36 plan.
+`python -m medcode_audit.regression` re-runs every lane - baseline,
+llm, the three noisy lanes, the two cost lanes - and diffs each live
+result against its committed snapshot via check_committed_snapshots ->
+check_snapshot (the spec-022 diff, so the command and pytest can never
+disagree), printing one OK/drift line per lane in SELF_CHECK_LANES
+order with exit 0/1. Additive only; tests and implementation landed in
+one same commit per the standing test-first rule. The review artifact
+docs/reviews/day-36-noisy-lanes.md quotes the noisy snapshot verbatim:
+wrong verdicts surface as 59 false flags per seed with every applicable
+case still detected; fabricated quotes and dropped verdicts abort with
+named validation errors on every seed. The procedure vocabulary branch
+(items 23/24, spec 021 reserved) is ON HOLD awaiting an owner decision;
+do not prep it. Next: read the day-37 plan.
