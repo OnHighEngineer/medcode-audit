@@ -21,20 +21,15 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 36 (2026-11-18)
-Snapshot self-check entry point (spec 032) + noisy-lane review
-artifact. 419 passing tests (415 carried + 4 new, all frozen; no
-existing test touched) on Python 3.10.12 and 3.11.
-`python -m medcode_audit.regression` re-runs every lane - baseline,
-llm, the three noisy lanes, the two cost lanes - and diffs each live
-result against its committed snapshot via check_committed_snapshots ->
-check_snapshot (the spec-022 diff, so the command and pytest can never
-disagree), printing one OK/drift line per lane in SELF_CHECK_LANES
-order with exit 0/1. Additive only; tests and implementation landed in
-one same commit per the standing test-first rule. The review artifact
-docs/reviews/day-36-noisy-lanes.md quotes the noisy snapshot verbatim:
-wrong verdicts surface as 59 false flags per seed with every applicable
-case still detected; fabricated quotes and dropped verdicts abort with
-named validation errors on every seed. The procedure vocabulary branch
-(items 23/24, spec 021 reserved) is ON HOLD awaiting an owner decision;
-do not prep it. Next: read the day-37 plan.
+## Latest completed feature: day 37 (2026-11-19)
+Demo HTML output flag (spec 033). 422 passing tests (419 carried + 3
+new, all frozen; no existing test touched) on Python 3.10.12 and 3.11.
+`python -m medcode_audit.demo --html` prints the spec-025 standalone
+HTML page via run_demo_html and nothing else; --html is exclusive
+(combining it with --cost or --cost-by-type raises ValueError, since
+the pinned HTML rendering has no cost section). Default, --cost and
+--cost-by-type outputs stay byte-identical, pinned by frozen tests.
+Tests and implementation landed in one same commit per the standing
+test-first rule. The procedure vocabulary branch (items 23/24, spec 021
+reserved) is ON HOLD awaiting an owner decision; do not prep it.
+Next: read the day-38 plan.
