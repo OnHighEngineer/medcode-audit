@@ -65,9 +65,15 @@ def run_demo_cost_by_type(case_dir=None, seed=DEMO_SEED) -> str:
 
 def main(argv=None) -> int:
     args = list(argv) if argv is not None else []
-    unknown = [a for a in args if a not in ('--cost', '--cost-by-type')]
+    unknown = [a for a in args
+               if a not in ('--cost', '--cost-by-type', '--html')]
     if unknown:
         raise ValueError(f'unknown arguments: {unknown}')
+    if '--html' in args:
+        if '--cost' in args or '--cost-by-type' in args:
+            raise ValueError('--html cannot be combined with cost flags')
+        print(run_demo_html())
+        return 0
     print(run_demo())
     if '--cost' in args:
         print(run_demo_cost())
