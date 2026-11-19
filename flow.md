@@ -303,3 +303,11 @@ run_llm_cost_by_type -> check_snapshot, printing one OK/drift line per
 lane in SELF_CHECK_LANES order (exit 0/1). A reviewer verifies the
 committed numbers without pytest. Snapshot updates stay with the
 spec-022 process. Offline, deterministic, provisional.
+
+## Demo HTML flag (day 37)
+`python -m medcode_audit.demo --html` (spec 033): prints the spec-025
+standalone HTML page via run_demo_html and nothing else. `--html` is
+exclusive - combining it with `--cost` or `--cost-by-type` raises
+ValueError, since the pinned HTML rendering has no cost section.
+Default, `--cost` and `--cost-by-type` outputs stay byte-identical
+(frozen tests pin all three). Offline, deterministic, provisional.
