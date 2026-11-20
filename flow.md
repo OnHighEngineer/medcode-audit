@@ -311,3 +311,14 @@ exclusive - combining it with `--cost` or `--cost-by-type` raises
 ValueError, since the pinned HTML rendering has no cost section.
 Default, `--cost` and `--cost-by-type` outputs stay byte-identical
 (frozen tests pin all three). Offline, deterministic, provisional.
+
+## Self-check artifact lanes (day 38)
+The spec-032 self-check gains two lanes (spec 034): demo_report pins
+run_demo() against docs/reviews/day-27-demo-output.md and demo_html
+pins run_demo_html() against docs/reviews/day-29-demo-report.html,
+byte-exact, resolved from the repo's docs/reviews (reviews_dir can
+override for tests). Drift strings name the artifact and first
+differing line. Day 38's morning check found the day-29 artifact stale
+since the spec-027 narrow-viewport change (Nov 13) - the exact drift
+class these lanes exist to catch - and regenerated it to the current
+rendering.
