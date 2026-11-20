@@ -21,15 +21,19 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 37 (2026-11-19)
-Demo HTML output flag (spec 033). 422 passing tests (419 carried + 3
-new, all frozen; no existing test touched) on Python 3.10.12 and 3.11.
-`python -m medcode_audit.demo --html` prints the spec-025 standalone
-HTML page via run_demo_html and nothing else; --html is exclusive
-(combining it with --cost or --cost-by-type raises ValueError, since
-the pinned HTML rendering has no cost section). Default, --cost and
---cost-by-type outputs stay byte-identical, pinned by frozen tests.
-Tests and implementation landed in one same commit per the standing
-test-first rule. The procedure vocabulary branch (items 23/24, spec 021
-reserved) is ON HOLD awaiting an owner decision; do not prep it.
-Next: read the day-38 plan.
+## Latest completed feature: day 38 (2026-11-20)
+Self-check doc-artifact lanes (spec 034) + stale artifact regenerated.
+425 passing tests (422 carried + 3 new, all frozen; no existing test
+touched) on Python 3.10.12 and 3.11. SELF_CHECK_LANES gains demo_report
+and demo_html: run_demo() and run_demo_html() are pinned byte-exact
+against the committed day-27/day-29 review artifacts, with drift
+strings naming the file and first differing line. The morning check
+found the day-29 HTML artifact stale since the intentional spec-027
+narrow-viewport change (Nov 13) - exactly the drift class these lanes
+catch - and regenerated it to the current rendering. The reviews
+directory resolves from the repo with a reviews_dir override seam, so
+the frozen spec-032 data_dir contract is untouched. Tests and
+implementation landed in one same commit per the standing test-first
+rule. The procedure vocabulary branch (items 23/24, spec 021 reserved)
+is ON HOLD awaiting an owner decision; do not prep it.
+Next: read the day-39 plan.
