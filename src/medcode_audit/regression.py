@@ -158,12 +158,37 @@ def check_snapshot(live, expected) -> list:
 
 SELF_CHECK_LANES = ('baseline', 'llm', 'noisy_wrong_verdict',
                     'noisy_fabricated_quote', 'noisy_dropped_verdict',
-                    'llm_cost', 'llm_cost_by_type')
+                    'llm_cost', 'llm_cost_by_type',
+                    'demo_report', 'demo_html')
 
 _DEFAULT_DATA_DIR = Path(__file__).resolve().parents[2] / 'data'
 
+_ARTIFACTS = {'demo_report': 'day-27-demo-output.md',
+              'demo_html': 'day-29-demo-report.html'}
 
-def check_committed_snapshots(data_dir=None) -> dict:
+
+def _text_drift(artifact, live) -> list:
+    """Return [] when the committed artifact matches live output byte-exact."""
+    if not artifact.is_file():
+        raise ValueError(f'not a file: {artifact}')
+    expected = artifact.read_text()
+    if expected == live:
+        return []
+    problems = []
+    exp_lines = expected.splitlines()
+    live_lines = live.splitlines()
+    for i, (a, b) in enumerate(zip(exp_lines, live_lines), 1):
+        if a != b:
+            problems.append(
+                f'{artifact.name} line {i}: expected {a!r}, live {b!r}')
+            break
+    if len(exp_lines) != len(live_lines):
+        problems.append(f'{artifact.name} line count: '
+                        f'expected {len(exp_lines)}, live {len(live_lines)}')
+    return problems
+
+
+def check_committed_snapshots(data_dir=None, reviews_dir=None) -> dict:
     """Re-run every lane and diff each against its committed snapshot (spec 032).
 
     Returns {lane: [problems]} in SELF_CHECK_LANES order; an empty list
@@ -192,6 +217,13 @@ def check_committed_snapshots(data_dir=None) -> dict:
     out['llm_cost'] = check_snapshot(run_llm_cost(cases), expected['llm_cost'])
     out['llm_cost_by_type'] = check_snapshot(run_llm_cost_by_type(cases),
                                              expected['llm_cost_by_type'])
+    from .demo import run_demo, run_demo_html  # lazy: demo imports regression
+    reviews = (Path(__file__).resolve().parents[2] / 'docs' / 'reviews'
+               if reviews_dir is None else Path(reviews_dir))
+    out['demo_report'] = _text_drift(reviews / _ARTIFACTS['demo_report'],
+                                     run_demo())
+    out['demo_html'] = _text_drift(reviews / _ARTIFACTS['demo_html'],
+                                   run_demo_html())
     return out
 
 
