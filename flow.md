@@ -322,3 +322,12 @@ differing line. Day 38's morning check found the day-29 artifact stale
 since the spec-027 narrow-viewport change (Nov 13) - the exact drift
 class these lanes exist to catch - and regenerated it to the current
 rendering.
+
+## Self-check --only filter (day 39)
+`python -m medcode_audit.regression --only LANE` (spec 035): re-checks
+just the named lanes - only their evals run and only their snapshot or
+artifact files are read - and prints one OK/drift line per named lane
+in SELF_CHECK_LANES order, exit 0/1 scoped to those lanes. Lane names
+validate against SELF_CHECK_LANES; unknown names, a bare --only and any
+other argument raise ValueError. No arguments keeps the spec-032
+nine-lane behavior byte-for-byte. Offline, deterministic, provisional.
