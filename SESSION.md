@@ -21,19 +21,20 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 38 (2026-11-20)
-Self-check doc-artifact lanes (spec 034) + stale artifact regenerated.
-425 passing tests (422 carried + 3 new, all frozen; no existing test
-touched) on Python 3.10.12 and 3.11. SELF_CHECK_LANES gains demo_report
-and demo_html: run_demo() and run_demo_html() are pinned byte-exact
-against the committed day-27/day-29 review artifacts, with drift
-strings naming the file and first differing line. The morning check
-found the day-29 HTML artifact stale since the intentional spec-027
-narrow-viewport change (Nov 13) - exactly the drift class these lanes
-catch - and regenerated it to the current rendering. The reviews
-directory resolves from the repo with a reviews_dir override seam, so
-the frozen spec-032 data_dir contract is untouched. Tests and
-implementation landed in one same commit per the standing test-first
-rule. The procedure vocabulary branch (items 23/24, spec 021 reserved)
-is ON HOLD awaiting an owner decision; do not prep it.
-Next: read the day-39 plan.
+## Latest completed feature: day 39 (2026-11-21)
+Week-6 consistency read (no drift) + self-check --only filter (spec 035).
+435 passing tests (425 carried + 10 new, all frozen; no existing test
+touched) on Python 3.10.12 and 3.11. `python -m medcode_audit.regression
+--only LANE` re-checks just the named lanes: only their evals run, one
+OK/drift line per named lane in SELF_CHECK_LANES order, exit 0/1 scoped
+to them. Unknown lane names, a bare --only and any other argument raise
+ValueError; no arguments keeps the spec-032 nine-lane behavior
+byte-for-byte (frozen day-36 tests untouched). check_committed_snapshots
+gains the optional only parameter with the same validation. The week-6
+read of decision-log vs flow.md vs specs 019-034 found no drift: every
+week-6 flow layer cites a spec that exists, README snapshot names and
+test count match, SESSION/plans current. Tests and implementation
+landed in one same commit per the standing test-first rule. The
+procedure vocabulary branch (items 23/24, spec 021 reserved) is ON HOLD
+awaiting an owner decision; do not prep it.
+Next: read the day-40 plan.
