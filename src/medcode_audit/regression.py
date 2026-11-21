@@ -188,54 +188,88 @@ def _text_drift(artifact, live) -> list:
     return problems
 
 
-def check_committed_snapshots(data_dir=None, reviews_dir=None) -> dict:
-    """Re-run every lane and diff each against its committed snapshot (spec 032).
+def check_committed_snapshots(data_dir=None, reviews_dir=None,
+                              only=None) -> dict:
+    """Re-run lanes and diff each against its committed snapshot (specs 032+035).
 
     Returns {lane: [problems]} in SELF_CHECK_LANES order; an empty list
-    means the lane matches its committed snapshot.
+    means the lane matches its committed snapshot. With only=None every
+    lane runs (the spec-032 contract); with a tuple of lane names only
+    those lanes run and only their keys are returned (spec 035).
     """
     root = _DEFAULT_DATA_DIR if data_dir is None else Path(data_dir)
     if not root.is_dir():
         raise ValueError(f'not a directory: {root}')
-    cases = load_regression_cases(root / 'synthetic')
+    if only is None:
+        lanes = SELF_CHECK_LANES
+    else:
+        unknown = [lane for lane in only if lane not in SELF_CHECK_LANES]
+        if unknown:
+            raise ValueError(f'unknown lanes: {unknown}')
+        wanted = set(only)
+        lanes = tuple(lane for lane in SELF_CHECK_LANES if lane in wanted)
     reg = root / 'regression'
-    expected = {
-        'baseline': json.loads((reg / 'baseline-snapshot.json').read_text()),
-        'llm': json.loads((reg / 'llm-snapshot.json').read_text()),
-        'llm_cost': json.loads((reg / 'llm-cost-snapshot.json').read_text()),
-        'llm_cost_by_type': json.loads(
-            (reg / 'llm-cost-by-type-snapshot.json').read_text()),
-    }
-    noisy = json.loads((reg / 'noisy-snapshot.json').read_text())
+    eval_lanes = [lane for lane in lanes if lane not in _ARTIFACTS]
+    cases = (load_regression_cases(root / 'synthetic')
+             if eval_lanes else None)
     out = {}
-    out['baseline'] = check_snapshot(run_regression(cases), expected['baseline'])
-    out['llm'] = check_snapshot(run_regression(cases, lane='llm'),
-                                expected['llm'])
-    for lane in LANES[2:]:
-        out[lane] = check_snapshot(run_regression(cases, lane=lane),
-                                   noisy['lanes'][lane])
-    out['llm_cost'] = check_snapshot(run_llm_cost(cases), expected['llm_cost'])
-    out['llm_cost_by_type'] = check_snapshot(run_llm_cost_by_type(cases),
-                                             expected['llm_cost_by_type'])
-    from .demo import run_demo, run_demo_html  # lazy: demo imports regression
-    reviews = (Path(__file__).resolve().parents[2] / 'docs' / 'reviews'
-               if reviews_dir is None else Path(reviews_dir))
-    out['demo_report'] = _text_drift(reviews / _ARTIFACTS['demo_report'],
-                                     run_demo())
-    out['demo_html'] = _text_drift(reviews / _ARTIFACTS['demo_html'],
-                                   run_demo_html())
+    if 'baseline' in lanes:
+        expected = json.loads((reg / 'baseline-snapshot.json').read_text())
+        out['baseline'] = check_snapshot(run_regression(cases), expected)
+    if 'llm' in lanes:
+        expected = json.loads((reg / 'llm-snapshot.json').read_text())
+        out['llm'] = check_snapshot(run_regression(cases, lane='llm'),
+                                    expected)
+    noisy_lanes = [lane for lane in LANES[2:] if lane in lanes]
+    if noisy_lanes:
+        noisy = json.loads((reg / 'noisy-snapshot.json').read_text())
+        for lane in noisy_lanes:
+            out[lane] = check_snapshot(run_regression(cases, lane=lane),
+                                       noisy['lanes'][lane])
+    if 'llm_cost' in lanes:
+        expected = json.loads((reg / 'llm-cost-snapshot.json').read_text())
+        out['llm_cost'] = check_snapshot(run_llm_cost(cases), expected)
+    if 'llm_cost_by_type' in lanes:
+        expected = json.loads(
+            (reg / 'llm-cost-by-type-snapshot.json').read_text())
+        out['llm_cost_by_type'] = check_snapshot(
+            run_llm_cost_by_type(cases), expected)
+    artifact_lanes = [lane for lane in lanes if lane in _ARTIFACTS]
+    if artifact_lanes:
+        from .demo import run_demo, run_demo_html  # lazy: demo imports regression
+        reviews = (Path(__file__).resolve().parents[2] / 'docs' / 'reviews'
+                   if reviews_dir is None else Path(reviews_dir))
+        if 'demo_report' in artifact_lanes:
+            out['demo_report'] = _text_drift(
+                reviews / _ARTIFACTS['demo_report'], run_demo())
+        if 'demo_html' in artifact_lanes:
+            out['demo_html'] = _text_drift(
+                reviews / _ARTIFACTS['demo_html'], run_demo_html())
     return out
 
 
 def main(argv=None) -> int:
-    """Print one OK/drift line per lane; exit 0 when all match (spec 032)."""
+    """Print one OK/drift line per lane; exit 0 when all match (specs 032+035).
+
+    --only LANE (repeatable) re-checks just the named lanes (spec 035);
+    any other argument raises ValueError (spec 032).
+    """
     args = list(argv) if argv is not None else []
-    if args:
-        raise ValueError(f'unknown arguments: {args}')
-    results = check_committed_snapshots()
+    only = []
+    unknown = []
+    i = 0
+    while i < len(args):
+        if args[i] == '--only' and i + 1 < len(args):
+            only.append(args[i + 1])
+            i += 2
+        else:
+            unknown.append(args[i])
+            i += 1
+    if unknown:
+        raise ValueError(f'unknown arguments: {unknown}')
+    results = check_committed_snapshots(only=tuple(only) or None)
     drift = 0
-    for lane in SELF_CHECK_LANES:
-        problems = results[lane]
+    for lane, problems in results.items():
         if problems:
             drift += 1
             print(f'{lane}: DRIFT ({len(problems)} problems)')
