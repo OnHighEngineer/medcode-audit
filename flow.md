@@ -331,3 +331,11 @@ in SELF_CHECK_LANES order, exit 0/1 scoped to those lanes. Lane names
 validate against SELF_CHECK_LANES; unknown names, a bare --only and any
 other argument raise ValueError. No arguments keeps the spec-032
 nine-lane behavior byte-for-byte. Offline, deterministic, provisional.
+
+## Comma-separated --only names (day 40)
+`python -m medcode_audit.regression --only baseline,llm_cost` (spec
+036): the --only value splits on commas, each segment an exact lane
+name under the spec-035 rules (no trimming, no globbing; bad segments
+raise ValueError). Comma values mix with repeated flags. The split
+lives in the CLI argument layer; check_committed_snapshots still takes
+exact names. Offline, deterministic, provisional.
