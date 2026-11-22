@@ -44,3 +44,4 @@ points at the latest. Older plans stay for the reasoning trail.
 - [2026-11-20-day-38-plan.md](2026-11-20-day-38-plan.md)
 - [2026-11-21-day-39-plan.md](2026-11-21-day-39-plan.md)
 - [2026-11-22-day-40-plan.md](2026-11-22-day-40-plan.md)
+- [2026-11-23-day-41-plan.md](2026-11-23-day-41-plan.md)

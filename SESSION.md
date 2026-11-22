@@ -21,20 +21,17 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 39 (2026-11-21)
-Week-6 consistency read (no drift) + self-check --only filter (spec 035).
-435 passing tests (425 carried + 10 new, all frozen; no existing test
-touched) on Python 3.10.12 and 3.11. `python -m medcode_audit.regression
---only LANE` re-checks just the named lanes: only their evals run, one
-OK/drift line per named lane in SELF_CHECK_LANES order, exit 0/1 scoped
-to them. Unknown lane names, a bare --only and any other argument raise
-ValueError; no arguments keeps the spec-032 nine-lane behavior
-byte-for-byte (frozen day-36 tests untouched). check_committed_snapshots
-gains the optional only parameter with the same validation. The week-6
-read of decision-log vs flow.md vs specs 019-034 found no drift: every
-week-6 flow layer cites a spec that exists, README snapshot names and
-test count match, SESSION/plans current. Tests and implementation
-landed in one same commit per the standing test-first rule. The
-procedure vocabulary branch (items 23/24, spec 021 reserved) is ON HOLD
-awaiting an owner decision; do not prep it.
-Next: read the day-40 plan.
+## Latest completed feature: day 40 (2026-11-22)
+Comma-separated lane names in the self-check --only filter (spec 036).
+441 passing tests (435 carried + 6 new, all frozen; no existing test
+touched) on Python 3.10.12 and 3.11. `--only baseline,llm_cost` splits
+on commas in the CLI argument layer and behaves exactly like repeating
+the flag; every segment must be an exact lane name (no trimming, no
+globbing; empty, unknown or whitespace-padded segments raise
+ValueError). check_committed_snapshots still takes exact names - the
+library contract is untouched and the frozen spec-032/035 tests pass
+unchanged. Tests and implementation landed in one same commit per the
+standing test-first rule. The procedure vocabulary branch (items 23/24,
+spec 021 reserved) is ON HOLD awaiting an owner decision; do not prep
+it.
+Next: read the day-41 plan.
