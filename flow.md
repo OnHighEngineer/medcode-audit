@@ -339,3 +339,10 @@ name under the spec-035 rules (no trimming, no globbing; bad segments
 raise ValueError). Comma values mix with repeated flags. The split
 lives in the CLI argument layer; check_committed_snapshots still takes
 exact names. Offline, deterministic, provisional.
+
+## Self-check --list (day 41)
+`python -m medcode_audit.regression --list` (spec 037): prints the lane
+names in SELF_CHECK_LANES order, one per line, exit 0, with no lane
+executed and no file read. It must be the only argument; any
+combination raises ValueError. Other modes are unchanged. Offline,
+deterministic, provisional.
