@@ -21,17 +21,15 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 40 (2026-11-22)
-Comma-separated lane names in the self-check --only filter (spec 036).
-441 passing tests (435 carried + 6 new, all frozen; no existing test
-touched) on Python 3.10.12 and 3.11. `--only baseline,llm_cost` splits
-on commas in the CLI argument layer and behaves exactly like repeating
-the flag; every segment must be an exact lane name (no trimming, no
-globbing; empty, unknown or whitespace-padded segments raise
-ValueError). check_committed_snapshots still takes exact names - the
-library contract is untouched and the frozen spec-032/035 tests pass
-unchanged. Tests and implementation landed in one same commit per the
-standing test-first rule. The procedure vocabulary branch (items 23/24,
-spec 021 reserved) is ON HOLD awaiting an owner decision; do not prep
-it.
-Next: read the day-41 plan.
+## Latest completed feature: day 41 (2026-11-23)
+Self-check --list flag (spec 037). 445 passing tests (441 carried + 4
+new, all frozen; no existing test touched) on Python 3.10.12 and 3.11.
+`python -m medcode_audit.regression --list` prints the lane names in
+SELF_CHECK_LANES order, one per line, exit 0, running no lane. It must
+be the only argument; combining it with --only, a second --list or any
+other argument raises ValueError. No-argument and --only behavior are
+unchanged (frozen spec-032/035/036 tests pass untouched). Tests and
+implementation landed in one same commit per the standing test-first
+rule. The procedure vocabulary branch (items 23/24, spec 021 reserved)
+is ON HOLD awaiting an owner decision; do not prep it.
+Next: read the day-42 plan.
