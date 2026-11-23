@@ -252,10 +252,16 @@ def main(argv=None) -> int:
     """Print one OK/drift line per lane; exit 0 when all match (specs 032+035).
 
     --only LANE (repeatable, comma-separated names allowed) re-checks
-    just the named lanes (specs 035+036); any other argument raises
-    ValueError (spec 032).
+    just the named lanes (specs 035+036); --list prints the lane names (spec 037); any
+    other argument raises ValueError (spec 032).
     """
     args = list(argv) if argv is not None else []
+    if '--list' in args:
+        if args != ['--list']:
+            raise ValueError(f'unknown arguments: {args}')
+        for lane in SELF_CHECK_LANES:
+            print(lane)
+        return 0
     only = []
     unknown = []
     i = 0
