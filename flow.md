@@ -346,3 +346,12 @@ names in SELF_CHECK_LANES order, one per line, exit 0, with no lane
 executed and no file read. It must be the only argument; any
 combination raises ValueError. Other modes are unchanged. Offline,
 deterministic, provisional.
+
+## Self-check --only equals form (day 42)
+`python -m medcode_audit.regression --only=baseline,llm_cost` (spec
+038): the --only flag accepts the argparse-style equals form
+--only=VALUE with the spec-036 comma rules, mixed freely with the
+space form; an empty value, an untrimmed or unknown name and any
+--list combination raise ValueError. The split lives in the CLI
+argument layer; check_committed_snapshots still takes exact names.
+Offline, deterministic, provisional.
