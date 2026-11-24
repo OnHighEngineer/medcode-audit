@@ -251,9 +251,10 @@ def check_committed_snapshots(data_dir=None, reviews_dir=None,
 def main(argv=None) -> int:
     """Print one OK/drift line per lane; exit 0 when all match (specs 032+035).
 
-    --only LANE (repeatable, comma-separated names allowed) re-checks
-    just the named lanes (specs 035+036); --list prints the lane names (spec 037); any
-    other argument raises ValueError (spec 032).
+    --only LANE (repeatable, comma-separated names allowed, --only=LANE
+    equals form accepted) re-checks just the named lanes (specs 035+036+038);
+    --list prints the lane names (spec 037); any other argument raises
+    ValueError (spec 032).
     """
     args = list(argv) if argv is not None else []
     if '--list' in args:
@@ -269,6 +270,9 @@ def main(argv=None) -> int:
         if args[i] == '--only' and i + 1 < len(args):
             only.extend(args[i + 1].split(','))
             i += 2
+        elif args[i].startswith('--only='):
+            only.extend(args[i][len('--only='):].split(','))
+            i += 1
         else:
             unknown.append(args[i])
             i += 1
