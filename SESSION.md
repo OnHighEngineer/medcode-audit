@@ -21,18 +21,18 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 42 (2026-11-24)
-Week-7 consistency read + self-check --only equals form (spec 038). 452
-passing tests (445 carried + 7 new, all frozen; no existing test touched)
-on Python 3.10.12 and 3.11. `--only=LANE` now parses as the equals form
-of `--only LANE` with the spec-036 comma rules, mixed freely with the
-space form; an empty value, an untrimmed or unknown name and any --list
-combination raise ValueError. check_committed_snapshots still takes
-exact lane names; no-argument, --only and --list behavior are unchanged
-(frozen spec-032/035/036/037 tests pass untouched). The consistency read
-found no drift across decision-log, flow.md, specs 027-037 and README;
-findings logged in decision-log. Tests and implementation landed in one
-same commit per the standing test-first rule. The procedure vocabulary
-branch (items 23/24, spec 021 reserved) is ON HOLD awaiting an owner
-decision; do not prep it.
-Next: read the day-43 plan.
+## Latest completed feature: day 43 (2026-11-25)
+Demo --seed flag (spec 039). 461 passing tests (452 carried + 9 new, all
+frozen; no existing test touched) on Python 3.10.12 and 3.11.18.
+`python -m medcode_audit.demo --seed N` (or `--seed=N`) runs the whole
+demo - markdown report, --cost and --cost-by-type blocks, --html page -
+at eval seed N, so the seeds the regression snapshots pin (0, 1, 2) are
+readable from the CLI. The value must be an optionally-signed decimal
+integer; a bare --seed or a non-integer value raises ValueError;
+repeated flags collapse last-wins. No --seed keeps every default output
+byte-identical (frozen spec-023/029/031/033 tests pass untouched; the
+demo_report/demo_html self-check lanes stay green). Tests and
+implementation landed in one same commit per the standing test-first
+rule. The procedure vocabulary branch (items 23/24, spec 021 reserved)
+is ON HOLD awaiting an owner decision; do not prep it.
+Next: read the day-44 plan.
