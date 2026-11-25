@@ -355,3 +355,13 @@ space form; an empty value, an untrimmed or unknown name and any
 --list combination raise ValueError. The split lives in the CLI
 argument layer; check_committed_snapshots still takes exact names.
 Offline, deterministic, provisional.
+
+## Demo --seed flag (day 43)
+`python -m medcode_audit.demo --seed N` (spec 039): runs the whole demo
+- markdown report, --cost and --cost-by-type blocks, --html page - at
+eval seed N, in either the space or the spec-038 equals form. The value
+must be an optionally-signed decimal integer; anything else raises
+ValueError, and repeated flags collapse last-wins. No --seed keeps the
+DEMO_SEED output byte-identical (frozen tests pin all default paths).
+The seeds the regression snapshots pin (0, 1, 2) are now reachable from
+the CLI. Offline, deterministic, provisional.
