@@ -21,18 +21,17 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 43 (2026-11-25)
-Demo --seed flag (spec 039). 461 passing tests (452 carried + 9 new, all
-frozen; no existing test touched) on Python 3.10.12 and 3.11.18.
-`python -m medcode_audit.demo --seed N` (or `--seed=N`) runs the whole
-demo - markdown report, --cost and --cost-by-type blocks, --html page -
-at eval seed N, so the seeds the regression snapshots pin (0, 1, 2) are
-readable from the CLI. The value must be an optionally-signed decimal
-integer; a bare --seed or a non-integer value raises ValueError;
-repeated flags collapse last-wins. No --seed keeps every default output
-byte-identical (frozen spec-023/029/031/033 tests pass untouched; the
-demo_report/demo_html self-check lanes stay green). Tests and
-implementation landed in one same commit per the standing test-first
-rule. The procedure vocabulary branch (items 23/24, spec 021 reserved)
-is ON HOLD awaiting an owner decision; do not prep it.
-Next: read the day-44 plan.
+## Latest completed feature: day 44 (2026-11-26)
+README consistency pins (tests-only day). 463 passing tests (461 carried
++ 2 new, all frozen; no existing test touched) on Python 3.10.12 and
+3.11.18. tests/test_readme_consistency.py pins two invariants the repo
+already states: every non-empty line of the README's day-27 headline
+block appears verbatim in docs/reviews/day-27-demo-output.md (flow.md's
+"quotes its tally lines verbatim" claim), and every committed
+data/regression/*.json filename is named in the README (the drift class
+the week-5 read caught by hand). Both tests were proven sensitive
+locally - a corrupted tally line or snapshot filename turns them red -
+and the invariant holds, so no document or implementation changed. The
+procedure vocabulary branch (items 23/24, spec 021 reserved) is ON HOLD
+awaiting an owner decision; do not prep it.
+Next: read the day-45 plan.
