@@ -21,17 +21,18 @@ Spec first, failing tests next, then code. Never edit committed tests to make th
 
 A session that skips the end steps leaves the next session blind. Treat it as not done.
 
-## Latest completed feature: day 44 (2026-11-26)
-README consistency pins (tests-only day). 463 passing tests (461 carried
-+ 2 new, all frozen; no existing test touched) on Python 3.10.12 and
-3.11.18. tests/test_readme_consistency.py pins two invariants the repo
-already states: every non-empty line of the README's day-27 headline
-block appears verbatim in docs/reviews/day-27-demo-output.md (flow.md's
-"quotes its tally lines verbatim" claim), and every committed
-data/regression/*.json filename is named in the README (the drift class
-the week-5 read caught by hand). Both tests were proven sensitive
-locally - a corrupted tally line or snapshot filename turns them red -
-and the invariant holds, so no document or implementation changed. The
-procedure vocabulary branch (items 23/24, spec 021 reserved) is ON HOLD
-awaiting an owner decision; do not prep it.
-Next: read the day-45 plan.
+## Latest completed feature: day 45 (2026-11-27)
+Label review summary command (spec 040). 471 passing tests (463 carried
++ 8 new, all frozen; no existing test touched) on Python 3.10.12 and
+3.11.18. `python -m medcode_audit.review SHEET.json` loads a marked
+spec-006 sheet through the existing load_sheet validation and prints
+format_review_summary(summarize_review(sheet)): provisional header, the
+five counts, one line per disagreement (control rows shown as
+`control`, no percentages). Unreviewed rows are reported, not an error;
+the command tallies human marks only and disagreement fixes still come
+from a logged decision-log entry. Verified against the committed day-06
+sample sheet (12 rows, 0 reviewed, reported cleanly). Tests and
+implementation landed in one same commit per the standing test-first
+rule. The procedure vocabulary branch (items 23/24, spec 021 reserved)
+is ON HOLD awaiting an owner decision; do not prep it.
+Next: read the day-46 plan.
