@@ -7,6 +7,7 @@ labels stay provisional until the milestone 6 human review is recorded.
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 SHEET_NAME = 'medcode-audit-label-review'
 SHEET_VERSION = 1
@@ -154,3 +155,66 @@ def summarize_review(sheet) -> dict:
                                'gold_code': r['gold_code'],
                                'reviewer_note': r['reviewer_note']}
                               for r in disagreed]}
+
+_SUMMARY_KEYS = {'total_rows', 'reviewed', 'unreviewed', 'agree', 'disagree',
+                 'disagreements'}
+
+
+def format_review_summary(summary) -> str:
+    """Render a spec-006 summary dict as deterministic plain text (spec 040)."""
+    if not isinstance(summary, dict) or set(summary) != _SUMMARY_KEYS:
+        raise ValueError(f'summary must have exactly {_SUMMARY_KEYS}')
+    for key in ('total_rows', 'reviewed', 'unreviewed', 'agree', 'disagree'):
+        if type(summary[key]) is not int or summary[key] < 0:
+            raise ValueError(f'{key} must be an int >= 0')
+    disagreements = summary['disagreements']
+    if not isinstance(disagreements, list):
+        raise ValueError('disagreements must be a list')
+    for d in disagreements:
+        if (not isinstance(d, dict)
+                or set(d) != {'case_id', 'gold_code', 'reviewer_note'}
+                or not isinstance(d['case_id'], str)
+                or not (d['gold_code'] is None
+                        or isinstance(d['gold_code'], str))
+                or not isinstance(d['reviewer_note'], str)):
+            raise ValueError('bad disagreement row')
+    lines = [
+        'LABEL REVIEW SUMMARY (PROVISIONAL): counts only; disagreements are',
+        'fixed via a logged decision-log entry.',
+        '',
+        f'total rows: {summary["total_rows"]}',
+        f'reviewed: {summary["reviewed"]}',
+        f'unreviewed: {summary["unreviewed"]}',
+        f'agree: {summary["agree"]}',
+        f'disagree: {summary["disagree"]}',
+        '',
+    ]
+    if not disagreements:
+        lines.append('disagreements: none')
+    else:
+        lines.append('disagreements:')
+        for d in disagreements:
+            code = d['gold_code'] if d['gold_code'] is not None else 'control'
+            line = f'- {d["case_id"]} [{code}]'
+            if d['reviewer_note']:
+                line += f' {d["reviewer_note"]}'
+            lines.append(line)
+    return '\n'.join(lines)
+
+
+def main(argv=None) -> int:
+    """Print the spec-040 summary for a marked sheet; exit 0 (spec 040)."""
+    args = list(argv) if argv is not None else []
+    if len(args) != 1:
+        raise ValueError(f'expected one sheet path, got {args}')
+    path = Path(args[0])
+    if not path.is_file():
+        raise ValueError(f'not a file: {path}')
+    sheet = load_sheet(path.read_text())
+    print(format_review_summary(summarize_review(sheet)))
+    return 0
+
+
+if __name__ == '__main__':
+    import sys
+    raise SystemExit(main(sys.argv[1:]))
