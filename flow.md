@@ -365,3 +365,12 @@ ValueError, and repeated flags collapse last-wins. No --seed keeps the
 DEMO_SEED output byte-identical (frozen tests pin all default paths).
 The seeds the regression snapshots pin (0, 1, 2) are now reachable from
 the CLI. Offline, deterministic, provisional.
+
+## Review summary command (day 45)
+marked spec-006 sheet -> `python -m medcode_audit.review SHEET.json`
+(spec 040): load_sheet validation unchanged, then
+format_review_summary(summarize_review(sheet)) prints the provisional
+header, the five counts and one line per disagreement (control rows
+shown as `control`, no percentages). Unreviewed rows are reported, not
+an error. The command tallies human marks only; disagreement fixes
+still come from a logged decision-log entry. Offline, deterministic.
